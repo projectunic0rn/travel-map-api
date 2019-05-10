@@ -1,0 +1,21 @@
+{
+  "name": "apollo-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-engine": "^1.1.2",
+    "apollo-server": "^2.5.0",
+    "bcrypt": "^3.0.6",
+    "graphql": "^14.3.0",
+    "mysql2": "^1.6.5",
+    "sequelize": "^5.8.5"
+  }
+}
