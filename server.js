@@ -1,5 +1,6 @@
 const { ApolloServer } = require('apollo-server');
-const { ApolloEngine } = require('apollo-engine');
+
+const PORT = process.env.PORT || 5000
 
 
 
@@ -12,6 +13,6 @@ const server = new ApolloServer({
 
 
 
-server.listen().then(({url}) => {
+server.listen(PORT).then(({url}) => {
     console.log("Server is up at " + url)
 })
