@@ -5,7 +5,7 @@ const { ApolloEngine } = require('apollo-engine');
 
 const server = new ApolloServer({
     modules: [
-        require('./user')
+        require('./graphql-modules/user')
     ]
 })
 
