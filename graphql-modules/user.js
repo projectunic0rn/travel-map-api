@@ -1,5 +1,6 @@
 const { gql} = require('apollo-server');
 const bcrypt = require('bcrypt');
+const { saltRounds } = require('../secrets/secret');
 
 const User = require('../models').user;
 
@@ -27,7 +28,7 @@ const resolvers = {
     },
     Mutation: {
         addUser: (_, args) => {
-            return bcrypt.hash(args.password, 13).then((hash) => {
+            return bcrypt.hash(args.password, saltRounds).then((hash) => {
                 args.password = hash;
                 return User.create(args).then(user => user)
             }).catch(e => e)
