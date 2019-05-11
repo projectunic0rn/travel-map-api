@@ -6,7 +6,8 @@ const PORT = process.env.PORT || 5000
 
 const server = new ApolloServer({
     modules: [
-        require('./graphql-modules/user')
+        require('./graphql-modules/user'),
+        require('./graphql-modules/token')
     ]
 })
 
