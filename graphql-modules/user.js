@@ -1,5 +1,5 @@
 const { gql, AuthenticationError } = require('apollo-server');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { saltRounds } = require('../secrets/secret');
 const AuthService = require('../services/auth.service');
 const { tokenSecret } = require('../secrets/secret');
