@@ -29,8 +29,6 @@ let registerUser = async (userObj) => {
     console.log("FINENENNEE")
     try {
         let plainPassword = userObj.password;
-        console.log("Fine 1")
-        console.log(saltRounds)
         let hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
         userObj.password = hashedPassword;
         let user = await User.create(userObj);
