@@ -30,18 +30,27 @@ type User {
 const resolvers = {
     Query: {
         test: () => "This is the test",
-        users: (_, args, context) => {
-            return User.findAll().then(users => users).catch(e => e)
+        users: async (_, args, context) => {
+            try {
+                let users = await User.findAll();
+                return users;
+            } catch(err) {
+                throw (err)
+            }
+            
         }
     },
     Mutation: {
-        registerUser: (_, args) => {
-            return bcrypt.hash(args.password, saltRounds).then((hash) => {
+        registerUser: async (_, args) => {
+            try {
+                let hash = await bcrypt.hash(args.password, saltRounds);
                 args.password = hash;
-                return User.create(args).then(user => {
-                   return AuthService.returnUserToken(user)
-                })
-            }).catch(e => e)
+                let user = await User.create(args);
+                return AuthService.returnUserToken(user);
+
+            } catch (err) {
+                throw (err)
+            }
         },
         loginUser: (_, args) => {
 
