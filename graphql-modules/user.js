@@ -1,8 +1,5 @@
 const { gql, AuthenticationError } = require('apollo-server');
-const bcrypt = require('bcryptjs');
-const { saltRounds } = require('../secrets/secret');
 const AuthService = require('../services/auth.service');
-const { tokenSecret } = require('../secrets/secret');
 
 
 const User = require('../models').user;
@@ -34,26 +31,18 @@ const resolvers = {
             try {
                 let users = await User.findAll();
                 return users;
-            } catch(err) {
+            } catch (err) {
                 throw (err)
             }
-            
+
         }
     },
     Mutation: {
         registerUser: async (_, args) => {
-            try {
-                let hash = await bcrypt.hash(args.password, saltRounds);
-                args.password = hash;
-                let user = await User.create(args);
-                return AuthService.returnUserToken(user);
-
-            } catch (err) {
-                throw (err)
-            }
+            return AuthService.registerUser(args);
         },
         loginUser: (_, args) => {
-
+            return AuthService.loginUser(args.username, args.password)
         }
     }
 }
