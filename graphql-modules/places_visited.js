@@ -1,10 +1,11 @@
 const { gql, AuthenticationError } = require('apollo-server');
-const User = require('../models').User;
+const PlaceVisited = require('../models').Place_visited;
 const PlaceVisitedService = require('../services/places_visited.service');
 
 const typeDefs = gql`
     extend type Query {
         test_places_visited: String!
+        places_visited(UserId: Int, country: String, city: String): [Place_visited!]
     }
 
     extend type Mutation {
@@ -13,6 +14,7 @@ const typeDefs = gql`
 
     type Place_visited {
         id: Int!
+        UserId: Int!
         country: String!
         city: String!
         description: String
@@ -24,7 +26,11 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
-        test_places_visted: () => "Places visited works"
+        test_places_visted: () => "Places visited works",
+        places_visited: async (_, args) => {
+            let places = await PlaceVisited.findAll({ where: args })
+            return places;
+        }
     },
     Mutation: {
         addPlaceVisited: async (_, args, context) => {

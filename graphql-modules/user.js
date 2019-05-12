@@ -23,7 +23,7 @@ type User {
         username: String!
         full_name: String!
         email: String!
-        Places_visited: [Place_visited]
+        Places_visited: [Place_visited!]
     }`
 
 const resolvers = {
