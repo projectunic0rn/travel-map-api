@@ -13,7 +13,8 @@ let generateUserToken = async (user) => {
         return { "token": token }
 
     } catch (err) {
-        throw new Error(err)
+        console.error(err)
+        throw new Error("Error generating user token")
     }
 
 }

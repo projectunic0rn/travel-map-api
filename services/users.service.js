@@ -6,7 +6,8 @@ let loadAllUsers = async (args) => {
         let users = await User.findAll({ where: args, include: [{ model: PlaceVisited }] });
         return users;
     } catch (err) {
-        throw new Error(err)
+        console.error(err)
+        throw new Error("Error loading all users")
     }
 }
 

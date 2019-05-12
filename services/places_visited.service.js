@@ -1,4 +1,5 @@
 const User = require('../models').User;
+const PlaceVisited = require('../models').Place_visited;
 const { ForbiddenError } = require('apollo-server');
 
 let addPlaceVisited = async (userId, placeVisitedObj) => {
@@ -16,6 +17,17 @@ let addPlaceVisited = async (userId, placeVisitedObj) => {
     }
 }
 
+let deletePlaceVisited = async (placeVisitedId) => {
+    try {
+        let place_visited = await PlaceVisited.findByPk(placeVisitedId);
+        return await place_visited.destroy();
+    } catch (err) {
+        console.error(err)
+        throw new Error("Error deleting place visited")
+    }
+}
+
 module.exports = {
-    addPlaceVisited
+    addPlaceVisited,
+    deletePlaceVisited
 }
