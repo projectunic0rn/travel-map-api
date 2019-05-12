@@ -7,9 +7,15 @@ const { saltRounds } = require('../secrets/secret');
 
 
 
-let generateUserToken = (user) => {
-    token = jwt.sign({ user_id: user.id }, tokenSecret);
-    return { "token": token }
+let generateUserToken = async (user) => {
+    try {
+        token = await jwt.sign({ user_id: user.id }, tokenSecret);
+        return { "token": token }
+
+    } catch (err) {
+        throw new Error(err)
+    }
+
 }
 
 let loginUser = async (username, password) => {
