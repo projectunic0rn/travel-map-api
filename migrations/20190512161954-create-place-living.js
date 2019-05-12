@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('places_visited', {
+    return queryInterface.createTable('places_living', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -24,11 +24,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
-      date_arrived: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      date_departed: {
+      living_time: {
         type: Sequelize.STRING,
         allowNull: true
       },
@@ -43,6 +39,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('places_visited');
+    return queryInterface.dropTable('places_living');
   }
 };

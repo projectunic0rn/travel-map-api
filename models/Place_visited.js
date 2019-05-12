@@ -14,8 +14,18 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     description: DataTypes.STRING,
-    data_arrived: DataTypes.STRING,
-    date_departed: DataTypes.STRING
+    date_arrived: {
+      type: DataTypes.STRING,
+      validate: {
+        isDate: true
+      }
+    },
+    date_departed: {
+      type: DataTypes.STRING,
+      validate: {
+        isDate: true
+      }
+    }
   }, {
       tableName: 'places_visited',
       name: {
