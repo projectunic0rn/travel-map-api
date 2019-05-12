@@ -1,4 +1,4 @@
-const { gql, AuthenticationError } = require('apollo-server');
+const { gql } = require('apollo-server');
 const AuthService = require('../services/auth.service');
 const UserService = require('../services/users.service');
 
