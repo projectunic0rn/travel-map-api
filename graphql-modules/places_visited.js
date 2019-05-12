@@ -34,7 +34,7 @@ const resolvers = {
     },
     Mutation: {
         addPlaceVisited: async (_, args, context) => {
-            return PlaceVisitedService.addPlaceVisited(context.user_id, args);
+            return await PlaceVisitedService.addPlaceVisited(context.user_id, args);
         }
 
     }
