@@ -1,5 +1,6 @@
 const { gql, AuthenticationError } = require('apollo-server');
 const PlaceVisited = require('../models').Place_visited;
+const User = require('../models').User;
 const PlaceVisitedService = require('../services/places_visited.service');
 
 const typeDefs = gql`
@@ -19,7 +20,8 @@ const typeDefs = gql`
         city: String!
         description: String
         date_arrived: String
-        date_departed: String
+        date_departed: String,
+        User: User!
     }
 `
 
@@ -28,7 +30,7 @@ const resolvers = {
     Query: {
         test_places_visted: () => "Places visited works",
         places_visited: async (_, args) => {
-            let places = await PlaceVisited.findAll({ where: args })
+            let places = await PlaceVisited.findAll({ where: args, include: [User] })
             return places;
         }
     },

@@ -23,7 +23,7 @@ type User {
         username: String!
         full_name: String!
         email: String!
-        Places_visited: [Place_visited!]
+        Places_visited(country: String): [Place_visited!]
     }`
 
 const resolvers = {
@@ -31,9 +31,7 @@ const resolvers = {
         test: () => "This is the test",
         users: async (_, args, context) => {
             try {
-                let users = await User.findAll({
-                    include: [PlaceVisited]
-                });
+                let users = await User.findAll({ where: args, include: [{ model: PlaceVisited, where: {} }] });
                 return users;
             } catch (err) {
                 throw (err)
