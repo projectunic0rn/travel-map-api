@@ -1,11 +1,11 @@
 const User = require('../models').User;
-
+const { ForbiddenError } = require('apollo-server');
 
 let addPlaceVisited = async (userId, placeVisitedObj) => {
     try {
         let user = await User.findByPk(userId);
-        if (!user) {
-            throw new AuthenticationError("Not Authorized to perform this action")
+        if (!user || user.id !== userId) {
+            throw new ForbiddenError("Not Authorized to perform this action")
         }
         let place_visited = await user.createPlace_visited(placeVisitedObj);
         return place_visited;

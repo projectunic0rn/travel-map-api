@@ -31,7 +31,7 @@ const resolvers = {
         test: () => "This is the test",
         users: async (_, args, context) => {
             try {
-                let users = await User.findAll({ where: args, include: [{ model: PlaceVisited, where: {} }] });
+                let users = await User.findAll({ where: args, include: [{ model: PlaceVisited }] });
                 return users;
             } catch (err) {
                 throw (err)
