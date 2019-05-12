@@ -1,8 +1,9 @@
 const { gql, AuthenticationError } = require('apollo-server');
 const AuthService = require('../services/auth.service');
+const PlaceVisited = require('../models').Place_visited;
 
 
-const User = require('../models').user;
+const User = require('../models').User;
 
 const typeDefs = gql`
 
@@ -22,6 +23,7 @@ type User {
         username: String!
         full_name: String!
         email: String!
+        Places_visited: [Place_visited]
     }`
 
 const resolvers = {
@@ -29,7 +31,9 @@ const resolvers = {
         test: () => "This is the test",
         users: async (_, args, context) => {
             try {
-                let users = await User.findAll();
+                let users = await User.findAll({
+                    include: [PlaceVisited]
+                });
                 return users;
             } catch (err) {
                 throw (err)
