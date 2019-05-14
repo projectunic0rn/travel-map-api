@@ -60,10 +60,20 @@ let verifyToken = async (token) => {
 
 }
 
+let isNotLoggedIn = (user) => {
+    return user == null
+}
+
+let isNotLoggedInOrAuthorized = (user, userIdToCheck) => {
+    return (user == null || user.id !== userIdToCheck)
+}
+
 
 module.exports = {
     generateUserToken,
     loginUser,
     registerUser,
-    verifyToken
+    verifyToken,
+    isNotLoggedIn,
+    isNotLoggedInOrAuthorized
 }
