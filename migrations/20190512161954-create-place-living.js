@@ -10,7 +10,7 @@ module.exports = {
       },
       UserId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        unique: true
       },
       country: {
         type: Sequelize.STRING,

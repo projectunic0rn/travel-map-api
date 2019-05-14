@@ -2,9 +2,6 @@ const { gql } = require('apollo-server');
 const AuthService = require('../services/auth.service');
 const UserService = require('../services/users.service');
 
-
-const User = require('../models').User;
-
 const typeDefs = gql`
 
 type Query {
@@ -24,6 +21,7 @@ type User {
         full_name: String!
         email: String!
         Places_visited: [Place_visited!]
+        Place_living: Place_living
     }`
 
 const resolvers = {

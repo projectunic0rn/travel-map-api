@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
       tableName: "places_living",
+      plural: "Places_living"
     });
   Place_living.associate = function (models) {
-    Place_living.belongsTo(models.User)
     // associations can be defined here
   };
   return Place_living;
