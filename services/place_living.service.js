@@ -2,11 +2,11 @@ const User = require('../models').User;
 const { ForbiddenError } = require('apollo-server')
 
 let addPlaceLiving = async (userId, placeLivingObj) => {
-    let user = await User.findByPk(userId);
-    if (!user) {
-        throw new ForbiddenError("Not Authorized to add a place visited to someone elses account")
-    }
     try {
+        let user = await User.findByPk(userId);
+        if (!user) {
+            throw new ForbiddenError("Not Authorized to add a place visited to someone elses account")
+        }
         return await user.createPlace_living(placeLivingObj).then(place_living => place_living);
     } catch (err) {
         console.error(err)
