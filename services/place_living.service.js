@@ -1,4 +1,5 @@
 const User = require('../models').User;
+const PlaceLiving = require('../models').Place_living;
 const { ForbiddenError } = require('apollo-server')
 
 let addPlaceLiving = async (userId, placeLivingObj) => {
@@ -15,7 +16,23 @@ let addPlaceLiving = async (userId, placeLivingObj) => {
 
 }
 
+let removePlaceLiving = async (userId, placeLivingId) => {
+    try {
+        let user = await User.findByPk(userId);
+        let placeLiving = await PlaceLiving.findByPk(placeLivingId);
+        if (!user || placeLiving.UserId !== user.id) {
+            throw new ForbiddenError("Not Authorized to add a place visited to someone elses account")
+        }
+        return await placeLiving.destroy();
+    } catch (err) {
+        console.error(err)
+        throw ("Error removing place currently living")
+    }
+
+}
+
 
 module.exports = {
-    addPlaceLiving
+    addPlaceLiving,
+    removePlaceLiving
 }

@@ -9,6 +9,7 @@ const typeDefs = gql`
 
     extend type Mutation {
         addPlaceLiving(country: String!, city: String!, description: String, living_time: String): Place_living
+        removePlaceLiving(placeLivingId: Int!): Place_living
 
     }
 
@@ -28,8 +29,12 @@ const resolvers = {
         test_place_living: () => "Test places living is working"
     },
     Mutation: {
-        addPlaceLiving: async (_, args, context) => {
+        addPlaceLiving: (_, args, context) => {
             return PlaceLivingService.addPlaceLiving(context.user_id, args);
+        },
+        removePlaceLiving: (_, { placeLivingId }, context) => {
+            return PlaceLivingService.removePlaceLiving(context.user_id, placeLivingId)
+
         }
     }
 }
