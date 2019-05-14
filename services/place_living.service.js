@@ -26,7 +26,7 @@ let removePlaceLiving = async (userId, placeLivingId) => {
         return await placeLiving.destroy();
     } catch (err) {
         console.error(err)
-        throw ("Error removing place currently living")
+        throw ("Error removing the current place of living")
     }
 
 }
