@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     User.hasOne(models.Place_living)
     User.belongsToMany(models.Interest, {
       through: 'UserInterests',
-      as: 'interests',
+      as: 'Interests',
       foreignKey: 'UserId'
     })
   };

@@ -21,7 +21,8 @@ type User {
         full_name: String!
         email: String!
         Places_visited: [Place_visited!]
-        Place_living: Place_living
+        Place_living: Place_living,
+        Interests: [Interest!]
     }`
 
 const resolvers = {

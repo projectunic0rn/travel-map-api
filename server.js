@@ -11,7 +11,9 @@ const server = new ApolloServer({
         require('./graphql-modules/user'),
         require('./graphql-modules/token'),
         require('./graphql-modules/places_visited'),
-        require('./graphql-modules/place_living')
+        require('./graphql-modules/place_living'),
+        require('./graphql-modules/interests'),
+
     ],
     context: ({ req }) => {
         let token = req.headers.authorization;

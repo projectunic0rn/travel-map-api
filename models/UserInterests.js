@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       references: {
         model: "User",
-        key: id
+        key: "id"
       },
 
     },
@@ -15,11 +15,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       references: {
         model: "Interest",
-        key: id
+        key: "id"
       },
 
     }
-  }, {});
+  }, {
+      tableName: "user_interests"
+    });
   UserInterests.associate = function (models) {
     // associations can be defined here
   };
