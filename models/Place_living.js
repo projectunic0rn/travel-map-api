@@ -12,7 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
       tableName: "places_living",
-      plural: "Places_living"
+      name: {
+        plural: "Places_living"
+      }
+
     });
   Place_living.associate = function (models) {
     // associations can be defined here
