@@ -4,7 +4,7 @@ const PlaceLiving = require('../models').Place_living;
 
 let loadAllUsers = async (args) => {
     try {
-        let users = await User.findAll({ where: args, include: [{ model: PlaceVisited, model: PlaceLiving }] });
+        let users = await User.findAll({ where: args, include: [{ model: PlaceVisited }, { model: PlaceLiving }] });
         return users;
     } catch (err) {
         console.error(err)
