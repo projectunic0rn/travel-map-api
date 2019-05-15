@@ -35,7 +35,6 @@ const resolvers = {
                 if (!interest) {
                     throw ("Interest already added")
                 }
-                console.log(interest)
                 return interest
 
             } catch (err) {

@@ -6,6 +6,7 @@ const typeDefs = gql`
 
 type Query {
     test: String!
+    user(id: Int, username: String): User
     users: [User!]
 
 }
@@ -28,6 +29,9 @@ type User {
 const resolvers = {
     Query: {
         test: () => "This is the test",
+        user: (_, args) => {
+            return UserService.searchUser(args)
+        },
         users: (_, args, context) => {
             return UserService.loadAllUsers(args);
         }

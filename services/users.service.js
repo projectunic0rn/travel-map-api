@@ -14,6 +14,17 @@ let loadAllUsers = async (args) => {
     }
 }
 
+let searchUser = async (args) => {
+    try {
+        let user = await User.findOne({ where: args, include: [{ model: PlaceVisited }, { model: PlaceLiving }, { model: Interest, as: 'Interests' }] });
+        return user
+    } catch (err) {
+        console.error(err)
+        throw new Error("Error finding user")
+    }
+}
+
 module.exports = {
-    loadAllUsers
+    loadAllUsers,
+    searchUser
 }
