@@ -17,6 +17,11 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     User.hasMany(models.Place_visited)
     User.hasOne(models.Place_living)
+    User.belongsToMany(models.Interest, {
+      through: 'UserInterests',
+      as: 'interests',
+      foreignKey: 'UserId'
+    })
   };
   return User;
 };
