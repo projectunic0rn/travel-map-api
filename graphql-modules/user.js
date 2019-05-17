@@ -5,7 +5,6 @@ const UserService = require('../services/users.service');
 const typeDefs = gql`
 
 type Query {
-    test: String!
     user(id: Int, username: String): User
     users: [User!]
 
@@ -28,7 +27,6 @@ type User {
 
 const resolvers = {
     Query: {
-        test: () => "This is the test",
         user: (_, args) => {
             return UserService.searchUser(args)
         },

@@ -2,10 +2,7 @@ const { gql } = require('apollo-server');
 const User = require('../models').User;
 
 const typeDefs = gql`
-    extend type Query {
-        test_interest: String!
-    }
-
+   
     extend type Mutation {
         addInterest(InterestId: Int!): UserInterests!
     }
@@ -24,9 +21,6 @@ const typeDefs = gql`
 
 
 const resolvers = {
-    Query: {
-        test_interest: () => "Interest is working"
-    },
     Mutation: {
         addInterest: async (_, { InterestId }, context) => {
             try {

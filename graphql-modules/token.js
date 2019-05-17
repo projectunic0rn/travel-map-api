@@ -1,4 +1,4 @@
-const { gql} = require('apollo-server');
+const { gql } = require('apollo-server');
 
 const typeDefs = gql`
     
@@ -9,17 +9,10 @@ const typeDefs = gql`
 
     type Token {
         token: String!
-    }
+    }`
 
-`
 
-const resolvers = {
-    Query: {
-        tokenTest: () => "Token working"
-    },
-}
 
 module.exports = {
-    typeDefs, 
-    resolvers
+    typeDefs
 }

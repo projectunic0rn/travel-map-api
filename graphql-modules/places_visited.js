@@ -5,7 +5,6 @@ const PlaceVisitedService = require('../services/places_visited.service');
 
 const typeDefs = gql`
     extend type Query {
-        test_places_visited: String!
         places_visited(UserId: Int, country: String, city: String): [Place_visited!]
     }
 
@@ -29,7 +28,6 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
-        test_places_visted: () => "Places visited works",
         places_visited: async (_, args) => {
             let places = await PlaceVisited.findAll({ where: args, include: [User] })
             return places;

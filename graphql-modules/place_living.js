@@ -3,10 +3,7 @@ const PlaceLivingService = require('../services/place_living.service');
 
 
 const typeDefs = gql`
-    extend type Query {
-        find_place_living(id: Int!): Place_living
-    }
-
+    
     extend type Mutation {
         addPlaceLiving(country: String!, city: String!, description: String, living_time: String): Place_living
         removePlaceLiving(placeLivingId: Int!): Place_living
@@ -25,9 +22,7 @@ const typeDefs = gql`
 
 
 const resolvers = {
-    Query: {
-        test_place_living: () => "Test places living is working"
-    },
+
     Mutation: {
         addPlaceLiving: (_, args, context) => {
             return PlaceLivingService.addPlaceLiving(context.user_id, args);
