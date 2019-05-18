@@ -28,5 +28,5 @@ const app = express();
 server.applyMiddleware({ app, path: '/graphql' });
 
 app.listen(8080, () => {
-    console.log("rady")
+    console.log("Server is up")
 }) 
