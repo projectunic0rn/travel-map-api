@@ -1,6 +1,6 @@
 const User = require('../models').User;
 const PlaceVisited = require('../models').Place_visited;
-const { ForbiddenError } = require('apollo-server');
+const { ForbiddenError } = require('apollo-server-express');
 const AuthService = require('../services/auth.service');
 
 

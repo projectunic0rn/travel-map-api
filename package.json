@@ -13,7 +13,9 @@
   "dependencies": {
     "apollo-engine": "^1.1.2",
     "apollo-server": "^2.5.0",
+    "apollo-server-express": "^2.5.0",
     "bcryptjs": "^2.4.3",
+    "express": "^4.17.0",
     "graphql": "^14.3.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^1.6.5",

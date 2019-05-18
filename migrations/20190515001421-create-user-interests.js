@@ -24,11 +24,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    }).then(function () {
-      return queryInterface.sequelize.query(
-        'ALTER TABLE `user_interests` ADD UNIQUE `user_interest`(`UserId`, `InterestId`)'
-      );
-    });;
+    })
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('user_interests');
