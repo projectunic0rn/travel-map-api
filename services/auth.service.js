@@ -13,8 +13,7 @@ let generateUserToken = async (user) => {
         return { "token": token }
 
     } catch (err) {
-        console.error(err)
-        throw new Error("Error generating user token")
+        throw (err)
     }
 
 }
@@ -40,8 +39,7 @@ let registerUser = async (userObj) => {
         let user = await User.create(userObj);
         return generateUserToken(user);
     } catch (err) {
-        console.error(err)
-        throw new Error("Error registering new user")
+        throw (err)
     }
 
 }

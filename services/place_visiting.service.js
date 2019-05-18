@@ -11,8 +11,7 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
         }
         return await user.createPlace_visiting(placeVisitingObj)
     } catch (err) {
-        console.error(err)
-        throw ("Error adding place visiting")
+        throw (err)
     }
 }
 
@@ -26,8 +25,7 @@ let removePlaceVisiting = async (userId, placeVisitingId) => {
         }
         return await placeVisiting.destroy();
     } catch (err) {
-        console.error(err)
-        throw ("Error removing place visiting")
+        throw (err)
     }
 
 }
