@@ -2,7 +2,7 @@ var jwt = require('jsonwebtoken');
 const { tokenSecret } = require('../secrets/secret');
 const User = require('../models').User;
 const bcrypt = require('bcryptjs');
-const { AuthenticationError } = require('apollo-server-express');
+const { AuthenticationError } = require('apollo-server');
 const { saltRounds } = require('../secrets/secret');
 
 

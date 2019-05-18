@@ -1,10 +1,6 @@
-const { ApolloServer } = require('apollo-server-express')
-const express = require('express');
-
+const { ApolloServer } = require('apollo-server')
 
 const AuthService = require('./services/auth.service');
-
-const PORT = process.env.PORT || 5000
 
 
 const server = new ApolloServer({
@@ -26,19 +22,7 @@ const server = new ApolloServer({
 
 
 
-const app = express();
-server.applyMiddleware({ app });
 
-app.listen({ port: 4000 }, () =>
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-)
-
-
-
-
-
-
-
-// server.listen(PORT).then(({ url }) => {
-//     console.log("Server is up at " + url)
-// })
+server.listen({ port: 8080 }).then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`);
+});
