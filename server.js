@@ -10,6 +10,7 @@ const server = new ApolloServer({
         require('./graphql-modules/places_visited'),
         require('./graphql-modules/place_living'),
         require('./graphql-modules/interests'),
+        require('./graphql-modules/place_visiting')
 
     ],
     context: ({ req }) => {
@@ -37,6 +38,6 @@ app.listen(8080, () => {
         console.log("Go to /graphql to see the playground")
     } else if (env.toLowerCase() == 'test') {
         console.log("Running on test environment")
-        console.log("Go to /graphql to see the playground")
+        console.log("Playground is up at localhost:8080/graphql")
     }
 }) 
