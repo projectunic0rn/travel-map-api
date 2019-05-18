@@ -1,8 +1,18 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Place_living = sequelize.define('Place_living', {
-    country: DataTypes.STRING,
-    city: DataTypes.STRING,
+    country: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    city: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
     description: DataTypes.STRING,
     living_time: {
       type: DataTypes.STRING,
