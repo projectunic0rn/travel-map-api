@@ -30,8 +30,13 @@ server.applyMiddleware({ app, path: '/graphql' });
 app.listen(8080, () => {
     var env = process.env.NODE_ENV || 'dev';
     if (env == 'dev') {
+        console.log("Running on development evironment")
         console.log("Playground is up at localhost:8080/graphql")
     } else if (env.toLowerCase() == 'production') {
+        console.log("Running on production evironment")
+        console.log("Go to /graphql to see the playground")
+    } else if (env.toLowerCase() == 'test') {
+        console.log("Running on test environment")
         console.log("Go to /graphql to see the playground")
     }
 }) 
