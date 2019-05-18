@@ -1,5 +1,5 @@
-const { ApolloServer } = require('apollo-server')
-
+const { ApolloServer } = require('apollo-server-express')
+const express = require('express')
 const AuthService = require('./services/auth.service');
 
 
@@ -17,12 +17,16 @@ const server = new ApolloServer({
         if (token) {
             return AuthService.verifyToken(token)
         }
-    }
+    },
+    introspection: true,
+    playground: true
+
 })
 
+const app = express();
 
+server.applyMiddleware({ app, path: '/graphql' });
 
-
-server.listen({ port: 8080 }).then(({ url }) => {
-    console.log(`🚀  Server ready at ${url}`);
-});
+app.listen(8080, () => {
+    console.log("rady")
+}) 

@@ -1,1 +1,4 @@
-runtime: nodejs8
+runtime: nodejs
+env: flex
+beta_settings:
+  cloud_sql_instances: travel-map-241002:us-central1:travel-map-db
