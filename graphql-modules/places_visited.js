@@ -21,7 +21,6 @@ const typeDefs = gql`
         description: String
         date_arrived: String
         date_departed: String,
-        User: User
     }
 `
 
@@ -29,7 +28,7 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
         places_visited: async (_, args) => {
-            let places = await PlaceVisited.findAll({ where: args, include: [User] })
+            let places = await PlaceVisited.findAll({ where: args })
             return places;
         }
     },

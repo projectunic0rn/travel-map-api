@@ -1,8 +1,14 @@
 const { gql } = require('apollo-server');
+const PlaceLiving = require('../models').Place_living;
+const User = require('../models').User;
 const PlaceLivingService = require('../services/place_living.service');
 
 
 const typeDefs = gql`
+
+    extend type Query {
+        Places_living(country: String, city: String): [Place_living!]
+    }
     
     extend type Mutation {
         addPlaceLiving(country: String!, city: String!, description: String, living_time: String): Place_living
@@ -22,6 +28,13 @@ const typeDefs = gql`
 
 
 const resolvers = {
+
+    Query: {
+        Places_living: async (_, args) => {
+            return await PlaceLiving.findAll({ where: args })
+        }
+
+    },
 
     Mutation: {
         addPlaceLiving: (_, args, context) => {
