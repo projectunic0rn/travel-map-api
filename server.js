@@ -1,6 +1,9 @@
 const { ApolloServer } = require('apollo-server-express')
 const express = require('express')
+const cors = require('cors')
 const AuthService = require('./services/auth.service');
+
+const PORT = process.env.port || 8080;
 
 
 const server = new ApolloServer({
@@ -25,19 +28,21 @@ const server = new ApolloServer({
 })
 
 const app = express();
+app.use(cors())
+
 
 server.applyMiddleware({ app, path: '/graphql' });
 
-app.listen(8080, () => {
+app.listen(PORT, () => {
     var env = process.env.NODE_ENV || 'dev';
     if (env == 'dev') {
         console.log("Running on development evironment")
-        console.log("Playground is up at localhost:8080/graphql")
+        console.log(`Playground is up at localhost:${PORT}/graphql`)
     } else if (env.toLowerCase() == 'production') {
         console.log("Running on production evironment")
         console.log("Go to /graphql to see the playground")
     } else if (env.toLowerCase() == 'test') {
         console.log("Running on test environment")
-        console.log("Playground is up at localhost:8080/graphql")
+        console.log(`Playground is up at localhost:${PORT}/graphql`)
     }
 }) 
