@@ -10,7 +10,8 @@ let loadAllUsers = async (args) => {
         console.log(users)
         return users;
     } catch (err) {
-        throw (err)
+        console.error(err)
+        return err
     }
 }
 
@@ -19,7 +20,8 @@ let searchUser = async (args) => {
         let user = await User.findOne({ where: args, include: [{ model: PlaceVisited }, { model: PlaceLiving }, { model: PlaceVisiting }, { model: Interest, as: 'Interests' }] });
         return user
     } catch (err) {
-        throw (err)
+        console.error(err)
+        return err
     }
 }
 

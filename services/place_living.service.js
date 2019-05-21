@@ -11,7 +11,8 @@ let addPlaceLiving = async (userId, placeLivingObj) => {
         }
         return await user.createPlace_living(placeLivingObj).then(place_living => place_living);
     } catch (err) {
-        throw (err)
+        console.error(err)
+        return err
     }
 }
 
@@ -24,7 +25,8 @@ let removePlaceLiving = async (userId, placeLivingId) => {
         }
         return await placeLiving.destroy();
     } catch (err) {
-        throw (err)
+        console.error(err)
+        return err
     }
 
 }

@@ -13,7 +13,8 @@ let generateUserToken = async (user) => {
         return { "token": token }
 
     } catch (err) {
-        throw (err)
+        console.error(err)
+        return err
     }
 
 }
@@ -27,7 +28,8 @@ let loginUser = async (username, password) => {
         }
         throw new AuthenticationError("Invalid Credentials")
     } catch (err) {
-        throw new AuthenticationError("Invalid Credentials")
+        console.error(err)
+        return err
     }
 }
 
@@ -39,9 +41,9 @@ let registerUser = async (userObj) => {
         let user = await User.create(userObj);
         return generateUserToken(user);
     } catch (err) {
-        throw (err)
+        console.error(err)
+        return err
     }
-
 }
 
 
@@ -53,7 +55,8 @@ let verifyToken = async (token) => {
         }
         throw new AuthenticationError("Invalid JWT token passed")
     } catch (err) {
-        throw new AuthenticationError("Invalid JWT token passed")
+        console.error(err)
+        return err
     }
 
 }
