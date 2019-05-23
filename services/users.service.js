@@ -11,7 +11,7 @@ let loadAllUsers = async (args) => {
         return users;
     } catch (err) {
         console.error(err)
-        return err
+        throw new Error(err)
     }
 }
 
@@ -21,11 +21,26 @@ let searchUser = async (args) => {
         return user
     } catch (err) {
         console.error(err)
-        return err
+        throw new Error(err)
+    }
+}
+
+let getLoggedInUser = async (userId) => {
+    try {
+        let user = await User.findByPk(userId)
+        console.log(userId)
+        if (!user) {
+            throw "no user logged in"
+        }
+        return user
+    } catch (err) {
+        console.error(err)
+        throw new Error(err)
     }
 }
 
 module.exports = {
     loadAllUsers,
-    searchUser
+    searchUser,
+    getLoggedInUser
 }

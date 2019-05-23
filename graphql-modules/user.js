@@ -13,6 +13,7 @@ type Query {
 type Mutation {
         registerUser(username: String!, full_name: String!, email: String!, password: String!): Token
         loginUser(username: String!, password: String!): Token
+        getLoggedInUser: User
     }
 
 type User {
@@ -31,7 +32,7 @@ const resolvers = {
         user: (_, args) => {
             return UserService.searchUser(args)
         },
-        users: (_, args, context) => {
+        users: (_, args) => {
             return UserService.loadAllUsers(args);
         }
     },
@@ -41,6 +42,10 @@ const resolvers = {
         },
         loginUser: (_, args) => {
             return AuthService.loginUser(args.username, args.password)
+        },
+        getLoggedInUser: (_, args, context) => {
+            console.log(context.user_id)
+            return UserService.getLoggedInUser(context.user_id);
         }
     }
 }

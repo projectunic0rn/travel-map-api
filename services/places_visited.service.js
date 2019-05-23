@@ -15,7 +15,7 @@ let addPlaceVisited = async (userId, placeVisitedObj) => {
 
     } catch (err) {
         console.error(err)
-        return err
+        throw new Error(err)
     }
 }
 
@@ -29,7 +29,8 @@ let deletePlaceVisited = async (userId, placeVisitedId) => {
         return await place_visited.destroy();
     } catch (err) {
         console.error(err)
-        return err
+        throw new Error(err)
+
     }
 }
 
