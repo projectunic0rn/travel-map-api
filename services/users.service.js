@@ -28,7 +28,6 @@ let searchUser = async (args) => {
 let getLoggedInUser = async (userId) => {
     try {
         let user = await User.findByPk(userId)
-        console.log(userId)
         if (!user) {
             throw "no user logged in"
         }
