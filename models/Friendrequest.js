@@ -7,7 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     receiverId: {
       type: DataTypes.INTEGER
     },
-    status: DataTypes.INTEGER
+    status: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    }
   }, {});
   FriendRequest.associate = function (models) {
     // associations can be defined here
