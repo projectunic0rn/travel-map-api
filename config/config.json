@@ -17,8 +17,11 @@
         "username": "root",
         "password": "tmappy123",
         "database": "travel_map",
-        "host": "104.198.208.193",
-        "dialect": "mysql"
+        "host": "localhost",
+        "dialect": "mysql",
+        "dialectOptions": {
+        "socketPath": "/cloudsql/travel-map-241002:us-central1:travel-map-db"
+      }
         
     }
   }
