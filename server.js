@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const AuthService = require('./services/auth.service');
 
-const PORT = process.env.port || 8080;
+const PORT = process.env.PORT || 3000;
 
 
 const server = new ApolloServer({
