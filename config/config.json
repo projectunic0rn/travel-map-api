@@ -1,9 +1,23 @@
 {
     "development": {
       "username": "root",
-      "password": "px",
+      "password": "tmappy123",
       "database": "travel_map",
-      "host": "68.183.127.80",
+      "host": "104.198.208.193",
+      "dialect": "mysql"
+    },
+    "test": {
+      "username": "root",
+      "password": "tmappy123",
+      "database": "travel_map",
+      "host": "104.198.208.193",
+      "dialect": "mysql"
+    },
+    "production": {
+      "username": "root",
+      "password": "tmappy123",
+      "database": "travel_map",
+      "host": "104.198.208.193",
       "dialect": "mysql"
     }
   }
