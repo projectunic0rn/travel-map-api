@@ -1,0 +1,9 @@
+{
+    "development": {
+      "username": "root",
+      "password": "px",
+      "database": "travel_map",
+      "host": "68.183.127.80",
+      "dialect": "mysql"
+    }
+  }

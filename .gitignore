@@ -1,5 +1,5 @@
 node_modules
-config
-secrets
-app.yaml
-.gcloudignore
+# config
+# secrets
+# app.yaml
+# .gcloudignore
