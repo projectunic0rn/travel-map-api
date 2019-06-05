@@ -33,6 +33,7 @@ const resolvers = {
             return UserService.searchUser(args)
         },
         users: (_, args) => {
+            console.log("USer")
             return UserService.loadAllUsers(args);
         },
         getLoggedInUser: (_, args, context) => {
