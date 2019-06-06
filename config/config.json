@@ -1,23 +1,23 @@
 {
     "development": {
-      "username": "wepzzc5jbjmo8ovf",
-      "password": "ahg86yh6q1cjlrw7",
-      "database": "k9mh9uqs2eoj0fua",
-      "host": "arfo8ynm6olw6vpn.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+      "username": process.env.JAWSDB_USERNAME,
+      "password": process.env.JAWSDB_PASSWORD,
+      "database": process.env.JAWSDB_DATABASE,
+      "host": process.env.JAWSDB_HOST,
       "dialect": "mysql"
     },
     "test": {
-      "username": "wepzzc5jbjmo8ovf",
-      "password": "ahg86yh6q1cjlrw7",
-      "database": "k9mh9uqs2eoj0fua",
-      "host": "arfo8ynm6olw6vpn.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+      "username": process.env.JAWSDB_USERNAME,
+      "password": process.env.JAWSDB_PASSWORD,
+      "database": process.env.JAWSDB_DATABASE,
+      "host": process.env.JAWSDB_HOST,
       "dialect": "mysql"
     },
     "production": {
-      "username": "wepzzc5jbjmo8ovf",
-      "password": "ahg86yh6q1cjlrw7",
-      "database": "k9mh9uqs2eoj0fua",
-      "host": "arfo8ynm6olw6vpn.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+      "username": process.env.JAWSDB_USERNAME,
+      "password": process.env.JAWSDB_PASSWORD,
+      "database": process.env.JAWSDB_DATABASE,
+      "host": process.env.JAWSDB_HOST,
       "dialect": "mysql"
     }
   }
