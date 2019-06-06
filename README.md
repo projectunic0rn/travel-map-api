@@ -8,6 +8,7 @@
 5. Go to the url that is printed in the console to view the graphQL playground
 
 ## How to run the project with a connection to your own local database
-1. To create your own instance of the database locally, visit the config.js file located under the config folder.. and enter in your info under the the `"test"` section
-2. You can then run `sequelize db:migrate --env test` in the command line in the root foler, which will run the migration files and create all the tables in your local database
-3. You can then start up the app with a connection to your local database by running `npm test`
+1. To create your own instance of the database locally, you will have to create a local mysql database.
+2. Then locate the config.js file, which is under the config folder in the root of the project... and enter in your local credentials under the `"test"` section.
+3. You can then run `sequelize db:migrate --env test` in the command line in the root foler, which will run the migration files and create all the tables in your local database
+4. You can then start up the app with a connection to your local database by running `npm test`
