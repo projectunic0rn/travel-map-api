@@ -1,6 +1,6 @@
 const secrets = {
-    saltRounds: 13,
-    tokenSecret: "432jkhjkfhewjkfw#@$@$"
+    saltRounds: process.env.SALT_ROUNDS,
+    tokenSecret: process.env.TOKEN_SECRET
 }
 
 module.exports = secrets;
