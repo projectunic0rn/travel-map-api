@@ -8,10 +8,10 @@ module.exports = {
       "dialect": "mysql"
     },
     "test": {
-      "username": process.env.JAWSDB_USERNAME,
-      "password": process.env.JAWSDB_PASSWORD,
-      "database": process.env.JAWSDB_DATABASE,
-      "host": process.env.JAWSDB_HOST,
+      "username": "your_local_username",
+      "password": "your_local_password",
+      "database": "your_local_database",
+      "host": "your_local_host",
       "dialect": "mysql"
     },
     "production": {

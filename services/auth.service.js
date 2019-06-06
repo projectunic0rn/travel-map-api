@@ -1,9 +1,8 @@
 var jwt = require('jsonwebtoken');
-const { tokenSecret } = require('../secrets/secret');
 const User = require('../models').User;
 const bcrypt = require('bcryptjs');
 const { AuthenticationError } = require('apollo-server');
-const { saltRounds } = require('../secrets/secret');
+const tokenSecret = process.env.TOKEN_SECRET;
 
 
 
@@ -38,7 +37,7 @@ let loginUser = async (username, password) => {
 let registerUser = async (userObj) => {
     try {
         let plainPassword = userObj.password;
-        let hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
+        let hashedPassword = await bcrypt.hash(plainPassword, 13);
         userObj.password = hashedPassword;
         let user = await User.create(userObj);
         return generateUserToken(user);
