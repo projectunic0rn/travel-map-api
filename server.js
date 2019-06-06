@@ -36,7 +36,7 @@ server.applyMiddleware({ app, path: '/graphql' });
 app.listen(PORT, () => {
     var env = process.env.NODE_ENV || 'dev';
     if (env == 'dev') {
-        console.log("Running on development environment!")
+        console.log("Running development environment!")
         console.log(`Playground is up at localhost:${PORT}/graphql`)
     } else if (env.toLowerCase() == 'production') {
         console.log("Running on production environment!")
