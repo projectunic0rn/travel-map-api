@@ -1,6 +1,6 @@
 require('dotenv').config();
 const secrets = {
-    saltRounds: process.env.SALT_ROUNDS,
+    saltRounds: 13,
     tokenSecret: process.env.TOKEN_SECRET
 }
 
