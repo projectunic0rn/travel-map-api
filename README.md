@@ -9,5 +9,5 @@
 
 ## How to run the project with a connection to your own local database
 1. To create your own instance of the database locally, visit the config.js file located under the config folder.. and enter in your info under the the `"test"` section
-2. You can then run `sequelize db:migrate --env test`, which will run the migration files and create all the tables in your local database
+2. You can then run `sequelize db:migrate --env test` in the command line in the root foler, which will run the migration files and create all the tables in your local database
 3. You can then start up the app with a connection to your local database by running `npm test`
