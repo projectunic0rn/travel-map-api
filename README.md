@@ -13,3 +13,11 @@
 3. Locate the `config.js` file located under the config folder at the root of the project
 4. Under the `"development"` section, add your own username, password, database and host
 5. You can then run `npm start` again, and it should run the app with a connection to your local database
+
+## How can I contribute to the project
+1. You can start off by making sure you join the proj-travel-map channel in the project unicorn slack
+2. We can then get you caught up and figure out what tasks are needed to be done
+3. You can then checkout a branch to complete a task
+4. Once the task is complete, push up your changes to that branch and create a pull request for other team memebers to review
+5. Once approved your code will be merged... and WALAHH you are contributing
+
