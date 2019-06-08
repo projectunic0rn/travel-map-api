@@ -1,24 +1,24 @@
 require('dotenv').config();
 module.exports = {
-    "development": {
-      "username": process.env.JAWSDB_USERNAME,
-      "password": process.env.JAWSDB_PASSWORD,
-      "database": process.env.JAWSDB_DATABASE,
-      "host": process.env.JAWSDB_HOST,
-      "dialect": "mysql"
-    },
-    "test": {
-      "username": "your_local_username",
-      "password": "your_local_password",
-      "database": "your_local_database",
-      "host": "your_local_host",
-      "dialect": "mysql"
-    },
-    "production": {
-      "username": process.env.JAWSDB_USERNAME,
-      "password": process.env.JAWSDB_PASSWORD,
-      "database": process.env.JAWSDB_DATABASE,
-      "host": process.env.JAWSDB_HOST,
-      "dialect": "mysql"
-    }
+  "development": {
+    "username": process.env.DB_USERNAME_DEV,
+    "password": process.env.DB_PASSWORD_DEV,
+    "database": process.env.DB_DATABASE_DEV,
+    "host": process.env.DB_HOST_DEV,
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": process.env.DB_USERNAME_TEST,
+    "password": process.env.DB_PASSWORD_TEST,
+    "database": process.env.DB_DATABASE_TEST,
+    "host": process.env.DB_HOST_TEST,
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": process.env.DB_USERNAME_PROD,
+    "password": process.env.DB_PASSWORD_PROD,
+    "database": process.env.DB_DATABASE_PROD,
+    "host": process.env.DB_HOST_PROD,
+    "dialect": "mysql"
   }
+}
