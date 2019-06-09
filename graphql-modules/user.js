@@ -8,6 +8,7 @@ type Query {
     user(id: Int, username: String): User
     users: [User!]
     getLoggedInUser: User
+    test: String!
 
 }
 
@@ -29,6 +30,9 @@ type User {
 
 const resolvers = {
     Query: {
+        test: () => {
+            return "THIS IS WORKING"
+        },
         user: (_, args) => {
             return UserService.searchUser(args)
         },
