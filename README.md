@@ -12,7 +12,7 @@
 2. Create your own local mysql database
 3. Locate the `config.js` file located under the config folder at the root of the project
 4. Under the `"development"` section, add your own username, password, database and host
-5. You will then want to run the command `sequelize db:migrate --env development` in the terminal at the root of the project. This will run the migration files that creates all the tables in your local database.
+5. You will then want to run the command `sequelize db:migrate --env development` in the terminal at the root of the project. This will run the migration files that creates all the tables in your local database
 6. You can then run `npm start` again, and it should run the app with a connection to your local database
 
 ## How can I contribute to the project
