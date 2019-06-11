@@ -1,3 +1,3 @@
 test('circle ci is configured correctly', () => {
-    expect(1).toBe(1)
+    expect(10).toBe(10)
 })
