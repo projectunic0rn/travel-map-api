@@ -1,7 +1,10 @@
-const { ApolloServer } = require('apollo-server-express')
-const express = require('express')
-const cors = require('cors')
+const { ApolloServer } = require('apollo-server-express');
+const express = require('express');
+const cors = require('cors');
+const opn = require('opn');
+
 const AuthService = require('./services/auth.service');
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -37,12 +40,7 @@ app.listen(PORT, () => {
     var env = process.env.NODE_ENV || 'dev';
     if (env == 'dev') {
         console.log("Running development environment!")
+        opn(`http://localhost:${PORT}/graphql`)
         console.log(`Playground is up at localhost:${PORT}/graphql`)
-    } else if (env.toLowerCase() == 'production') {
-        console.log("Running on production environment!")
-        console.log("Go to /graphql to see the playground")
-    } else if (env.toLowerCase() == 'test') {
-        console.log("Running on test environment!")
-        console.log(`Playground is up at localhost:${PORT}/graphql`)
-    }
+    } 
 }) 
