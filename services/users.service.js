@@ -25,9 +25,9 @@ let searchUser = async (args) => {
     }
 }
 
-let getLoggedInUser = async (userId) => {
+let getLoggedInUser = async (args) => {
     try {
-        let user = await User.findByPk(userId)
+        let user = await User.findOne({ where: args, include: [{ model: PlaceVisited }, { model: PlaceLiving }, { model: PlaceVisiting }, { model: Interest, as: 'Interests' }] });
         if (!user) {
             throw "no user logged in"
         }
