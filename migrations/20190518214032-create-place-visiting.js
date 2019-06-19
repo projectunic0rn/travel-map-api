@@ -13,11 +13,11 @@ module.exports = {
         allowNull: false
       },
       country: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       city: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       description: {

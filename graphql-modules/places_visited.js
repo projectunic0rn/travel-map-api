@@ -5,19 +5,19 @@ const PlaceVisitedService = require('../services/places_visited.service');
 
 const typeDefs = gql`
     extend type Query {
-        places_visited(UserId: Int, country: String, city: String): [Place_visited!]
+        places_visited(UserId: Int, country: Int, city: Int): [Place_visited!]
     }
 
     extend type Mutation {
-        addPlaceVisited(country: String!, city: String!, description: String, date_arrived: String, date_departed: String): Place_visited
+        addPlaceVisited(country: Int!, city: Int!, description: String, date_arrived: String, date_departed: String): Place_visited
         removePlaceVisited(place_visited_id: Int!): Place_visited
     }
 
     type Place_visited {
         id: Int!
         UserId: Int!
-        country: String!
-        city: String!
+        country: Int!
+        city: Int!
         description: String
         date_arrived: String
         date_departed: String,
