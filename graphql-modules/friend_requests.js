@@ -25,9 +25,9 @@ const resolvers = {
         sendFriendRequest: (_, { user_id }, context) => {
             return FriendRequestService.sendFriendRequest(context.user_id, user_id)
         },
-        // acceptFriendRequest: (_, { friend_request_id }, context) => {
-        //     return FriendRequestService.acceptFriendRequest(friend_request_id);
-        // }
+        acceptFriendRequest: (_, { friend_request_id }, context) => {
+            return FriendRequestService.acceptFriendRequest(friend_request_id);
+        }
     },
     Query: {
         friend_requests: (_, __, context) => {

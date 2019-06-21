@@ -15,13 +15,15 @@ let requestAlreadySent = async (userId, receiverId) => {
             ),
         )
     });
-    return result.length > 0;
+    console.log(result.length !== 0)
+    return result.length !== 0;
 }
 
 
 let sendFriendRequest = async (current_user_id, receiver_id) => {
     try {
-        if (requestAlreadySent(current_user_id, receiver_id)) {
+        let isDuplicateRequest = await requestAlreadySent(current_user_id, receiver_id);
+        if (isDuplicateRequest) {
             throw new Error("Friend request already in progress")
         }
         let currentUser = await User.findByPk(current_user_id);
@@ -51,10 +53,21 @@ let loadAllFriendRequests = async (current_user_id) => {
 
 }
 
+let acceptFriendRequest = async (friend_request_id) => {
+    try {
+        let updatedRequestId = await FriendRequest.update({ status: 1 }, { where: { id: friend_request_id } });
+        return FriendRequest.findByPk(updatedRequestId[0]);
+    } catch (e) {
+        throw Error(e)
+    }
+
+}
+
 
 
 module.exports = {
     sendFriendRequest,
     requestAlreadySent,
-    loadAllFriendRequests
+    loadAllFriendRequests,
+    acceptFriendRequest
 }
