@@ -5,7 +5,7 @@ const db = require('../models/index');
 
 const io = require('socket.io-client')
 
-const socket = io('https://travel-map-socket-service.herokuapp.com/');
+const socket = io('http://localhost:9500');
 
 
 let requestAlreadySent = async (userId, receiverId) => {
@@ -26,7 +26,7 @@ let requestAlreadySent = async (userId, receiverId) => {
 }
 
 
-let sendFriendRequest = async (current_user_id, receiver_id, clientId) => {
+let sendFriendRequest = async (current_user_id, receiver_id) => {
     try {
         let isDuplicateRequest = await requestAlreadySent(current_user_id, receiver_id);
         if (isDuplicateRequest) {
@@ -43,7 +43,12 @@ let sendFriendRequest = async (current_user_id, receiver_id, clientId) => {
             "status": 0
         }
         let request = await FriendRequest.create(friendRequestObj);
-        socket.emit("friend-request", {"clientId": clientId, "sendingUser": currentUser});
+        let socketFrObj = {
+            "sender": currentUser,
+            "receiver": receivingUser,
+            "friendRequestId": request.id
+        }
+        socket.emit("friend-request", socketFrObj);
         return request;
     } catch (e) {
         throw Error(e)

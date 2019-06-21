@@ -7,7 +7,7 @@ const typeDefs = gql`
     }
 
     extend type Mutation {
-        sendFriendRequest(user_id: Int!, clientId: String): FriendRequest!
+        sendFriendRequest(user_id: Int!): FriendRequest!
         acceptFriendRequest(friend_request_id: Int!): FriendRequest!
     }
 
