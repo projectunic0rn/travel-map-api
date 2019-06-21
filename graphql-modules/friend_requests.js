@@ -7,7 +7,7 @@ const typeDefs = gql`
     }
 
     extend type Mutation {
-        sendFriendRequest(user_id: Int!): FriendRequest!
+        sendFriendRequest(username: String!): FriendRequest!
         acceptFriendRequest(friend_request_id: Int!): FriendRequest!
     }
 
@@ -30,8 +30,8 @@ const typeDefs = gql`
 
 const resolvers = {
     Mutation: {
-        sendFriendRequest: (_, { user_id, clientId }, context) => {
-            return FriendRequestService.sendFriendRequest(context.user_id, user_id, clientId)
+        sendFriendRequest: (_, { username }, context) => {
+            return FriendRequestService.sendFriendRequest(context.user_id, username)
         },
         acceptFriendRequest: (_, { friend_request_id }, context) => {
             return FriendRequestService.acceptFriendRequest(friend_request_id);

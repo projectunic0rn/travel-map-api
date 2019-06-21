@@ -9,34 +9,38 @@ const socket = io('https://travel-map-socket-service.herokuapp.com/');
 
 
 let requestAlreadySent = async (userId, receiverId) => {
+    let receivingUser = await User.findByPk(receiverId);
+    if (!receivingUser) {
+        throw new Error("The user you are trying to send a friend request to doesn't exist");
+    }
     let result = await FriendRequest.findAll({
         where: Sequelize.or(
             Sequelize.and(
                 { senderId: userId },
-                { receiverId: receiverId }
+                { receiverId: receivingUser.id }
             ),
             Sequelize.and(
-                { senderId: userId },
-                { receiverId: receiverId }
+                { senderId: receivingUser.id },
+                { receiverId: userId }
             ),
         )
     });
-    console.log(result.length !== 0)
     return result.length !== 0;
 }
 
 
-let sendFriendRequest = async (current_user_id, receiver_id) => {
+let sendFriendRequest = async (current_user_id, receiving_username) => {
     try {
-        let isDuplicateRequest = await requestAlreadySent(current_user_id, receiver_id);
+        let receivingUser = await User.findOne({ where: {username: receiving_username}});
+        if (!receivingUser) {
+            throw new Error("The user you are tying to send a friend request to doesn't exist")
+        }
+
+        let isDuplicateRequest = await requestAlreadySent(current_user_id, receivingUser.id);
         if (isDuplicateRequest) {
             throw new Error("Friend request already in progress")
         }
         let currentUser = await User.findByPk(current_user_id);
-        let receivingUser = await User.findByPk(receiver_id);
-        if (!receivingUser) {
-            throw new Error("The user you are tying to send a friend request to doesn't exist")
-        }
         let friendRequestObj = {
             "senderId": currentUser.id,
             "receiverId": receivingUser.id,
