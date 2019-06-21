@@ -16,6 +16,7 @@ const typeDefs = gql`
        sender_id: Int!
        status: Int!
        sender_username: String!
+       fr_time_Sent: String!
     }
 `
 
