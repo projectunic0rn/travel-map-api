@@ -5,7 +5,7 @@ const db = require('../models/index');
 
 const io = require('socket.io-client')
 
-const socket = io('http://localhost:9500');
+const socket = io('https://travel-map-socket-service.herokuapp.com/');
 
 
 let requestAlreadySent = async (userId, receiverId) => {
