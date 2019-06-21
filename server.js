@@ -16,7 +16,8 @@ const server = new ApolloServer({
         require('./graphql-modules/places_visited'),
         require('./graphql-modules/place_living'),
         require('./graphql-modules/interests'),
-        require('./graphql-modules/place_visiting')
+        require('./graphql-modules/place_visiting'),
+        require('./graphql-modules/friend_requests')
 
     ],
     context: ({ req }) => {
@@ -42,5 +43,5 @@ app.listen(PORT, () => {
         console.log("Running development environment!")
         opn(`http://localhost:${PORT}/graphql`)
         console.log(`Playground is up at localhost:${PORT}/graphql`)
-    } 
+    }
 }) 

@@ -11,7 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     }
-  }, {});
+  }, {
+      tableName: "friend_requests",
+    });
   FriendRequest.associate = function (models) {
     // associations can be defined here
   };

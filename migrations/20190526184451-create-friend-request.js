@@ -30,7 +30,7 @@ module.exports = {
       }
     }).then(function () {
       return queryInterface.sequelize.query(
-        'ALTER TABLE `friendRequests` ADD UNIQUE `senderId_receiverId`(`senderId`, `receiverId`)'
+        'ALTER TABLE `friend_requests` ADD UNIQUE `senderId_receiverId`(`senderId`, `receiverId`)'
       );
     });
   },
