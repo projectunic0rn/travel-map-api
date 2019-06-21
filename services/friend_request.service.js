@@ -1,6 +1,8 @@
 const User = require('../models').User;
 const FriendRequest = require('../models').FriendRequest;
 const Sequelize = require('sequelize');
+const db = require('../models/index');
+
 
 let requestAlreadySent = async (userId, receiverId) => {
     let result = await FriendRequest.findAll({
@@ -44,13 +46,11 @@ let sendFriendRequest = async (current_user_id, receiver_id) => {
 }
 
 let loadAllFriendRequests = async (current_user_id) => {
-    return await FriendRequest.findAll({
-        where: Sequelize.and(
-            { receiverId: current_user_id },
-            { status: 0 }
-        )
-    })
-
+    let fr = await db.sequelize.query("SELECT fr.id AS fr_id, u.id AS sender_id, fr.status, u.username AS sender_username FROM friend_requests AS fr JOIN users u ON u.id = fr.senderId WHERE fr.receiverId = ? AND status = 0", {
+        replacements: [current_user_id],
+        type: Sequelize.QueryTypes.SELECT
+    });
+    return fr
 }
 
 let acceptFriendRequest = async (friend_request_id) => {

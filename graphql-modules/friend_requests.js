@@ -12,10 +12,10 @@ const typeDefs = gql`
     }
 
     type FriendRequest {
-       id: Int! 
-       senderId: Int!
-       receiverId: Int!
+       fr_id: Int! 
+       sender_id: Int!
        status: Int!
+       sender_username: String!
     }
 `
 
