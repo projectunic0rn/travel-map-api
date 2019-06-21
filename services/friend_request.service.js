@@ -3,6 +3,10 @@ const FriendRequest = require('../models').FriendRequest;
 const Sequelize = require('sequelize');
 const db = require('../models/index');
 
+const io = require('socket.io-client')
+
+const socket = io('https://travel-map-socket-service.herokuapp.com/');
+
 
 let requestAlreadySent = async (userId, receiverId) => {
     let result = await FriendRequest.findAll({
@@ -22,7 +26,7 @@ let requestAlreadySent = async (userId, receiverId) => {
 }
 
 
-let sendFriendRequest = async (current_user_id, receiver_id) => {
+let sendFriendRequest = async (current_user_id, receiver_id, clientId) => {
     try {
         let isDuplicateRequest = await requestAlreadySent(current_user_id, receiver_id);
         if (isDuplicateRequest) {
@@ -39,6 +43,7 @@ let sendFriendRequest = async (current_user_id, receiver_id) => {
             "status": 0
         }
         let request = await FriendRequest.create(friendRequestObj);
+        socket.emit("friend-request", {"clientId": clientId, "sendingUser": currentUser});
         return request;
     } catch (e) {
         throw Error(e)

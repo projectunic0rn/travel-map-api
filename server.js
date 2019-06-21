@@ -6,7 +6,7 @@ const opn = require('opn');
 const AuthService = require('./services/auth.service');
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 
 const server = new ApolloServer({
