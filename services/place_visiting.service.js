@@ -2,6 +2,8 @@ const User = require('../models').User;
 const PlaceVisiting = require('../models').Place_visiting
 const { ForbiddenError } = require('apollo-server');
 const AuthService = require('../services/auth.service');
+const socket = require('../socket');
+
 
 let addPlaceVisiting = async (userId, placeVisitingObj) => {
     try {
@@ -9,7 +11,9 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
         if (AuthService.isNotLoggedIn(user)) {
             throw new ForbiddenError("Not Authorized to add a place visiting to someone elses account")
         }
-        return await user.createPlace_visiting(placeVisitingObj)
+        let placeVisiting = await user.createPlace_visiting(placeVisitingObj);
+        socket.emit("new-trip", user.username)
+        return placeVisiting;
     } catch (err) {
         console.error(err)
         throw new Error(err)

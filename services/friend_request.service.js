@@ -2,11 +2,7 @@ const User = require('../models').User;
 const FriendRequest = require('../models').FriendRequest;
 const Sequelize = require('sequelize');
 const db = require('../models/index');
-
-const io = require('socket.io-client')
-
-const socket = io('https://travel-map-socket-service.herokuapp.com/');
-
+const socket = require('../socket');
 
 let requestAlreadySent = async (userId, receiverId) => {
     let receivingUser = await User.findByPk(receiverId);
