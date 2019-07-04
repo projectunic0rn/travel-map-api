@@ -1,6 +1,8 @@
 const User = require('../models').User;
 const PlaceLiving = require('../models').Place_living;
-const { ForbiddenError } = require('apollo-server');
+const {
+    ForbiddenError
+} = require('apollo-server');
 const AuthService = require('../services/auth.service');
 
 let addPlaceLiving = async (userId, placeLivingObj) => {

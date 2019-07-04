@@ -1,6 +1,8 @@
 const User = require('../models').User;
 const PlaceVisiting = require('../models').Place_visiting
-const { ForbiddenError } = require('apollo-server');
+const {
+    ForbiddenError
+} = require('apollo-server');
 const AuthService = require('../services/auth.service');
 const socket = require('../socket');
 
@@ -11,9 +13,22 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
         if (AuthService.isNotLoggedIn(user)) {
             throw new ForbiddenError("Not Authorized to add a place visiting to someone elses account")
         }
-        let placeVisiting = await user.createPlace_visiting(placeVisitingObj);
-        socket.emit("new-trip", user.username)
-        return placeVisiting;
+        let cities = placeVisitingObj.city;
+        let placesVisiting = [];
+
+        // Loop through each city they have provided for the country... create individual records
+        for (let city in cities) {
+            let placeVisiting = await user.createPlace_visiting({
+                country: placeVisitingObj.country,
+                city: city
+            });
+            placesVisiting.push(placeVisiting);
+        }
+
+        // socket.emit("new-trip", user.username)
+        return placesVisiting;
+
+        // return placeVisiting;
     } catch (err) {
         console.error(err)
         throw new Error(err)

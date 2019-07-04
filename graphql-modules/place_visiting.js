@@ -1,11 +1,13 @@
-const { gql } = require('apollo-server');
+const {
+    gql
+} = require('apollo-server');
 const PlaceVisitingService = require('../services/place_visiting.service');
 
 
-const typeDefs = gql`
+const typeDefs = gql `
 
     extend type Mutation {
-        addPlaceVisiting(country: Int!, city: Int!, desription: String, arrival_date: String, departing_date: String): Place_visiting
+        addPlaceVisiting(country: Int!, city: [Int!]!, desription: String, arrival_date: String, departing_date: String): [Place_visiting!]!
         removePlaceVisiting(placeVisitingId: Int!): Place_visiting
 
     }
@@ -26,7 +28,9 @@ const resolvers = {
         addPlaceVisiting: (_, args, context) => {
             return PlaceVisitingService.addPlaceVisiting(context.user_id, args);
         },
-        removePlaceVisiting: (_, { placeVisitingId }, context) => {
+        removePlaceVisiting: (_, {
+            placeVisitingId
+        }, context) => {
             return PlaceVisitingService.removePlaceVisiting(context.user_id, placeVisitingId);
         }
 
