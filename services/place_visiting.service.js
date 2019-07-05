@@ -13,7 +13,7 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
         if (AuthService.isNotLoggedIn(user)) {
             throw new ForbiddenError("Not Authorized to add a place visiting to someone elses account")
         }
-        let cities = placeVisitingObj.city;
+        let cities = placeVisitingObj.cities;
         let placesVisiting = [];
 
         // Loop through each city they have provided for the country... create individual records

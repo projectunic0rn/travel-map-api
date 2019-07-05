@@ -10,8 +10,20 @@ let addPlaceVisited = async (userId, placeVisitedObj) => {
         if (AuthService.isNotLoggedIn(user)) {
             throw new ForbiddenError("Not Authorized to add place visited")
         }
-        let place_visited = await user.createPlace_visited(placeVisitedObj);
-        return place_visited;
+        let cities = placeVisitedObj.cities;
+        let placesVisited = [];
+
+        // Loop through each city they have provided for the country... create individual records
+        for (let city in cities) {
+            let placeVisited = await user.createPlace_visited({
+                country: placeVisitedObj.country,
+                city: city
+            });
+            placesVisited.push(placeVisited);
+        }
+
+        // socket.emit("new-trip", user.username)
+        return placesVisited;
 
     } catch (err) {
         console.error(err)
