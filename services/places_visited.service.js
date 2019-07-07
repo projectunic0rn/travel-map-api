@@ -1,6 +1,8 @@
 const User = require('../models').User;
 const PlaceVisited = require('../models').Place_visited;
-const { ForbiddenError } = require('apollo-server');
+const {
+    ForbiddenError
+} = require('apollo-server');
 const AuthService = require('../services/auth.service');
 
 
@@ -15,15 +17,16 @@ let addPlaceVisited = async (userId, placeVisitedObj) => {
 
         // Loop through each city they have provided for the country... create individual records
         for (let city in cities) {
-            let placeVisited = await user.createPlace_visited({
+            let placeVisited = user.createPlace_visited({
                 country: placeVisitedObj.country,
                 city: city
             });
             placesVisited.push(placeVisited);
         }
 
+        return await Promise.all(placesVisited);
+
         // socket.emit("new-trip", user.username)
-        return placesVisited;
 
     } catch (err) {
         console.error(err)

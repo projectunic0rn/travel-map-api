@@ -18,7 +18,7 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
 
         // Loop through each city they have provided for the country... create individual records
         for (let city in cities) {
-            let placeVisiting = await user.createPlace_visiting({
+            let placeVisiting = user.createPlace_visiting({
                 country: placeVisitingObj.country,
                 city: city
             });
@@ -26,7 +26,7 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
         }
 
         // socket.emit("new-trip", user.username)
-        return placesVisiting;
+        return await Promise.all(placesVisiting);
 
         // return placeVisiting;
     } catch (err) {
