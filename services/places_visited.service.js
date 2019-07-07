@@ -16,7 +16,7 @@ let addPlaceVisited = async (userId, placeVisitedObj) => {
         let placesVisited = [];
 
         // Loop through each city they have provided for the country... create individual records
-        for (let city in cities) {
+        for (let city of cities) {
             let placeVisited = user.createPlace_visited({
                 country: placeVisitedObj.country,
                 city: city

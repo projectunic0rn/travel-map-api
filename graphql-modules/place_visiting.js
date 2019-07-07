@@ -7,7 +7,7 @@ const PlaceVisitingService = require('../services/place_visiting.service');
 const typeDefs = gql `
 
     extend type Mutation {
-        addPlaceVisiting(country: Int!, cities: [Int!]!, desription: String, arrival_date: String, departing_date: String): [Place_visiting!]!
+        addPlaceVisiting(country: Float!, cities: [Float!]!, desription: String, arrival_date: String, departing_date: String): [Place_visiting!]!
         removePlaceVisiting(placeVisitingId: Int!): Place_visiting
 
     }
@@ -15,8 +15,8 @@ const typeDefs = gql `
     type Place_visiting {
         id: String!
         UserId: Int!
-        country: Int!
-        city: Int!
+        country: Float!
+        city: Float!
         arrival_date: String
         departing_date: String
     }
