@@ -15,7 +15,6 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
         }
         let cities = placeVisitingObj.cities;
         let countryInfo = placeVisitingObj.country;
-        console.log(countryInfo)
 
         let placesVisiting = [];
 
@@ -55,7 +54,6 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
 let removePlaceVisiting = async (userId, placeVisitingId) => {
     try {
         let user = await User.findByPk(userId);
-        console.log(placeVisitingId)
         let placeVisiting = await PlaceVisiting.findByPk(placeVisitingId);
         if (AuthService.isNotLoggedInOrAuthorized(user, placeVisiting.UserId)) {
             throw new ForbiddenError("Not Authorized to remove a place visiting on someone elses account")
