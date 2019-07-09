@@ -14,21 +14,37 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
             throw new ForbiddenError("Not Authorized to add a place visiting to someone elses account")
         }
         let cities = placeVisitingObj.cities;
+        let countryInfo = placeVisitingObj.country;
+        console.log(countryInfo)
+
         let placesVisiting = [];
 
         // Loop through each city they have provided for the country... create individual records
-        for (let city of cities) {
-            let placeVisiting = user.createPlace_visiting({
-                country: placeVisitingObj.country,
-                city: city
+        if (cities) {
+            for (let city of cities) {
+                console.log(city.city)
+                let placeVisiting = user.createPlace_visiting({
+                    country: countryInfo.country,
+                    countryId: countryInfo.countryId,
+                    countryISO: countryInfo.countryISO,
+                    city: city.city,
+                    cityId: city.cityId
+                });
+                placesVisiting.push(placeVisiting);
+            }
+            return await Promise.all(placesVisiting);
+
+        } else {
+            let placeVisiting = await user.createPlace_visiting({
+                country: countryInfo.country,
+                countryId: countryInfo.countryId,
+                countryISO: countryInfo.countryISO,
             });
-            placesVisiting.push(placeVisiting);
+            return [placeVisiting]
+
         }
+    
 
-        // socket.emit("new-trip", user.username)
-        return await Promise.all(placesVisiting);
-
-        // return placeVisiting;
     } catch (err) {
         console.error(err)
         throw new Error(err)
