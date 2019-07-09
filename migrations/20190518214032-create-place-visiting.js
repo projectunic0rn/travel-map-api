@@ -13,12 +13,24 @@ module.exports = {
         allowNull: false
       },
       country: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      countryId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      countryISO: {
+        type: Sequelize.STRING,
         allowNull: false
       },
       city: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      cityId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
       },
       description: {
         type: Sequelize.STRING,

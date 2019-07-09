@@ -7,11 +7,23 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    city: {
+    countryId: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: true
+      }
+    },
+    countryISO: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: true
       }
+    },
+    city: {
+      type: DataTypes.STRING,
+    },
+    cityId: {
+      type: DataTypes.INTEGER
     },
     description: DataTypes.STRING,
     arriving_date: {
@@ -27,12 +39,12 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {
-      tableName: "places_visiting",
-      name: {
-        singular: 'Place_visiting',
-        plural: 'Places_visiting'
-      }
-    });
+    tableName: "places_visiting",
+    name: {
+      singular: 'Place_visiting',
+      plural: 'Places_visiting'
+    }
+  });
   Place_visiting.associate = function (models) {
     Place_visiting.belongsTo(models.User)
     // associations can be defined here
