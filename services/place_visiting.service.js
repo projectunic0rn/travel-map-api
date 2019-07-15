@@ -26,7 +26,9 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
                     countryId: countryInfo.countryId,
                     countryISO: countryInfo.countryISO,
                     city: city.city,
-                    cityId: city.cityId
+                    cityId: city.cityId,
+                    city_latitude: city.city_latitude,
+                    city_longitude: city.city_longitude
                 });
                 placesVisiting.push(placeVisiting);
             }
@@ -43,7 +45,7 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
             return [placeVisiting]
 
         }
-    
+
 
     } catch (err) {
         console.error(err)

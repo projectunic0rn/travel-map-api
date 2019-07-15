@@ -2,6 +2,7 @@ const {
     gql
 } = require('apollo-server');
 const PlaceVisitingService = require('../services/place_visiting.service');
+const PlaceVisiting = require('../models/Place_visiting');
 
 
 const typeDefs = gql `
@@ -12,26 +13,34 @@ const typeDefs = gql `
 
     }
 
+    extend type Query {
+        Place_visiting(id: Int, UserId: Int, country: String, countryId: Float, countryISO: String, city: String, cityId: Float, city_latitude: Float, city_longitude: Float): Place_visiting!
+    }
+
     type Place_visiting {
-        id: String!
+        id: Int!
         UserId: Int!
         country: String!
-        countryId: Int!
+        countryId: Float!
         countryISO: String!
         city: String
-        cityId: Int
+        cityId: Float
+        city_latitude: Float
+        city_longitude: Float
         arrival_date: String
         departing_date: String
     }
 
     input City {
         city: String!
-        cityId: Int!
+        cityId: Float!
+        city_latitude: Float!
+        city_longitude: Float!
     }
 
     input Country {
        country: String!
-       countryId: Int!
+       countryId: Float!
        countryISO: String! 
     }
 
@@ -47,8 +56,15 @@ const resolvers = {
         }, context) => {
             return PlaceVisitingService.removePlaceVisiting(context.user_id, placeVisitingId);
         }
+    },
+    Query: {
+        Place_visiting: async (_, args) => {
+            return await PlaceVisiting.findAll({
+                where: args
+            })
+        }
 
-    }
+    },
 
 }
 

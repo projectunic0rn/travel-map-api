@@ -20,9 +20,15 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     city: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     cityId: {
+      type: DataTypes.INTEGER
+    },
+    city_latitude: {
+      type: DataTypes.INTEGER
+    },
+    city_longitude: {
       type: DataTypes.INTEGER
     },
     description: DataTypes.STRING,

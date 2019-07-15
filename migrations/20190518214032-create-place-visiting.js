@@ -32,6 +32,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true
       },
+      city_longitude: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+      },
+      city_latitude: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+      },
       description: {
         type: Sequelize.STRING,
         allowNull: true
