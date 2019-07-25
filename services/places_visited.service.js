@@ -74,7 +74,7 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
                 });
                 placesVisiting.push(placeVisiting);
             }
-            console.log(`SAVING PLACE VISITING RECORDS WITH AT LEAST 1 CITY ENTERED FOR USER : ${user.id}`)
+            console.log(`SAVING PLACE VISITED RECORDS WITH AT LEAST 1 CITY ENTERED FOR USER : ${user.id}`)
             return await Promise.all(placesVisiting);
 
         } else {
@@ -83,7 +83,7 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
                 countryId: countryInfo.countryId,
                 countryISO: countryInfo.countryISO,
             });
-            console.log(`SAVE PLACE VISITING RECORD THAT HAS NO CITY ENTERED FOR USER : ${user.id}`)
+            console.log(`SAVE PLACE VISITED RECORD THAT HAS NO CITY ENTERED FOR USER : ${user.id}`)
             return [placeVisiting]
 
         }
