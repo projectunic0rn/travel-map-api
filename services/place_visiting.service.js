@@ -4,7 +4,7 @@ const {
     ForbiddenError
 } = require('apollo-server');
 const AuthService = require('../services/auth.service');
-const socket = require('../socket');
+// const socket = require('../socket');
 
 
 let addPlaceVisiting = async (userId, placeVisitingObj) => {

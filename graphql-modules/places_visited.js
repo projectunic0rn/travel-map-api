@@ -7,23 +7,28 @@ const PlaceVisitedService = require('../services/places_visited.service');
 
 const typeDefs = gql `
     extend type Query {
-        places_visited(UserId: Int, country: Float, city: Float): [Place_visited!]
+        places_visited(id: Int, UserId: Int, country: String, countryId: Float, countryISO: String, city: String, cityId: Float, city_latitude: Float, city_longitude: Float): Place_visited!
     }
 
     extend type Mutation {
-        addPlaceVisited(country: Float!, cities: [Float!]!, description: String, date_arrived: String, date_departed: String): [Place_visited!]!
+        addPlaceVisited(country: Country!, cities: [City!], desription: String, arrival_date: String, departing_date: String): [Place_visiting!]!
         removePlaceVisited(place_visited_id: Int!): Place_visited
     }
 
     type Place_visited {
         id: Int!
         UserId: Int!
-        country: Float!
-        city: Float!
-        description: String
-        date_arrived: String
-        date_departed: String,
+        country: String!
+        countryId: Float!
+        countryISO: String!
+        city: String
+        cityId: Float
+        city_latitude: Float
+        city_longitude: Float
+        arrival_date: String
+        departing_date: String
     }
+
 `
 
 

@@ -13,22 +13,42 @@ module.exports = {
         allowNull: false
       },
       country: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      countryId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      countryISO: {
+        type: Sequelize.STRING,
         allowNull: false
       },
       city: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      cityId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
+      },
+      city_longitude: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+      },
+      city_latitude: {
+        type: Sequelize.INTEGER,
+        allowNull: true
       },
       description: {
         type: Sequelize.STRING,
         allowNull: true
       },
-      date_arrived: {
+      arriving_date: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: true
       },
-      date_departed: {
+      departing_date: {
         type: Sequelize.STRING,
         allowNull: true
       },

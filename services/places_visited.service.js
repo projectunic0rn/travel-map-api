@@ -13,24 +13,86 @@ let addPlaceVisited = async (userId, placeVisitedObj) => {
             throw new ForbiddenError("Not Authorized to add place visited")
         }
         let cities = placeVisitedObj.cities;
+        let countryInfo = placeVisitedObj.country;
+
         let placesVisited = [];
 
-        // Loop through each city they have provided for the country... create individual records
-        for (let city of cities) {
-            let placeVisited = user.createPlace_visited({
-                country: placeVisitedObj.country,
-                city: city
+        if (cities) {
+            for (let city of cities) {
+                let placeVisited = user.createPlace_visited({
+                    country: countryInfo.country,
+                    countryId: countryInfo.countryId,
+                    countryISO: countryInfo.countryISO,
+                    city: city.city,
+                    cityId: city.cityId,
+                    city_latitude: city.city_latitude,
+                    city_longitude: city.city_longitude
+                });
+                placesVisited.push(placeVisited);
+            }
+            console.log(`SAVING PLACE VISITED RECORDS WITH AT LEAST 1 CITY ENTERED FOR USER : ${user.id}`)
+            return await Promise.all(placesVisited);
+
+        } else {
+            let placeVisited = await user.createPlace_visited({
+                country: countryInfo.country,
+                countryId: countryInfo.countryId,
+                countryISO: countryInfo.countryISO,
             });
-            placesVisited.push(placeVisited);
+            console.log(`SAVE PLACE VISITING RECORD THAT HAS NO CITY ENTERED FOR USER : ${user.id}`)
+            return [placeVisited]
+
+        }
+    } catch (err) {
+        console.error(err)
+        throw new Error(err)
+    }
+}
+
+let addPlaceVisiting = async (userId, placeVisitingObj) => {
+    try {
+        let user = await User.findByPk(userId);
+        if (AuthService.isNotLoggedIn(user)) {
+            throw new ForbiddenError("Not Authorized to add a place visiting to someone elses account")
+        }
+        let cities = placeVisitingObj.cities;
+        let countryInfo = placeVisitingObj.country;
+
+        let placesVisiting = [];
+
+        // Loop through each city they have provided for the country... create individual records
+        if (cities) {
+            for (let city of cities) {
+                let placeVisiting = user.createPlace_visiting({
+                    country: countryInfo.country,
+                    countryId: countryInfo.countryId,
+                    countryISO: countryInfo.countryISO,
+                    city: city.city,
+                    cityId: city.cityId,
+                    city_latitude: city.city_latitude,
+                    city_longitude: city.city_longitude
+                });
+                placesVisiting.push(placeVisiting);
+            }
+            console.log(`SAVING PLACE VISITING RECORDS WITH AT LEAST 1 CITY ENTERED FOR USER : ${user.id}`)
+            return await Promise.all(placesVisiting);
+
+        } else {
+            let placeVisiting = await user.createPlace_visiting({
+                country: countryInfo.country,
+                countryId: countryInfo.countryId,
+                countryISO: countryInfo.countryISO,
+            });
+            console.log(`SAVE PLACE VISITING RECORD THAT HAS NO CITY ENTERED FOR USER : ${user.id}`)
+            return [placeVisiting]
+
         }
 
-        return await Promise.all(placesVisited);
-
-        // socket.emit("new-trip", user.username)
 
     } catch (err) {
         console.error(err)
         throw new Error(err)
+
     }
 }
 
