@@ -7,20 +7,38 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    city: {
+    countryId: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: true
+      }
+    },
+    countryISO: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: true
       }
     },
+    city: {
+      type: DataTypes.STRING
+    },
+    cityId: {
+      type: DataTypes.INTEGER
+    },
+    city_latitude: {
+      type: DataTypes.INTEGER
+    },
+    city_longitude: {
+      type: DataTypes.INTEGER
+    },
     description: DataTypes.STRING,
-    date_arrived: {
+    arrival_date: {
       type: DataTypes.STRING,
       validate: {
         isDate: true
       }
     },
-    date_departed: {
+    departing_date: {
       type: DataTypes.STRING,
       validate: {
         isDate: true
