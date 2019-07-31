@@ -44,7 +44,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
-      arriving_date: {
+      arrival_date: {
         type: Sequelize.STRING,
         allowNull: true
       },
