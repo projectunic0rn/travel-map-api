@@ -11,7 +11,7 @@ const typeDefs = gql `
     }
 
     extend type Mutation {
-        addPlaceVisited(country: Country!, cities: [City!], desription: String, arrival_date: String, departing_date: String): [Place_visiting!]!
+        addPlaceVisited(country: Country!, cities: [City!], desription: String, arrival_date: String, departing_date: String): [Place_visited!]!
         removePlaceVisited(place_visited_id: Int!): Place_visited
     }
 
@@ -29,16 +29,26 @@ const typeDefs = gql `
         departing_date: String
     }
 
+    input City {
+        city: String!
+        cityId: Float!
+        city_latitude: Float!
+        city_longitude: Float!
+    }
+    input Country {
+       country: String!
+       countryId: Float!
+       countryISO: String! 
+    }
 `
 
 
 const resolvers = {
     Query: {
         places_visited: async (_, args) => {
-            let places = await PlaceVisited.findAll({
+            return await PlaceVisited.findAll({
                 where: args
             })
-            return places;
         }
     },
     Mutation: {
@@ -48,7 +58,7 @@ const resolvers = {
         removePlaceVisited: async (_, {
             place_visited_id
         }, context) => {
-            return await PlaceVisitedService.deletePlaceVisited(context.user_id, place_visited_id);
+            return await PlaceVisitedService.removePlaceVisited(context.user_id, place_visited_id);
         }
 
     }
