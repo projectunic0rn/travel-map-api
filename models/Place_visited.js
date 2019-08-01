@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     description: DataTypes.STRING,
-    arrival_date: {
+    arriving_date: {
       type: DataTypes.STRING,
       validate: {
         isDate: true
