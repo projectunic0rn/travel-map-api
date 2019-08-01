@@ -28,18 +28,6 @@ const typeDefs = gql `
         arrival_date: String
         departing_date: String
     }
-
-    input City {
-        city: String!
-        cityId: Float!
-        city_latitude: Float!
-        city_longitude: Float!
-    }
-    input Country {
-       country: String!
-       countryId: Float!
-       countryISO: String! 
-    }
 `
 
 
