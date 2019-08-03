@@ -44,9 +44,9 @@ const resolvers = {
             return await PlaceVisitedService.addPlaceVisited(context.user_id, args);
         },
         removePlaceVisited: async (_, {
-            place_visited_id
+            placeVisitedId
         }, context) => {
-            return await PlaceVisitedService.removePlaceVisited(context.user_id, place_visited_id);
+            return await PlaceVisitedService.removePlaceVisited(context.user_id, placeVisitedId);
         }
 
     }
