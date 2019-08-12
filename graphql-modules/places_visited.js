@@ -11,7 +11,7 @@ const typeDefs = gql `
     }
 
     extend type Mutation {
-        addPlaceVisited(country: Country!, cities: [City!], desription: String, arriving_date: String, departing_date: String): [Place_visited!]!
+        addPlaceVisited(country: Country!, cities: [City!], description: String, arriving_date: String, departing_date: String): [Place_visited!]!
         removePlaceVisited(placeVisitedId: Int!): Place_visited
     }
 

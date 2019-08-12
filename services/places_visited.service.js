@@ -16,8 +16,7 @@ let addPlaceVisited = async (userId, placeVisitedObj) => {
         let countryInfo = placeVisitedObj.country;
 
         let placesVisited = [];
-
-        if (cities) {
+        if (cities.length >= 1) {
             for (let city of cities) {
                 let placeVisited = user.createPlace_visited({
                     country: countryInfo.country,
@@ -32,16 +31,18 @@ let addPlaceVisited = async (userId, placeVisitedObj) => {
             }
             console.log(`SAVING PLACE VISITED RECORDS WITH AT LEAST 1 CITY ENTERED FOR USER : ${user.id}`)
             return await Promise.all(placesVisited);
-
         } else {
             let placeVisited = await user.createPlace_visited({
                 country: countryInfo.country,
                 countryId: countryInfo.countryId,
                 countryISO: countryInfo.countryISO,
+                city: "",
+                cityId: 0,
+                city_latitude: 0,
+                city_longitude: 0
             });
             console.log(`SAVE PLACE VISITING RECORD THAT HAS NO CITY ENTERED FOR USER : ${user.id}`)
             return [placeVisited]
-
         }
     } catch (err) {
         console.error(err)
@@ -60,7 +61,6 @@ let removePlaceVisited = async (userId, placeVisitedId) => {
     } catch (err) {
         console.error(err)
         throw new Error(err)
-
     }
 }
 

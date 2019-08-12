@@ -7,20 +7,20 @@ const PlaceLivingService = require('../services/place_living.service');
 const typeDefs = gql`
 
     extend type Query {
-        Places_living(country: Int, city: Int): [Place_living!]
+        Places_living(country: String, city: String): [Place_living!]
     }
-    
-    extend type Mutation {
-        addPlaceLiving(country: Int!, city: Int!, description: String, living_time: String): Place_living
-        removePlaceLiving(placeLivingId: Int!): Place_living
 
+    extend type Mutation {
+        addPlaceLiving(country: Country!, cities: [City!], description: String, living_time: String): Place_living
+        removePlaceLiving(placeLivingId: Int!): Place_living
+        updatePlaceLiving(country: Int!, city: Int!, description: String, living_time: String): Place_living
     }
 
     type Place_living {
         id: Int!,
         UserId: Int!
-        country: Int!
-        city: Int!
+        country: String!
+        city: String!
         description: String
         living_time: String
     }
@@ -42,8 +42,11 @@ const resolvers = {
         },
         removePlaceLiving: (_, { placeLivingId }, context) => {
             return PlaceLivingService.removePlaceLiving(context.user_id, placeLivingId)
+        },
+        updatePlaceLiving: (_, args, context) => {
+            return PlaceLivingService.updatePlaceLiving(context.user_id, args);
+        },
 
-        }
     }
 }
 
