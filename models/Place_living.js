@@ -20,10 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     city: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: true
-      }
+      type: DataTypes.STRING
     },
     cityId: {
       type: DataTypes.INTEGER
