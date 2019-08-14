@@ -14,7 +14,12 @@ let addPlaceLiving = async (userId, placeLivingObj) => {
         if (placeLivingObj.cities.length >= 1){
           let livingPlace = {
             country: placeLivingObj.country.country,
-            city: placeLivingObj.cities[0].city
+            countryId: placeLivingObj.country.countryId,
+            countryISO: placeLivingObj.country.countryISO,
+            city: placeLivingObj.cities[0].city,
+            cityId: placeLivingObj.cities[0].cityId,
+            city_latitude: placeLivingObj.cities[0].city_latitude,
+            city_longitude: placeLivingObj.cities[0].city_longitude
           }
           return await user.createPlace_living(livingPlace).then(livingPlace => livingPlace);
         } else {
