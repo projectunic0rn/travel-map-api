@@ -17,7 +17,7 @@ const typeDefs = gql`
     }
 
     type Place_living {
-        id: Int!,
+        id: Int!
         UserId: Int!
         country: String!
         countryId: Float!
@@ -61,7 +61,7 @@ const resolvers = {
         },
         updatePlaceLiving: (_, args, context) => {
             return PlaceLivingService.updatePlaceLiving(context.user_id, args);
-        },
+        }
 
     }
 }
