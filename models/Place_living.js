@@ -7,11 +7,32 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
+    countryId: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty: true
+      }
+    },
+    countryISO: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
     city: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: true
       }
+    },
+    cityId: {
+      type: DataTypes.INTEGER
+    },
+    city_latitude: {
+      type: DataTypes.INTEGER
+    },
+    city_longitude: {
+      type: DataTypes.INTEGER
     },
     description: DataTypes.STRING,
     living_time: {
@@ -28,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
 
     });
   Place_living.associate = function (models) {
-    // associations can be defined here
+    Place_living.belongsTo(models.User)
   };
   return Place_living;
 };
