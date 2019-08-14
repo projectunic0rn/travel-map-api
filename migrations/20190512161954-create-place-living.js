@@ -10,15 +10,35 @@ module.exports = {
       },
       UserId: {
         type: Sequelize.INTEGER,
-        unique: true
+        allowNull: false
       },
       country: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      countryId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      countryISO: {
+        type: Sequelize.STRING,
         allowNull: false
       },
       city: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      cityId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
+      },
+      city_longitude: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+      },
+      city_latitude: {
+        type: Sequelize.INTEGER,
+        allowNull: true
       },
       description: {
         type: Sequelize.STRING,
