@@ -7,7 +7,7 @@ const PlaceLivingService = require('../services/place_living.service');
 const typeDefs = gql`
 
     extend type Query {
-        Places_living(country: String, city: String): [Place_living!]
+        Places_living(id: Int, UserId: Int, country: String, countryId: Float, countryISO: String, city: String, cityId: Float, city_latitude: Float, city_longitude: Float): [Place_living!]
     }
 
     extend type Mutation {
@@ -20,8 +20,11 @@ const typeDefs = gql`
         id: Int!,
         UserId: Int!
         country: String!
+        countryISO: String!
         city: String!
-        description: String
+        cityId: Float
+        city_latitude: Float
+        city_longitude: Float
         living_time: String
     }
 `
