@@ -49,7 +49,7 @@ const resolvers = {
         },
         updatePlaceLiving: (_, args, context) => {
             return PlaceLivingService.updatePlaceLiving(context.user_id, args);
-        },
+        }
 
     }
 }

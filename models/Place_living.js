@@ -20,10 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     city: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: true
-      }
+      type: DataTypes.STRING
     },
     cityId: {
       type: DataTypes.INTEGER
@@ -45,8 +42,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
       tableName: "places_living",
       name: {
-        singular: "Place_living",
-        plural: "Places_living"
+        singular: 'Place_living',
+        plural: 'Places_living'
       }
 
     });
