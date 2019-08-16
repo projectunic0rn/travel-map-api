@@ -17,7 +17,7 @@ const typeDefs = gql`
     }
 
     type Place_living {
-        id: Int!,
+        id: Int!
         UserId: Int!
         country: String!
         countryId: Float!
@@ -27,18 +27,6 @@ const typeDefs = gql`
         city_latitude: Float
         city_longitude: Float
         living_time: String
-    }
-
-    input City {
-        city: String!
-        cityId: Float!
-        city_latitude: Float!
-        city_longitude: Float!
-    }
-    input Country {
-       country: String!
-       countryId: Float!
-       countryISO: String! 
     }
 `
 
