@@ -5,7 +5,6 @@ const {
 } = require('apollo-server');
 const AuthService = require('../services/auth.service');
 
-
 let addPlaceVisited = async (userId, placeVisitedObj) => {
     try {
         let user = await User.findByPk(userId);
@@ -64,7 +63,34 @@ let removePlaceVisited = async (userId, placeVisitedId) => {
     }
 }
 
+// For the removal of places visited in country, we're going to use the Country ISO
+// We can take other arguments instead of countryISO if wanted later on
+// We'll return an array from [1-n] of the deleted places
+
+let removePlacesVisitedInCountry = async(args) => {
+  try {
+    let user = await User.findByPk(args.userId);
+    let places_visited_in_country = await PlaceVisited.findAll({
+      where: args
+    });
+    if (places_visited_in_country.length < 1){
+      throw new Error("No places to remove")
+    }
+    if (AuthService.isNotLoggedInOrAuthorized(user, places_visited_in_country[0].UserId)) {
+        throw new ForbiddenError("Not Authorized to remove a place visited to someone elses account")
+    }
+    for (let place = 0; place < places_visited_in_country.length; place ++){
+      places_visited_in_country[place].destroy();
+    }
+    return places_visited_in_country
+  } catch (err) {
+    console.log(err)
+    throw new Error(err)
+  }
+}
+
 module.exports = {
     addPlaceVisited,
-    removePlaceVisited
+    removePlaceVisited,
+    removePlacesVisitedInCountry
 }
