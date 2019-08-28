@@ -66,6 +66,7 @@ let removePlaceVisited = async (userId, placeVisitedId) => {
 // For the removal of places visited in country, we're going to use the Country ISO
 // We can take other arguments instead of countryISO if wanted later on
 // We'll return an array from [1-n] of the deleted places
+// This following method assumes userId is passed in the graphql mutation
 
 let removePlacesVisitedInCountry = async(args) => {
   try {
@@ -88,6 +89,32 @@ let removePlacesVisitedInCountry = async(args) => {
     throw new Error(err)
   }
 }
+
+// The following method should be used if userId is passed separate from the graphql mutation
+// let removePlacesVisitedInCountry = async(userId, countryISO) => {
+//   try {
+//     let user = await User.findByPk(userId);
+//     let args = countryISO
+//     args['userId'] = userId
+//     let places_visited_in_country = await PlaceVisited.findAll({
+//       where: args
+//     });
+//     if (places_visited_in_country.length < 1){
+//       throw new Error("No places to remove")
+//     }
+//     if (AuthService.isNotLoggedInOrAuthorized(user, places_visited_in_country[0].UserId)) {
+//         throw new ForbiddenError("Not Authorized to remove a place visited to someone elses account")
+//     }
+//     for (let place = 0; place < places_visited_in_country.length; place ++){
+//       places_visited_in_country[place].destroy();
+//     }
+//     return places_visited_in_country
+//   } catch (err) {
+//     console.log(err)
+//     throw new Error(err)
+//   }
+// }
+
 
 module.exports = {
     addPlaceVisited,

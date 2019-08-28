@@ -49,9 +49,18 @@ const resolvers = {
       }, context) => {
         return await PlaceVisitedService.removePlaceVisited(context.user_id, placeVisitedId);
       },
+      // Depending on how we deal with this on the frontend (if userId is passed separately from the graphql mutation)
+      // then the argument that accepts UserId can be removed. This will be a tentative
+      // method until the frontend is finalized. Above typedef will look like:
+      // removePlacesVisitedInCountry(countryISO: String!): [Place_visited!]
       removePlacesVisitedInCountry: async (_, args) => {
         return await PlaceVisitedService.removePlacesVisitedInCountry(args)
       }
+      // removePlacesVisitedInCountry: async (_, args, context) => {
+      //   return await PlaceVisitedService.removePlacesVisitedInCountry(context.user_id, args)
+      // }
+      // This will be the variation of the method that takes userId separately from the graphql mutation
+      // Since it will be separated, we need to add the context argument
     }
 }
 
