@@ -28,6 +28,8 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^1.6.5",
     "opn": "^6.0.0",
+    "pg": "^7.12.1",
+    "save": "^2.4.0",
     "sequelize": "^5.8.5",
     "socket.io-client": "^2.2.0"
   }
