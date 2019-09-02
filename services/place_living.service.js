@@ -47,9 +47,11 @@ let removePlaceLiving = async (userId, placeLivingId) => {
 }
 
 // This following method assumes userId is passed in the graphql mutation
-let updatePlaceLiving = async (updatedPlaceLivingObj) => {
+let updatePlaceLiving = async (userId, updatedPlaceLivingObj) => {
     try {
-        let user = await User.findByPk(updatedPlaceLivingObj.UserId);
+        console.log(userId)
+        console.log(updatedPlaceLivingObj)
+        let user = await User.findByPk(userId);
         let placeLiving = await PlaceLiving.findByPk(updatedPlaceLivingObj.id);
         if (!placeLiving) {
           throw new Error("Not a valid living place instance")
@@ -61,10 +63,10 @@ let updatePlaceLiving = async (updatedPlaceLivingObj) => {
           country: updatedPlaceLivingObj.country.country,
           countryId: updatedPlaceLivingObj.country.countryId,
           countryISO: updatedPlaceLivingObj.country.countryISO,
-          city: updatedPlaceLivingObj.cities[0].city,
-          cityId: updatedPlaceLivingObj.cities[0].cityId,
-          city_latitude: updatedPlaceLivingObj.cities[0].city_latitude,
-          city_longitude: updatedPlaceLivingObj.cities[0].city_longitude
+          city: updatedPlaceLivingObj.cities.city,
+          cityId: updatedPlaceLivingObj.cities.cityId,
+          city_latitude: updatedPlaceLivingObj.cities.city_latitude,
+          city_longitude: updatedPlaceLivingObj.cities.city_longitude
         }
         return await placeLiving.update(livingPlace).then(place_living => place_living);
     } catch (err) {
