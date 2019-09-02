@@ -15,6 +15,7 @@ type Query {
 type Mutation {
         registerUser(username: String!, full_name: String!, email: String!, password: String!): Token
         loginUser(username: String!, password: String!): Token
+        deleteUser(id: Int!): User
     }
 
 type User {
@@ -49,7 +50,21 @@ const resolvers = {
         },
         loginUser: (_, args) => {
             return AuthService.loginUser(args.username, args.password)
+        },
+        // Depending on how we deal with this on the frontend (if userId is passed separately from the graphql mutation)
+        // then the argument that accepts id can be removed. This will be a tentative
+        // method until the frontend is finalized. Above typedef will look like:
+        // deleteUser(): User
+        deleteUser: (_, args) => {
+            return UserService.deleteUser(args)
         }
+        // deleteUser: async (_, args, context) => {
+        //   return await UserService.deleteUser(context.user_id)
+        // }
+        // The "context.user_id" is whatever is passed via frontend, so this is subject to change.
+        // This will be the variation of the method that takes userId separately from the graphql mutation
+        // Since it will be separated, we need to add the context argument
+
     }
 }
 
