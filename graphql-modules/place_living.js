@@ -13,7 +13,7 @@ const typeDefs = gql`
     extend type Mutation {
         addPlaceLiving(country: Country!, cities: City!, description: String, living_time: String): Place_living!
         removePlaceLiving(placeLivingId: Int!): Place_living
-        updatePlaceLiving(country: Int!, city: Int!, description: String, living_time: String): Place_living
+        updatePlaceLiving(UserId: Int!, id: Int!, country: Country!, cities: [City!], description: String, living_time: String): Place_living
     }
 
     type Place_living {
@@ -47,10 +47,18 @@ const resolvers = {
         removePlaceLiving: (_, { placeLivingId }, context) => {
             return PlaceLivingService.removePlaceLiving(context.user_id, placeLivingId)
         },
-        updatePlaceLiving: (_, args, context) => {
-            return PlaceLivingService.updatePlaceLiving(context.user_id, args);
+        // Depending on how we deal with this on the frontend (if userId is passed separately from the graphql mutation)
+        // then the argument that accepts UserId can be removed. This will be a tentative
+        // method until the frontend is finalized. Above typedef will look like this:
+        // updatePlaceLiving(id: Int!, country: Country!, cities: [City!], description: String, living_time: String): Place_living
+        updatePlaceLiving: (_, args) => {
+            return PlaceLivingService.updatePlaceLiving(args);
         }
-
+        // updatePlaceLiving: (_, args, context) => {
+        //     return PlaceLivingService.updatePlaceLiving(context.user_id, args);
+        // }
+        // This will be the variation of the method that receives userId from the front end
+        // Since it will be separated, we need to add the context argument
     }
 }
 
