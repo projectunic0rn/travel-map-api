@@ -25,13 +25,13 @@ module.exports = (sequelize, DataTypes) => {
     cityId: {
       type: DataTypes.INTEGER
     },
-    // city_latitude: {
-    //   type: DataTypes.INTEGER,
-    //   defaultValue: 0
-    // },
-    // city_longitude: {
-    //   type: DataTypes.INTEGER
-    // },
+    city_latitude: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    city_longitude: {
+      type: DataTypes.INTEGER
+    },
     description: DataTypes.STRING,
     living_time: {
       type: DataTypes.STRING,
