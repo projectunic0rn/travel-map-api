@@ -11,9 +11,9 @@ const typeDefs = gql`
     }
 
     extend type Mutation {
-        addPlaceLiving(country: Country!, cities: [City!], description: String, living_time: String): [Place_living!]!
+        addPlaceLiving(country: Country!, cities: City!, description: String, living_time: String): Place_living!
         removePlaceLiving(placeLivingId: Int!): Place_living
-        updatePlaceLiving(UserId: Int!, id: Int!, country: Country!, cities: [City!], description: String, living_time: String): Place_living
+        updatePlaceLiving(id: Int!, country: Country!, cities: City!, description: String, living_time: String): Place_living
     }
 
     type Place_living {
@@ -51,8 +51,8 @@ const resolvers = {
         // then the argument that accepts UserId can be removed. This will be a tentative
         // method until the frontend is finalized. Above typedef will look like this:
         // updatePlaceLiving(id: Int!, country: Country!, cities: [City!], description: String, living_time: String): Place_living
-        updatePlaceLiving: (_, args) => {
-            return PlaceLivingService.updatePlaceLiving(args);
+        updatePlaceLiving: (_, args, context) => {
+            return PlaceLivingService.updatePlaceLiving(context.user_id, args);
         }
         // updatePlaceLiving: (_, args, context) => {
         //     return PlaceLivingService.updatePlaceLiving(context.user_id, args);

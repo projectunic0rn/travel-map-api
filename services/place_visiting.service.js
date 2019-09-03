@@ -19,7 +19,7 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
         let placesVisiting = [];
 
         // Loop through each city they have provided for the country... create individual records
-        if (cities) {
+        if (cities.length >= 1) {
             for (let city of cities) {
                 let placeVisiting = user.createPlace_visiting({
                     country: countryInfo.country,
@@ -40,6 +40,10 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
                 country: countryInfo.country,
                 countryId: countryInfo.countryId,
                 countryISO: countryInfo.countryISO,
+                city: "",
+                cityId: 0,
+                city_latitude: 0,
+                city_longitude: 0
             });
             console.log(`SAVE PLACE VISITING RECORD THAT HAS NO CITY ENTERED FOR USER : ${user.id}`)
             return [placeVisiting]
