@@ -1,4 +1,5 @@
 const User = require('../models').User;
+const AuthService = require('../services/auth.service');
 const PlaceVisited = require('../models').Place_visited;
 const PlaceLiving = require('../models').Place_living;
 const PlaceVisiting = require('../models').Place_visiting;
