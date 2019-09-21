@@ -24,8 +24,6 @@ let loadAllUsers = async (args) => {
 
 let searchUser = async (args) => {
   try {
-    console.log("======================================");
-    console.log(args);
     let user = await User.findOne({
       where: args,
       include: [
@@ -35,8 +33,6 @@ let searchUser = async (args) => {
         { model: Interest, as: "Interests" }
       ]
     });
-    console.log("+++++++++++++++++++++++++++++++++++++++");
-    console.log(user);
     return user;
   } catch (err) {
     throw new Error(err);
