@@ -6,7 +6,6 @@ const typeDefs = gql`
   type Query {
     user(username: String): User
     users: [User!]
-    # getLoggedInUser: User
     test: String!
   }
 
