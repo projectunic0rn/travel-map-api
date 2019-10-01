@@ -4,7 +4,7 @@ const UserService = require("../services/users.service");
 
 const typeDefs = gql`
   type Query {
-    user(id: Int, username: String): User
+    user(username: String): User
     users: [User!]
     getLoggedInUser: User
     test: String!
@@ -38,8 +38,12 @@ const resolvers = {
     test: () => {
       return "THIS IS WORKING";
     },
-    user: (_, args) => {
-      return UserService.searchUser(args);
+    // if a username variable is provided to the user query it will look for that username, if not it will return the loggedInUser
+    user: (_, args, context) => {
+      let searchParameter = args.username
+        ? { username: args.username }
+        : { id: context.user_id };
+      return UserService.searchUser(searchParameter);
     },
     users: (_, args) => {
       return UserService.loadAllUsers(args);
