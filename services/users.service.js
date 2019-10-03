@@ -3,8 +3,8 @@ const AuthService = require("../services/auth.service");
 const PlaceVisited = require("../models").Place_visited;
 const PlaceLiving = require("../models").Place_living;
 const PlaceVisiting = require("../models").Place_visiting;
-const Interest = require("../models").Interest;
-
+const UserInterests = require("../models").UserInterest;
+console.log(UserInterests)
 let loadAllUsers = async (args) => {
   try {
     let users = await User.findAll({
@@ -13,7 +13,7 @@ let loadAllUsers = async (args) => {
         { model: PlaceVisited },
         { model: PlaceLiving },
         { model: PlaceVisiting },
-        { model: Interest, as: "Interests" }
+        { model: UserInterests }
       ]
     });
     return users;
@@ -30,7 +30,7 @@ let searchUser = async (args) => {
         { model: PlaceVisited },
         { model: PlaceLiving },
         { model: PlaceVisiting },
-        { model: Interest, as: "Interests" }
+        { model: UserInterests }
       ]
     });
     return user;
@@ -47,7 +47,7 @@ let getLoggedInUser = async (args) => {
         { model: PlaceVisited },
         { model: PlaceLiving },
         { model: PlaceVisiting },
-        { model: Interest, as: "Interests" }
+        { model: UserInterests }
       ]
     });
     if (!user) {
