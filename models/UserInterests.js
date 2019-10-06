@@ -1,10 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const UserInterest = sequelize.define('UserInterest', {
-//     name: {
-//       type: DataTypes.STRING,
-//       allowNull: false
-//     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     // UserId: {
     //   type: DataTypes.INTEGER,
     //   allowNull: false,
