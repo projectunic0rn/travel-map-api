@@ -12,10 +12,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      InterestId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
+//       name: {
+//         type: Sequelize.STRING,
+//         allowNull: false
+//       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

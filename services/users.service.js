@@ -3,6 +3,7 @@ const AuthService = require("../services/auth.service");
 const PlaceVisited = require("../models").Place_visited;
 const PlaceLiving = require("../models").Place_living;
 const PlaceVisiting = require("../models").Place_visiting;
+const FriendRequest = require("../models").FriendRequest;
 const Interest = require("../models").Interest;
 
 let loadAllUsers = async (args) => {
@@ -39,26 +40,6 @@ let searchUser = async (args) => {
   }
 };
 
-let getLoggedInUser = async (args) => {
-  try {
-    let user = await User.findOne({
-      where: args,
-      include: [
-        { model: PlaceVisited },
-        { model: PlaceLiving },
-        { model: PlaceVisiting },
-        { model: Interest, as: "Interests" }
-      ]
-    });
-    if (!user) {
-      throw "no user logged in";
-    }
-    return user;
-  } catch (err) {
-    throw new Error(err);
-  }
-};
-
 let deleteUser = async (args) => {
   try {
     let user = await User.findByPk(args);
@@ -74,6 +55,5 @@ let deleteUser = async (args) => {
 module.exports = {
   loadAllUsers,
   searchUser,
-  getLoggedInUser,
   deleteUser
 };
