@@ -21,6 +21,7 @@ const typeDefs = gql`
   }
 
   input UserInterest {
+    id: Int!
     name: String!
   }
 `;
