@@ -6,7 +6,6 @@ const typeDefs = gql`
   type Query {
     user(username: String): User
     users: [User!]
-    getLoggedInUser: User
     test: String!
   }
 
@@ -47,9 +46,6 @@ const resolvers = {
     },
     users: (_, args) => {
       return UserService.loadAllUsers(args);
-    },
-    getLoggedInUser: (_, args, context) => {
-      return UserService.getLoggedInUser(context.user_id);
     }
   },
   Mutation: {

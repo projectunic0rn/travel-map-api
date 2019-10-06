@@ -70,20 +70,6 @@ let deleteUser = async (args) => {
     throw new Error(err);
   }
 };
-// The following method should be used if userId is passed separate from the graphql mutation
-// let deleteUser = async(userId) => {
-//     try {
-//         let user = await User.findByPk(userId);
-//         if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
-//             throw new ForbiddenError("Not Authorized to delete user")
-//         }
-//         return await user.destroy();
-//     } catch (err) {
-//         console.error(err)
-//         throw new Error(err)
-//     }
-// }
-// The authentication method can be altered if desired (just reusing what is already established)
 
 module.exports = {
   loadAllUsers,
