@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('friend_requests', {
+    return queryInterface.createTable("friend_requests", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -9,15 +9,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       senderId: {
-        allowNull: false,
         type: Sequelize.INTEGER
       },
       receiverId: {
-        allowNull: false,
         type: Sequelize.INTEGER
       },
       status: {
-        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -27,14 +24,13 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      userId: {
+        type: Sequelize.INTEGER
       }
-    }).then(function () {
-      return queryInterface.sequelize.query(
-        'ALTER TABLE `friend_requests` ADD UNIQUE `senderId_receiverId`(`senderId`, `receiverId`)'
-      );
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('friend_requests');
+    return queryInterface.dropTable("friend_requests");
   }
 };

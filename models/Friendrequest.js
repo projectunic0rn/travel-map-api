@@ -1,20 +1,19 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
-  const FriendRequest = sequelize.define('FriendRequest', {
-    senderId: {
-      type: DataTypes.INTEGER
+  const FriendRequest = sequelize.define(
+    "FriendRequest",
+    {
+      senderId: DataTypes.INTEGER,
+      receiverId: DataTypes.INTEGER,
+      status: DataTypes.INTEGER
     },
-    receiverId: {
-      type: DataTypes.INTEGER
-    },
-    status: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
+    {
+      tableName: "friend_requests"
     }
-  }, {
-      tableName: "friend_requests",
-    });
-  FriendRequest.associate = function (models) {
+  );
+  FriendRequest.associate = function(models) {
+    FriendRequest.belongsTo(models.User);
+    // associations can be defined here
   };
   return FriendRequest;
 };
