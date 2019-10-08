@@ -3,16 +3,9 @@ module.exports = (sequelize, DataTypes) => {
   const FriendRequest = sequelize.define(
     "FriendRequest",
     {
-      senderId: {
-        type: DataTypes.INTEGER
-      },
-      receiverId: {
-        type: DataTypes.INTEGER
-      },
-      status: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
-      }
+      senderId: DataTypes.INTEGER,
+      receiverId: DataTypes.INTEGER,
+      status: DataTypes.INTEGER
     },
     {
       tableName: "friend_requests"
@@ -20,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   FriendRequest.associate = function(models) {
     FriendRequest.belongsTo(models.User);
+    // associations can be defined here
   };
   return FriendRequest;
 };

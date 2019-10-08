@@ -18,13 +18,13 @@ const typeDefs = gql`
     status: Int!
   }
 
-  #   type FriendRequestPayload {
-  #     fr_id: Int!
-  #     sender_id: Int!
-  #     status: Int!
-  #     sender_username: String!
-  #     fr_time_Sent: String!
-  #   }
+  type FriendRequestPayload {
+    fr_id: Int!
+    sender_id: Int!
+    status: Int!
+    sender_username: String!
+    fr_time_Sent: String!
+  }
 `;
 
 const resolvers = {
@@ -38,8 +38,6 @@ const resolvers = {
   },
   Query: {
     friend_requests: (_, __, context) => {
-      console.log("=======================");
-      console.log(context);
       return FriendRequestService.loadAllFriendRequests(context.user_id);
     }
   }
