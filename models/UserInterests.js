@@ -4,24 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    // UserId: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: false,
-    //   references: {
-    //     model: "User",
-    //     key: "id"
-    //   },
-    // },
-    // InterestId: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: false,
-    //   references: {
-    //     model: "Interest",
-    //     key: "id"
-    //   },
-
-    // }
+    }
   }, {
       tableName: "user_interests",
       name: {

@@ -28,6 +28,7 @@ const typeDefs = gql`
     Places_visited: [Place_visited!]
     Place_living: Place_living
     UserInterests: [UserInterests!]
+    UserSocials: [UserSocials!]
     Places_visiting: [Place_visiting!]
   }
 `;
