@@ -4,7 +4,8 @@ const PlaceVisited = require("../models").Place_visited;
 const PlaceLiving = require("../models").Place_living;
 const PlaceVisiting = require("../models").Place_visiting;
 const UserInterests = require("../models").UserInterest;
-console.log(UserInterests)
+const UserSocials = require("../models").UserSocial;
+
 let loadAllUsers = async (args) => {
   try {
     let users = await User.findAll({
@@ -13,7 +14,8 @@ let loadAllUsers = async (args) => {
         { model: PlaceVisited },
         { model: PlaceLiving },
         { model: PlaceVisiting },
-        { model: UserInterests }
+        { model: UserInterests },
+        { model: UserSocials }
       ]
     });
     return users;
@@ -30,7 +32,8 @@ let searchUser = async (args) => {
         { model: PlaceVisited },
         { model: PlaceLiving },
         { model: PlaceVisiting },
-        { model: UserInterests }
+        { model: UserInterests },
+        { model: UserSocials }
       ]
     });
     return user;
@@ -47,7 +50,8 @@ let getLoggedInUser = async (args) => {
         { model: PlaceVisited },
         { model: PlaceLiving },
         { model: PlaceVisiting },
-        { model: UserInterests }
+        { model: UserInterests },
+        { model: UserSocials }
       ]
     });
     if (!user) {
