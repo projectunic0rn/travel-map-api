@@ -26,33 +26,21 @@ let loadAllUsers = async (args) => {
 let searchUser = async (args) => {
   try {
     let user;
-    // if args.id is there that means the user is logged in, so it is ok to return friend requests
-    if (args.id !== undefined) {
-      user = await User.findOne({
-        where: args,
-        include: [
-          { model: PlaceVisited },
-          { model: PlaceLiving },
-          { model: PlaceVisiting },
-          { model: Interest, as: "Interests" },
-          {
-            model: FriendRequest
-          }
-        ]
-      });
-      console.log(user);
-    } else {
-      user = await User.findOne({
-        where: args,
-        include: [
-          { model: PlaceVisited },
-          { model: PlaceLiving },
-          { model: PlaceVisiting },
-          { model: Interest, as: "Interests" }
-        ]
-      });
-    }
-
+    user = await User.findOne({
+      where: args,
+      include: [
+        { model: PlaceVisited },
+        { model: PlaceLiving },
+        { model: PlaceVisiting },
+        { model: Interest, as: "Interests" },
+        {
+          model: FriendRequest,
+          as: "FriendRequests",
+          where: { UserId: args.id || null },
+          required: false
+        }
+      ]
+    });
     return user;
   } catch (err) {
     throw new Error(err);

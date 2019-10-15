@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       senderId: DataTypes.INTEGER,
       receiverId: DataTypes.INTEGER,
-      status: DataTypes.INTEGER
+      status: DataTypes.INTEGER,
+      UserId: DataTypes.INTEGER
     },
     {
       tableName: "friend_requests"

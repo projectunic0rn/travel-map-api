@@ -3,7 +3,7 @@ const FriendRequestService = require("../services/friend_request.service");
 
 const typeDefs = gql`
   extend type Query {
-    friend_requests: [FriendRequest]
+    friend_requests: [FriendRequestPayload]
   }
 
   extend type Mutation {
@@ -16,14 +16,15 @@ const typeDefs = gql`
     senderId: Int!
     receiverId: Int!
     status: Int!
+    UserId: Int!
   }
 
   type FriendRequestPayload {
-    fr_id: Int!
-    sender_id: Int!
+    receiverId: Int!
+    senderId: Int!
     status: Int!
-    sender_username: String!
-    fr_time_Sent: String!
+    senderUsername: String!
+    requestSentAt: String!
   }
 `;
 
