@@ -17,12 +17,15 @@ let addUserSocials = async (userId, userSocialArray) => {
 
     // Loop through each social they have provided ... create individual records
     for (let social of userSocialArray.userSocials) {
-      if (social.id === 0) {
+      if (social.id === 0 && social.link !== "") {
         let userSocial = user.createUserSocial({
-          name: social.name
+          name: social.name,
+          link: social.link
         });
         userSocials.push(userSocial);
-      } else {
+      } else if (social.link === "" && social.id === 0) {
+        null;
+      }else {
         let socialToUpdate = await UserSocials.findByPk(social.id);
         if (AuthService.isNotLoggedIn(user, socialToUpdate.UserId)) {
           throw new ForbiddenError(
