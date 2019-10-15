@@ -11,11 +11,13 @@ const typeDefs = gql`
     id: Int!
     UserId: Int!
     name: String!
+    link: String!
   }
 
   input UserSocial {
     id: Int!
     name: String!
+    link: String!
   }
 `;
 

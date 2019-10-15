@@ -4,6 +4,10 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    link: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   }, {
       tableName: "user_socials",
