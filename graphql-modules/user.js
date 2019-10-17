@@ -30,6 +30,7 @@ const typeDefs = gql`
     Interests: [Interest!]
     Places_visiting: [Place_visiting!]
     FriendRequests: [FriendRequest]
+    Friends: [User]
   }
 `;
 
