@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     });
   Interest.associate = function (models) {
     // associations can be defined here
-    Interest.belongsToMany(models.User, {
-      through: 'UserInterests',
-      as: 'Users',
-      foreignKey: 'InterestId'
-    })
+    // Interest.belongsToMany(models.User, {
+    //   through: 'UserInterest',
+    //   as: 'Users',
+    //   foreignKey: 'InterestId'
+    // })
   };
   return Interest;
 };

@@ -43,10 +43,13 @@ let sendFriendRequest = async (current_user_id, receiving_username) => {
       senderId: currentUser.id,
       receiverId: receivingUser.id,
       status: 0,
-      userId: currentUser.id,
       UserId: currentUser.id
     };
     let request = await FriendRequest.create(friendRequestObj);
+    let updatedUser = await User.update(
+      { FriendRequestId: request.id },
+      { where: currentUser }
+    );
     let socketFrObj = {
       sender: currentUser,
       receiver: receivingUser,
@@ -61,14 +64,26 @@ let sendFriendRequest = async (current_user_id, receiving_username) => {
 
 let loadAllFriendRequests = async (current_user_id) => {
   try {
-    let fr = await db.sequelize.query(
-      "SELECT receiverId, fr.createdAt as requestSentAt, u.id AS senderId, fr.status, u.username AS senderUsername FROM friend_requests AS fr JOIN users u ON u.id = fr.senderId AND status = 0",
-      {
-        replacements: [current_user_id],
-        type: Sequelize.QueryTypes.SELECT
-      }
-    );
-    return fr;
+    // let fr = await db.sequelize.query(
+    //   "SELECT receiverId, fr.createdAt as requestSentAt, u.*, u.id AS senderId, fr.status, u.username AS senderUsername FROM friend_requests AS fr JOIN users u ON u.id = fr.senderId AND status = 0",
+    //   {
+    //     replacements: [current_user_id],
+    //     type: Sequelize.QueryTypes.SELECT
+    //   }
+    // );
+
+    let fr = await FriendRequest.findAll({
+      where: { receiverId: current_user_id },
+      include: [
+        {
+          model: User,
+          as: "User",
+          required: false
+        }
+      ]
+    });
+    console.log(fr);
+    return await fr;
   } catch (e) {
     throw Error(e);
   }

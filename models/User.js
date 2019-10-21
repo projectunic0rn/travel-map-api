@@ -40,15 +40,16 @@ module.exports = (sequelize, DataTypes) => {
     User.hasOne(models.Place_living);
     User.hasMany(models.FriendRequest);
     User.hasMany(models.User);
+    User.belongsToMany(models.FriendRequest, {
+      as: "User",
+      through: "FriendRequestId"
+    });
     User.belongsToMany(models.User, {
       as: "friend",
       through: "friends"
     });
-    User.belongsToMany(models.Interest, {
-      through: "UserInterests",
-      as: "Interests",
-      foreignKey: "UserId"
-    });
+    User.hasMany(models.UserInterest);
+    User.hasMany(models.UserSocial);
   };
   return User;
 };

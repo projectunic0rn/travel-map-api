@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   FriendRequest.associate = function(models) {
     FriendRequest.belongsTo(models.User);
+    FriendRequest.hasOne(models.User);
     // associations can be defined here
   };
   return FriendRequest;

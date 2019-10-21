@@ -4,7 +4,8 @@ const PlaceVisited = require("../models").Place_visited;
 const PlaceLiving = require("../models").Place_living;
 const PlaceVisiting = require("../models").Place_visiting;
 const FriendRequest = require("../models").FriendRequest;
-const Interest = require("../models").Interest;
+const UserInterests = require("../models").UserInterest;
+const UserSocials = require("../models").UserSocial;
 
 let loadAllUsers = async (args) => {
   try {
@@ -14,7 +15,8 @@ let loadAllUsers = async (args) => {
         { model: PlaceVisited },
         { model: PlaceLiving },
         { model: PlaceVisiting },
-        { model: Interest, as: "Interests" }
+        { model: UserInterests },
+        { model: UserSocials }
       ]
     });
     return users;
@@ -32,15 +34,38 @@ let searchUser = async (args) => {
         { model: PlaceVisited },
         { model: PlaceLiving },
         { model: PlaceVisiting },
-        { model: Interest, as: "Interests" },
         {
           model: FriendRequest,
           as: "FriendRequests",
           where: { UserId: args.id || null },
           required: false
-        }
+        },
+        { model: UserInterests },
+        { model: UserSocials },
+        { model: User, as: "Users", required: false }
       ]
     });
+    return user;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+let getLoggedInUser = async (args) => {
+  try {
+    let user = await User.findOne({
+      where: args,
+      include: [
+        { model: PlaceVisited },
+        { model: PlaceLiving },
+        { model: PlaceVisiting },
+        { model: UserInterests },
+        { model: UserSocials }
+      ]
+    });
+    if (!user) {
+      throw "no user logged in";
+    }
     return user;
   } catch (err) {
     throw new Error(err);

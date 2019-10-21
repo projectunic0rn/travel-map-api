@@ -23,8 +23,9 @@ const typeDefs = gql`
     receiverId: Int!
     senderId: Int!
     status: Int!
-    senderUsername: String!
-    requestSentAt: String!
+    # senderUsername: String!
+    # requestSentAt: String!
+    User: User
   }
 `;
 

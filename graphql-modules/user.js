@@ -27,7 +27,8 @@ const typeDefs = gql`
     email: String!
     Places_visited: [Place_visited!]
     Place_living: Place_living
-    Interests: [Interest!]
+    UserInterests: [UserInterests!]
+    UserSocials: [UserSocials!]
     Places_visiting: [Place_visiting!]
     FriendRequests: [FriendRequest]
     Friends: [User]

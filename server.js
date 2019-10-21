@@ -14,6 +14,7 @@ const server = new ApolloServer({
     require("./graphql-modules/places_visited"),
     require("./graphql-modules/place_living"),
     require("./graphql-modules/interests"),
+    require("./graphql-modules/social"),
     require("./graphql-modules/place_visiting"),
     require("./graphql-modules/friend_requests")
   ],
