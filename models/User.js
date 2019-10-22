@@ -25,12 +25,20 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: true
       }
-    }
+    },
+    gender: {
+      type: DataTypes.STRING,
+    },
+    phone_number: {
+      type: DataTypes.STRING,
+    },
+    birthday: {
+      type: DataTypes.DATEONLY,
+    },
   }, {
       tableName: 'users'
     });
   User.associate = function (models) {
-    // associations can be defined here
     User.hasMany(models.Place_visited)
     User.hasMany(models.Place_visiting)
     User.hasOne(models.Place_living)

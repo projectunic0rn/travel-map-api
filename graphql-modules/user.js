@@ -18,6 +18,9 @@ const typeDefs = gql`
     ): Token
     loginUser(username: String!, password: String!): Token
     deleteUser(id: Int): User
+    updateBasicInfo(
+      userBasics: UserBasics!
+    ): User
   }
 
   type User {
@@ -25,11 +28,22 @@ const typeDefs = gql`
     username: String!
     full_name: String!
     email: String!
+    gender: String
+    birthday: String
+    phone_number: String
     Places_visited: [Place_visited!]
     Place_living: Place_living
     UserInterests: [UserInterests!]
     UserSocials: [UserSocials!]
     Places_visiting: [Place_visiting!]
+  }
+
+  input UserBasics {
+    full_name: String
+    email: String
+    phone_number: String
+    gender: String
+    birthday: String
   }
 `;
 
@@ -58,6 +72,9 @@ const resolvers = {
     },
     deleteUser: (_, args, context) => {
       return UserService.deleteUser(context.user_id || args.id);
+    },
+    updateBasicInfo: (_, args, context) => {
+      return UserService.updateBasicInfo(context.user_id, args);
     }
   }
 };
