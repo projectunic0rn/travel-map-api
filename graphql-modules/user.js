@@ -18,11 +18,17 @@ const typeDefs = gql`
     ): Token
     loginUser(username: String!, password: String!): Token
     deleteUser(id: Int): User
+<<<<<<< HEAD
     changePassword(
       oldPassword: String!
       password: String!
       password2: String!
     ): String
+=======
+    updateBasicInfo(
+      userBasics: UserBasics!
+    ): User
+>>>>>>> c7eaace412e0b0792972063dc916567462c4ddb6
   }
 
   type User {
@@ -30,6 +36,9 @@ const typeDefs = gql`
     username: String!
     full_name: String!
     email: String!
+    gender: String
+    birthday: String
+    phone_number: String
     Places_visited: [Place_visited!]
     Place_living: Place_living
     UserInterests: [UserInterests!]
@@ -37,6 +46,14 @@ const typeDefs = gql`
     Places_visiting: [Place_visiting!]
     FriendRequests: [FriendRequest]
     Friends: [User]
+  }
+
+  input UserBasics {
+    full_name: String
+    email: String
+    phone_number: String
+    gender: String
+    birthday: String
   }
 `;
 
@@ -73,6 +90,9 @@ const resolvers = {
         args.password,
         args.password2
       );
+    },
+    updateBasicInfo: (_, args, context) => {
+      return UserService.updateBasicInfo(context.user_id, args);
     }
   }
 };

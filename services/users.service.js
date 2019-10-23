@@ -84,8 +84,30 @@ let deleteUser = async (args) => {
   }
 };
 
+let updateBasicInfo = async (userId, userInfoObject) => {
+  let userUpdateInfo = userInfoObject.userBasics;
+  try {
+    const user = await User.findByPk(userId);
+    if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
+      throw new ForbiddenError("Not Authorized to edit this user's info");
+    }
+    let userBasicInfo = {
+      gender: userUpdateInfo.gender,
+      birthday: userUpdateInfo.birthday,
+      phone_number: userUpdateInfo.phone_number,
+      email: userUpdateInfo.email,
+      full_name: userUpdateInfo.full_name
+    }
+    return await user.update(userBasicInfo).then(user => user);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 module.exports = {
   loadAllUsers,
   searchUser,
-  deleteUser
+  getLoggedInUser,
+  deleteUser,
+  updateBasicInfo
 };

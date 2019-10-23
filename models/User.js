@@ -29,27 +29,43 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    {
-      tableName: "users"
-    }
-  );
-  User.associate = function(models) {
-    // associations can be defined here
-    User.hasMany(models.Place_visited);
-    User.hasMany(models.Place_visiting);
-    User.hasOne(models.Place_living);
-    User.hasMany(models.FriendRequest);
-    User.hasMany(models.User);
-    User.belongsToMany(models.FriendRequest, {
-      as: "User",
-      through: "FriendRequestId"
+    full_name: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: true,
+        notEmpty: true
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true
+      }
+    },
+    gender: {
+      type: DataTypes.STRING,
+    },
+    phone_number: {
+      type: DataTypes.STRING,
+    },
+    birthday: {
+      type: DataTypes.DATEONLY,
+    },
+  }, {
+      tableName: 'users'
     });
-    User.belongsToMany(models.User, {
-      as: "friend",
-      through: "friends"
-    });
-    User.hasMany(models.UserInterest);
-    User.hasMany(models.UserSocial);
+  User.associate = function (models) {
+    User.hasMany(models.Place_visited)
+    User.hasMany(models.Place_visiting)
+    User.hasOne(models.Place_living)
+    User.hasMany(models.UserInterest)
+    User.hasMany(models.UserSocial)
   };
   return User;
 };
