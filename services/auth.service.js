@@ -1,4 +1,4 @@
-var jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const User = require("../models").User;
 const bcrypt = require("bcryptjs");
 const { AuthenticationError, UserInputError } = require("apollo-server");
@@ -6,6 +6,7 @@ const tokenSecret = process.env.TOKEN_SECRET;
 
 const validateSignupInput = require("../validation/signup");
 const validateLoginInput = require("../validation/login");
+const validatePassword = require("../validation/validatePassword");
 
 let generateUserToken = async (user) => {
   try {
@@ -53,6 +54,32 @@ let registerUser = async (userObj) => {
     userObj.password = hashedPassword;
     let user = await User.create(userObj);
     return generateUserToken(user);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+let changePassword = async (userId, oldPassword, password, password2) => {
+  const { errors, isValid } = await validatePassword(
+    { password, password2 },
+    userId
+  );
+
+  console.log(oldPassword, password, password2);
+
+  if (!isValid) {
+    return new UserInputError("bad user input", errors);
+  }
+
+  try {
+    let hashedPassword = await bcrypt.hash(password, 13);
+
+    let user = await User.update(
+      { password: hashedPassword },
+      { where: { id: userId } }
+    );
+
+    return user;
   } catch (err) {
     throw new Error(err);
   }

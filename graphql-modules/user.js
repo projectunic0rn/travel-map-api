@@ -18,6 +18,11 @@ const typeDefs = gql`
     ): Token
     loginUser(username: String!, password: String!): Token
     deleteUser(id: Int): User
+    changePassword(
+      oldPassword: String!
+      password: String!
+      password2: String!
+    ): User
   }
 
   type User {
@@ -60,6 +65,14 @@ const resolvers = {
     },
     deleteUser: (_, args, context) => {
       return UserService.deleteUser(context.user_id || args.id);
+    },
+    changePassword: (_, args, context) => {
+      return AuthService.changePassword(
+        context.user_id,
+        args.oldPassword,
+        args.password,
+        args.password2
+      );
     }
   }
 };
