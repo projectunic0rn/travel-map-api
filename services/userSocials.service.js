@@ -5,7 +5,6 @@ const AuthService = require("../services/auth.service");
 
 let addUserSocials = async (userId, userSocialArray) => {
   try {
-    console.log(userSocialArray);
     let user = await User.findByPk(userId);
     if (AuthService.isNotLoggedIn(user)) {
       throw new ForbiddenError(
