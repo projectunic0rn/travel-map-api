@@ -61,11 +61,9 @@ let registerUser = async (userObj) => {
 
 let changePassword = async (userId, oldPassword, password, password2) => {
   const { errors, isValid } = await validatePassword(
-    { password, password2 },
+    { oldPassword, password, password2 },
     userId
   );
-
-  console.log(oldPassword, password, password2);
 
   if (!isValid) {
     return new UserInputError("bad user input", errors);
@@ -74,12 +72,7 @@ let changePassword = async (userId, oldPassword, password, password2) => {
   try {
     let hashedPassword = await bcrypt.hash(password, 13);
 
-    let user = await User.update(
-      { password: hashedPassword },
-      { where: { id: userId } }
-    );
-
-    return user;
+    await User.update({ password: hashedPassword }, { where: { id: userId } });
   } catch (err) {
     throw new Error(err);
   }
@@ -111,5 +104,6 @@ module.exports = {
   registerUser,
   verifyToken,
   isNotLoggedIn,
-  isNotLoggedInOrAuthorized
+  isNotLoggedInOrAuthorized,
+  changePassword
 };

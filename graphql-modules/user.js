@@ -22,7 +22,7 @@ const typeDefs = gql`
       oldPassword: String!
       password: String!
       password2: String!
-    ): User
+    ): String
   }
 
   type User {
