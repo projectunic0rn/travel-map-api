@@ -18,8 +18,16 @@ const typeDefs = gql`
     ): Token
     loginUser(username: String!, password: String!): Token
     deleteUser(id: Int): User
+    changePassword(
+      oldPassword: String!
+      password: String!
+      password2: String!
+    ): String
     updateBasicInfo(
       userBasics: UserBasics!
+    ): User
+    updateUserAvatar(
+      userAvatar: UserAvatar!
     ): User
   }
 
@@ -31,6 +39,8 @@ const typeDefs = gql`
     gender: String
     birthday: String
     phone_number: String
+    avatarIndex: Int
+    color: String
     Places_visited: [Place_visited!]
     Place_living: Place_living
     UserInterests: [UserInterests!]
@@ -44,6 +54,11 @@ const typeDefs = gql`
     phone_number: String
     gender: String
     birthday: String
+  }
+
+  input UserAvatar {
+    avatarIndex: Int!
+    color: String!
   }
 `;
 
@@ -75,6 +90,17 @@ const resolvers = {
     },
     updateBasicInfo: (_, args, context) => {
       return UserService.updateBasicInfo(context.user_id, args);
+    },
+    updateUserAvatar: (_, args, context) => {
+      return UserService.updateUserAvatar(context.user_id, args);
+    },
+    changePassword: (_, args, context) => {
+      return AuthService.changePassword(
+        context.user_id,
+        args.oldPassword,
+        args.password,
+        args.password2
+      );
     }
   }
 };

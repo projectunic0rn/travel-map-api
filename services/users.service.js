@@ -95,10 +95,28 @@ let updateBasicInfo = async (userId, userInfoObject) => {
   }
 };
 
+let updateUserAvatar = async (userId, userInfoObject) => {
+  let userUpdateInfo = userInfoObject.userAvatar;
+  try {
+    const user = await User.findByPk(userId);
+    if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
+      throw new ForbiddenError("Not Authorized to edit this user's info");
+    }
+    let userAvatarInfo = {
+      avatarIndex: userUpdateInfo.avatarIndex,
+      color: userUpdateInfo.color
+    }
+    return await user.update(userAvatarInfo).then(user => user);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 module.exports = {
   loadAllUsers,
   searchUser,
   getLoggedInUser,
   deleteUser,
-  updateBasicInfo
+  updateBasicInfo,
+  updateUserAvatar
 };

@@ -38,6 +38,14 @@ module.exports = {
         type: Sequelize.DATEONLY,
         allowNull: true
       },
+      avatarIndex: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+      },
+      color: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -35,6 +35,12 @@ module.exports = (sequelize, DataTypes) => {
     birthday: {
       type: DataTypes.DATEONLY,
     },
+    avatarIndex: {
+      type: DataTypes.INTEGER,
+    },
+    color: {
+      type: DataTypes.STRING,
+    }
   }, {
       tableName: 'users'
     });
