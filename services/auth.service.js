@@ -6,6 +6,7 @@ const tokenSecret = process.env.TOKEN_SECRET;
 
 const validateSignupInput = require("../validation/signup");
 const validateLoginInput = require("../validation/login");
+const validatePassword = require("../validation/validatePassword");
 
 let generateUserToken = async (user) => {
   try {
@@ -58,6 +59,32 @@ let registerUser = async (userObj) => {
   }
 };
 
+let changePassword = async (userId, oldPassword, password, password2) => {
+  const { errors, isValid } = await validatePassword(
+    { oldPassword, password, password2 },
+    userId
+  );
+
+  console.log(oldPassword, password, password2);
+
+  if (!isValid) {
+    return new UserInputError("bad user input", errors);
+  }
+
+  try {
+    let hashedPassword = await bcrypt.hash(password, 13);
+
+    let user = await User.update(
+      { password: hashedPassword },
+      { where: { id: userId } }
+    );
+
+    return user;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 let verifyToken = async (token) => {
   try {
     let decodedData = await jwt.verify(token, tokenSecret);
@@ -84,5 +111,6 @@ module.exports = {
   registerUser,
   verifyToken,
   isNotLoggedIn,
-  isNotLoggedInOrAuthorized
+  isNotLoggedInOrAuthorized, 
+  changePassword
 };
