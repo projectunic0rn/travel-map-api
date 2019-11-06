@@ -11,9 +11,9 @@ const typeDefs = gql`
     }
 
     extend type Mutation {
-        addPlaceLiving(country: Country!, cities: City!, description: String, living_time: String): Place_living!
+        addPlaceLiving(country: Country!, cities: City, description: String, living_time: String): Place_living!
         removePlaceLiving(placeLivingId: Int!): Place_living
-        updatePlaceLiving(id: Int!, country: Country!, cities: City!, description: String, living_time: String): Place_living
+        updatePlaceLiving(id: Int!, country: Country!, cities: City, description: String, living_time: String): Place_living
     }
 
     type Place_living {
