@@ -13,7 +13,7 @@ const typeDefs = gql `
     extend type Mutation {
         addPlaceVisited(country: Country!, cities: [City!], description: String, arriving_date: String, departing_date: String): [Place_visited!]!
         removePlaceVisited(placeVisitedId: Int!): Place_visited
-        removePlacesVisitedInCountry(userId: Int!, countryISO: String!): [Place_visited!]
+        removePlacesInCountry(countryISO: String!): [Place_visited!]
     }
 
     type Place_visited {
@@ -53,8 +53,8 @@ const resolvers = {
       // then the argument that accepts UserId can be removed. This will be a tentative
       // method until the frontend is finalized. Above typedef will look like:
       // removePlacesVisitedInCountry(countryISO: String!): [Place_visited!]
-      removePlacesVisitedInCountry: async (_, args) => {
-        return await PlaceVisitedService.removePlacesVisitedInCountry(args)
+      removePlacesInCountry: async (_, args, context) => {
+        return await PlaceVisitedService.removePlacesInCountry(context.user_id, args)
       }
       // removePlacesVisitedInCountry: async (_, args, context) => {
       //   return await PlaceVisitedService.removePlacesVisitedInCountry(context.user_id, args)
