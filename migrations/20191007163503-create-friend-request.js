@@ -1,21 +1,24 @@
 "use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("friend_requests", {
+    return queryInterface.createTable("user_socials", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      senderId: {
-        type: Sequelize.INTEGER
+      UserId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
-      receiverId: {
-        type: Sequelize.INTEGER
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
-      status: {
-        type: Sequelize.INTEGER
+      link: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -24,13 +27,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      UserId: {
-        type: Sequelize.INTEGER
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("friend_requests");
+    return queryInterface.dropTable("user_socials");
   }
 };

@@ -46,9 +46,10 @@ let registerUser = async (userObj) => {
   try {
     const { errors, isValid } = await validateSignupInput(userObj);
     if (!isValid) {
+      console.log(errors);
       return new UserInputError("bad user input", errors);
     }
-
+    console.log(userObj);
     let plainPassword = userObj.password;
     let hashedPassword = await bcrypt.hash(plainPassword, 13);
     userObj.password = hashedPassword;

@@ -34,15 +34,8 @@ let searchUser = async (args) => {
         { model: PlaceVisited },
         { model: PlaceLiving },
         { model: PlaceVisiting },
-        {
-          model: FriendRequest,
-          as: "FriendRequests",
-          where: { UserId: args.id || null },
-          required: false
-        },
         { model: UserInterests },
-        { model: UserSocials },
-        { model: User, as: "Users", required: false }
+        { model: UserSocials }
       ]
     });
     return user;
@@ -97,8 +90,25 @@ let updateBasicInfo = async (userId, userInfoObject) => {
       phone_number: userUpdateInfo.phone_number,
       email: userUpdateInfo.email,
       full_name: userUpdateInfo.full_name
+    };
+    return await user.update(userBasicInfo).then((user) => user);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+let updateUserAvatar = async (userId, userInfoObject) => {
+  let userUpdateInfo = userInfoObject.userAvatar;
+  try {
+    const user = await User.findByPk(userId);
+    if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
+      throw new ForbiddenError("Not Authorized to edit this user's info");
     }
-    return await user.update(userBasicInfo).then(user => user);
+    let userAvatarInfo = {
+      avatarIndex: userUpdateInfo.avatarIndex,
+      color: userUpdateInfo.color
+    };
+    return await user.update(userAvatarInfo).then((user) => user);
   } catch (err) {
     throw new Error(err);
   }
@@ -109,5 +119,6 @@ module.exports = {
   searchUser,
   getLoggedInUser,
   deleteUser,
-  updateBasicInfo
+  updateBasicInfo,
+  updateUserAvatar
 };
