@@ -33,11 +33,11 @@ module.exports = {
         allowNull: true
       },
       city_longitude: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
         allowNull: true
       },
       city_latitude: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
         allowNull: true
       },
       description: {
