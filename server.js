@@ -37,7 +37,6 @@ app.listen(PORT, () => {
   var env = process.env.NODE_ENV || "dev";
   if (env == "dev") {
     console.log("Running development environment!");
-    // opn(`http://localhost:${PORT}/graphql`);
     console.log(`Playground is up at localhost:${PORT}/graphql`);
   }
 });

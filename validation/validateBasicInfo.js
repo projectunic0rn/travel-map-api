@@ -15,9 +15,12 @@ module.exports = async function validateSignupInput(data) {
     errors.full_name = "Full name is required";
   }
 
-  if (!Validator.isMobilePhone(data.phone_number)) {
-    errors.phone_number = "Phone number is invalid";
+  if (!isEmpty(data.phone_number)) {
+    if (!Validator.isMobilePhone(data.phone_number)) {
+      errors.phone_number = "Phone number is invalid";
+    }
   }
+
   return {
     errors,
     isValid: isEmpty(errors)
