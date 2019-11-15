@@ -88,6 +88,14 @@ const resolvers = {
     deleteUser: (_, args, context) => {
       return UserService.deleteUser(context.user_id || args.id);
     },
+    changePassword: (_, args, context) => {
+      return AuthService.changePassword(
+        context.user_id,
+        args.oldPassword,
+        args.password,
+        args.password2
+      );
+    },
     updateBasicInfo: (_, args, context) => {
       return UserService.updateBasicInfo(context.user_id, args);
     },

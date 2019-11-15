@@ -1,3 +1,4 @@
+const { UserInputError } = require("apollo-server");
 const User = require("../models").User;
 const AuthService = require("../services/auth.service");
 const PlaceVisited = require("../models").Place_visited;
@@ -5,6 +6,7 @@ const PlaceLiving = require("../models").Place_living;
 const PlaceVisiting = require("../models").Place_visiting;
 const UserInterests = require("../models").UserInterest;
 const UserSocials = require("../models").UserSocial;
+const validateBasicInfo = require("../validation/validateBasicInfo");
 
 let loadAllUsers = async (args) => {
   try {
@@ -86,10 +88,13 @@ let updateBasicInfo = async (userId, userInfoObject) => {
       gender: userUpdateInfo.gender,
       birthday: userUpdateInfo.birthday,
       phone_number: userUpdateInfo.phone_number,
-      email: userUpdateInfo.email,
       full_name: userUpdateInfo.full_name
+    };
+    let { errors, isValid } = await validateBasicInfo(userBasicInfo);
+    if (!isValid) {
+      return new UserInputError("bad user input", errors);
     }
-    return await user.update(userBasicInfo).then(user => user);
+    return await user.update(userBasicInfo).then((user) => user);
   } catch (err) {
     throw new Error(err);
   }
