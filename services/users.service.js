@@ -6,6 +6,7 @@ const PlaceLiving = require("../models").Place_living;
 const PlaceVisiting = require("../models").Place_visiting;
 const UserInterests = require("../models").UserInterest;
 const UserSocials = require("../models").UserSocial;
+const CityReview = require("../models").CityReview;
 const validateBasicInfo = require("../validation/validateBasicInfo");
 
 let loadAllUsers = async (args) => {
@@ -13,9 +14,9 @@ let loadAllUsers = async (args) => {
     let users = await User.findAll({
       where: args,
       include: [
-        { model: PlaceVisited },
-        { model: PlaceLiving },
-        { model: PlaceVisiting },
+        { model: PlaceVisited, include: [{model: CityReview}] },
+        { model: PlaceLiving, include: [{model: CityReview}] },
+        { model: PlaceVisiting, include: [{model: CityReview}] },
         { model: UserInterests },
         { model: UserSocials }
       ]
@@ -31,9 +32,9 @@ let searchUser = async (args) => {
     let user = await User.findOne({
       where: args,
       include: [
-        { model: PlaceVisited },
-        { model: PlaceLiving },
-        { model: PlaceVisiting },
+        { model: PlaceVisited, include: [{model: CityReview}] },
+        { model: PlaceLiving, include: [{model: CityReview}] },
+        { model: PlaceVisiting, include: [{model: CityReview}] },
         { model: UserInterests },
         { model: UserSocials }
       ]
@@ -49,9 +50,9 @@ let getLoggedInUser = async (args) => {
     let user = await User.findOne({
       where: args,
       include: [
-        { model: PlaceVisited },
-        { model: PlaceLiving },
-        { model: PlaceVisiting },
+        { model: PlaceVisited, include: [{model: CityReview}] },
+        { model: PlaceLiving, include: [{model: CityReview}] },
+        { model: PlaceVisiting, include: [{model: CityReview}] },
         { model: UserInterests },
         { model: UserSocials }
       ]

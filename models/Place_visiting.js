@@ -43,7 +43,19 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isDate: true
       }
-    }
+    },
+    year: {
+      type: DataTypes.INTEGER
+    },
+    days: {
+      type: DataTypes.INTEGER
+    },
+    trip_purpose: {
+      type: DataTypes.STRING
+    },
+    trip_company: {
+      type: DataTypes.STRING
+    },
   }, {
     tableName: "places_visiting",
     name: {
@@ -53,6 +65,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Place_visiting.associate = function (models) {
     Place_visiting.belongsTo(models.User)
+    Place_visiting.hasMany(models.CityReview)
     // associations can be defined here
   };
   return Place_visiting;
