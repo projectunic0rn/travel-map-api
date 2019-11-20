@@ -16,6 +16,10 @@ const typeDefs = gql`
       PlaceVisitingId: Int!
       cityBasics: CityBasics!
     ): Place_visiting
+    updateVisitingCityComments(
+      PlaceVisitingId: Int!
+      cityComments: CityComments!
+    ): Place_visiting
   }
 
   extend type Query {
@@ -31,6 +35,8 @@ const typeDefs = gql`
       city_longitude: Float
       year: Int
       days: Int
+      best_comment: String
+      hardest_comment: String
       trip_purpose: String
       trip_company: String
     ): Place_visiting!
@@ -50,6 +56,8 @@ const typeDefs = gql`
     departing_date: String
     year: Int
     days: Int
+    best_comment: String
+    hardest_comment: String
     trip_purpose: String
     trip_company: String
     CityReviews: [CityReviews!]
@@ -82,6 +90,9 @@ const resolvers = {
     },
     updateVisitingCityBasics: (_, args, context) => {
       return PlaceVisitingService.updateVisitingCityBasics(context.user_id, args);
+    },
+    updateVisitingCityComments: (_, args, context) => {
+      return PlaceVisitingService.updateVisitingCityComments(context.user_id, args);
     },
   },
   Query: {

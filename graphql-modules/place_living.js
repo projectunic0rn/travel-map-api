@@ -17,6 +17,8 @@ const typeDefs = gql`
       city_longitude: Float
       year: Int
       days: Int
+      best_comment: String
+      hardest_comment: String
       trip_purpose: String
       trip_company: String
     ): Place_living!
@@ -39,9 +41,13 @@ const typeDefs = gql`
       living_time: String
     ): Place_living
     updateLivingCityBasics(
-        PlaceLivingId: Int!
-        cityBasics: CityBasics!
-      ): Place_living
+      PlaceLivingId: Int!
+      cityBasics: CityBasics!
+    ): Place_living
+    updateLivingCityComments(
+      PlaceLivingId: Int!
+      cityComments: CityComments!
+    ): Place_living
   }
 
   type Place_living {
@@ -57,6 +63,8 @@ const typeDefs = gql`
     living_time: String
     year: Int
     days: Int
+    best_comment: String
+    hardest_comment: String
     trip_purpose: String
     trip_company: String
     CityReviews: [CityReviews!]
@@ -92,8 +100,11 @@ const resolvers = {
       return PlaceLivingService.updatePlaceLiving(context.user_id, args);
     },
     updateLivingCityBasics: (_, args, context) => {
-        return PlaceLivingService.updateLivingCityBasics(context.user_id, args);
-      },
+      return PlaceLivingService.updateLivingCityBasics(context.user_id, args);
+    },
+    updateLivingCityComments: (_, args, context) => {
+      return PlaceLivingService.updateLivingCityComments(context.user_id, args);
+    }
     // updatePlaceLiving: (_, args, context) => {
     //     return PlaceLivingService.updatePlaceLiving(context.user_id, args);
     // }

@@ -172,10 +172,28 @@ let updateVisitedCityBasics = async (userId, cityInfoObject) => {
   }
 };
 
+let updateVisitedCityComments = async (userId, cityInfoObject) => {
+  let user = await User.findByPk(userId);
+    if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
+      throw new ForbiddenError("Not Authorized to edit this user's info");
+    }
+    try {
+      let placeRecord = await PlaceVisited.findByPk(cityInfoObject.PlaceVisitedId);
+    let cityCommentObject = {
+      best_comment: cityInfoObject.cityComments.best_comment,
+      hardest_comment: cityInfoObject.cityComments.hardest_comment
+    };
+    return await placeRecord.update(cityCommentObject).then((placeRecord) => placeRecord);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 module.exports = {
   loadPlacesVisited,
   addPlaceVisited,
   removePlaceVisited,
   removePlacesInCountry,
-  updateVisitedCityBasics
+  updateVisitedCityBasics,
+  updateVisitedCityComments
 };

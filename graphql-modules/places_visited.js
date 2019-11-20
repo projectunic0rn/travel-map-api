@@ -17,6 +17,8 @@ const typeDefs = gql`
       city_longitude: Float
       year: Int
       days: Int
+      best_comment: String
+      hardest_comment: String
       trip_purpose: String
       trip_company: String
     ): [Place_visited!]
@@ -37,6 +39,10 @@ const typeDefs = gql`
       PlaceVisitedId: Int!
       cityBasics: CityBasics!
     ): Place_visited
+    updateVisitedCityComments(
+      PlaceVisitedId: Int!
+      cityComments: CityComments!
+    ): Place_visited
   }
 
   type Place_visited {
@@ -51,6 +57,8 @@ const typeDefs = gql`
     city_longitude: Float
     year: Int
     days: Int
+    best_comment: String
+    hardest_comment: String
     trip_purpose: String
     trip_company: String
     arriving_date: String
@@ -63,6 +71,10 @@ const typeDefs = gql`
     days: Int
     trip_purpose: String
     trip_company: String
+  }
+  input CityComments {
+    best_comment: String
+    hardest_comment: String
   }
 `;
 
@@ -100,6 +112,9 @@ const resolvers = {
     },
     updateVisitedCityBasics: (_, args, context) => {
       return PlaceVisitedService.updateVisitedCityBasics(context.user_id, args);
+    },
+    updateVisitedCityComments: (_, args, context) => {
+      return PlaceVisitedService.updateVisitedCityComments(context.user_id, args);
     },
   }
 };

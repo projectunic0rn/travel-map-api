@@ -52,6 +52,12 @@ module.exports = (sequelize, DataTypes) => {
     days: {
       type: DataTypes.INTEGER
     },
+    best_comment: {
+      type: DataTypes.STRING,
+    },
+    hardest_comment: {
+      type: DataTypes.STRING,
+    },
     trip_purpose: {
       type: DataTypes.STRING
     },

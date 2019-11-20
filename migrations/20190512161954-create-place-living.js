@@ -56,6 +56,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true
       },
+      best_comment: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      hardest_comment: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       trip_purpose: {
         type: Sequelize.STRING,
         allowNull: true
