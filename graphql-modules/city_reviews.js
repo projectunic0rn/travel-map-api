@@ -22,6 +22,7 @@ const typeDefs = gql`
   }
 
   input CityReview {
+    id: Int!
     PlaceVisitedId: Int
     PlaceVisitingId: Int
     PlaceLivingId: Int
