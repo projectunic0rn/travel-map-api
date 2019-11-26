@@ -52,6 +52,30 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
+      year: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+      },
+      days: {
+        type: Sequelize.INTEGER,
+        allowNull: true
+      },
+      best_comment: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      hardest_comment: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      trip_purpose: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      trip_company: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -2,8 +2,23 @@ const User = require("../models").User;
 const PlaceVisited = require("../models").Place_visited;
 const PlaceVisiting = require("../models").Place_visiting;
 const PlaceLiving = require("../models").Place_living;
+const CityReview = require("../models").CityReview;
 const { ForbiddenError } = require("apollo-server");
 const AuthService = require("../services/auth.service");
+
+let loadPlacesVisited = async args => {
+  try {
+    let placesVisited = await PlaceVisited.findAll({
+      where: args,
+      include: [
+        { model: CityReview }
+      ]
+    });
+    return placesVisited;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
 
 let addPlaceVisited = async (userId, placeVisitedObj) => {
   try {
@@ -138,8 +153,47 @@ let removePlacesInCountry = async (userId, countryISO) => {
   }
 };
 
+let updateVisitedCityBasics = async (userId, cityInfoObject) => {
+  let user = await User.findByPk(userId);
+    if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
+      throw new ForbiddenError("Not Authorized to edit this user's info");
+    }
+    try {
+      let placeRecord = await PlaceVisited.findByPk(cityInfoObject.PlaceVisitedId);
+    let cityBasicInfo = {
+      days: cityInfoObject.cityBasics.days,
+      year: cityInfoObject.cityBasics.year,
+      trip_purpose: cityInfoObject.cityBasics.trip_purpose,
+      trip_company: cityInfoObject.cityBasics.trip_company
+    };
+    return await placeRecord.update(cityBasicInfo).then((placeRecord) => placeRecord);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+let updateVisitedCityComments = async (userId, cityInfoObject) => {
+  let user = await User.findByPk(userId);
+    if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
+      throw new ForbiddenError("Not Authorized to edit this user's info");
+    }
+    try {
+      let placeRecord = await PlaceVisited.findByPk(cityInfoObject.PlaceVisitedId);
+    let cityCommentObject = {
+      best_comment: cityInfoObject.cityComments.best_comment,
+      hardest_comment: cityInfoObject.cityComments.hardest_comment
+    };
+    return await placeRecord.update(cityCommentObject).then((placeRecord) => placeRecord);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 module.exports = {
+  loadPlacesVisited,
   addPlaceVisited,
   removePlaceVisited,
-  removePlacesInCountry
+  removePlacesInCountry,
+  updateVisitedCityBasics,
+  updateVisitedCityComments
 };
