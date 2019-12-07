@@ -10,11 +10,62 @@ let loadPlacesVisited = async args => {
   try {
     let placesVisited = await PlaceVisited.findAll({
       where: args,
-      include: [
-        { model: CityReview }
-      ]
+      include: [{ model: CityReview }]
     });
     return placesVisited;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+let loadCityVisits = async args => {
+  try {
+    let placesVisited = await PlaceVisited.findAll({
+      where: {
+        cityId: args
+      },
+      include: [{ model: CityReview }]
+    });
+    let placesVisiting = await PlaceVisiting.findAll({
+      where: {
+        cityId: args
+      },
+      include: [{ model: CityReview }]
+    });
+    let placesLiving = await PlaceLiving.findAll({
+      where: {
+        cityId: args
+      },
+      include: [{ model: CityReview }]
+    });
+    return placesVisited.concat(placesVisiting).concat(placesLiving);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+
+let loadCountryVisits = async args => {
+  try {
+    let placesVisited = await PlaceVisited.findAll({
+      where: {
+        countryId: args
+      },
+      include: [{ model: CityReview }]
+    });
+    let placesVisiting = await PlaceVisiting.findAll({
+      where: {
+        countryId: args
+      },
+      include: [{ model: CityReview }]
+    });
+    let placesLiving = await PlaceLiving.findAll({
+      where: {
+        countryId: args
+      },
+      include: [{ model: CityReview }]
+    });
+    return placesVisited.concat(placesVisiting).concat(placesLiving);
   } catch (err) {
     throw new Error(err);
   }
@@ -84,33 +135,6 @@ let removePlaceVisited = async (userId, placeVisitedId) => {
   }
 };
 
-// For the removal of places visited in country, we're going to use the Country ISO
-// We can take other arguments instead of countryISO if wanted later on
-// We'll return an array from [1-n] of the deleted places
-// This following method assumes userId is passed in the graphql mutation
-
-// let removePlacesVisitedInCountry = async(args) => {
-//   try {
-//     let user = await User.findByPk(args.userId);
-//     let places_visited_in_country = await PlaceVisited.findAll({
-//       where: args
-//     });
-//     if (places_visited_in_country.length < 1){
-//       throw new Error("No places to remove")
-//     }
-//     if (AuthService.isNotLoggedInOrAuthorized(user, places_visited_in_country[0].UserId)) {
-//         throw new ForbiddenError("Not Authorized to remove a place visited to someone elses account")
-//     }
-//     for (let place = 0; place < places_visited_in_country.length; place ++){
-//       places_visited_in_country[place].destroy();
-//     }
-//     return places_visited_in_country
-//   } catch (err) {
-//     console.log(err)
-//     throw new Error(err)
-//   }
-// }
-
 //The following method should be used if userId is passed separate from the graphql mutation
 let removePlacesInCountry = async (userId, countryISO) => {
   try {
@@ -155,18 +179,22 @@ let removePlacesInCountry = async (userId, countryISO) => {
 
 let updateVisitedCityBasics = async (userId, cityInfoObject) => {
   let user = await User.findByPk(userId);
-    if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
-      throw new ForbiddenError("Not Authorized to edit this user's info");
-    }
-    try {
-      let placeRecord = await PlaceVisited.findByPk(cityInfoObject.PlaceVisitedId);
+  if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
+    throw new ForbiddenError("Not Authorized to edit this user's info");
+  }
+  try {
+    let placeRecord = await PlaceVisited.findByPk(
+      cityInfoObject.PlaceVisitedId
+    );
     let cityBasicInfo = {
       days: cityInfoObject.cityBasics.days,
       year: cityInfoObject.cityBasics.year,
       trip_purpose: cityInfoObject.cityBasics.trip_purpose,
       trip_company: cityInfoObject.cityBasics.trip_company
     };
-    return await placeRecord.update(cityBasicInfo).then((placeRecord) => placeRecord);
+    return await placeRecord
+      .update(cityBasicInfo)
+      .then(placeRecord => placeRecord);
   } catch (err) {
     throw new Error(err);
   }
@@ -174,16 +202,20 @@ let updateVisitedCityBasics = async (userId, cityInfoObject) => {
 
 let updateVisitedCityComments = async (userId, cityInfoObject) => {
   let user = await User.findByPk(userId);
-    if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
-      throw new ForbiddenError("Not Authorized to edit this user's info");
-    }
-    try {
-      let placeRecord = await PlaceVisited.findByPk(cityInfoObject.PlaceVisitedId);
+  if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
+    throw new ForbiddenError("Not Authorized to edit this user's info");
+  }
+  try {
+    let placeRecord = await PlaceVisited.findByPk(
+      cityInfoObject.PlaceVisitedId
+    );
     let cityCommentObject = {
       best_comment: cityInfoObject.cityComments.best_comment,
       hardest_comment: cityInfoObject.cityComments.hardest_comment
     };
-    return await placeRecord.update(cityCommentObject).then((placeRecord) => placeRecord);
+    return await placeRecord
+      .update(cityCommentObject)
+      .then(placeRecord => placeRecord);
   } catch (err) {
     throw new Error(err);
   }
@@ -191,6 +223,8 @@ let updateVisitedCityComments = async (userId, cityInfoObject) => {
 
 module.exports = {
   loadPlacesVisited,
+  loadCityVisits,
+  loadCountryVisits,
   addPlaceVisited,
   removePlaceVisited,
   removePlacesInCountry,

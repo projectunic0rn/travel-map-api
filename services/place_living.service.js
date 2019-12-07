@@ -1,9 +1,26 @@
 const User = require('../models').User;
 const PlaceLiving = require('../models').Place_living;
+const CityReview = require("../models").CityReview;
 const {
     ForbiddenError
 } = require('apollo-server');
 const AuthService = require('../services/auth.service');
+
+let loadCityLiving = async args => {
+  try {
+    let placesLiving = await PlaceLiving.findAll({
+      where: {
+        cityId: args
+      },
+      include: [
+        { model: CityReview }
+      ]
+    });
+    return placesLiving;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
 
 let addPlaceLiving = async (userId, placeLivingObj) => {
   console.log("placeLivingObj: ", placeLivingObj)
@@ -121,5 +138,6 @@ module.exports = {
     removePlaceLiving,
     updatePlaceLiving,
     updateLivingCityBasics,
-    updateLivingCityComments
+    updateLivingCityComments,
+    loadCityLiving
 }

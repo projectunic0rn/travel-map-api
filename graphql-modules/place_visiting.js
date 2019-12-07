@@ -40,6 +40,7 @@ const typeDefs = gql`
       trip_purpose: String
       trip_company: String
     ): Place_visiting!
+    City_visiting_all_users(cityId: Int!): [Place_visiting!]
   }
 
   type Place_visiting {
@@ -100,6 +101,10 @@ const resolvers = {
       return await PlaceVisiting.findAll({
         where: args
       });
+    },
+    City_visiting_all_users: async (_, args) => {
+      let searchParameter = args.cityId;
+      return PlaceVisitingService.loadCityVisiting(searchParameter);
     }
   }
 };

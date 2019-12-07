@@ -1,10 +1,29 @@
 const User = require('../models').User;
-const PlaceVisiting = require('../models').Place_visiting
+const PlaceVisiting = require('../models').Place_visiting;
+const CityReview = require("../models").CityReview;
 const {
     ForbiddenError
 } = require('apollo-server');
 const AuthService = require('../services/auth.service');
 // const socket = require('../socket');
+
+
+let loadCityVisiting = async args => {
+  try {
+    console.log(args)
+    let placesVisiting = await PlaceVisiting.findAll({
+      where: {
+        cityId: args
+      },
+      include: [
+        { model: CityReview }
+      ]
+    });
+    return placesVisiting;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
 
 
 let addPlaceVisiting = async (userId, placeVisitingObj) => {
@@ -114,5 +133,6 @@ module.exports = {
     addPlaceVisiting,
     removePlaceVisiting,
     updateVisitingCityBasics,
-    updateVisitingCityComments
+    updateVisitingCityComments,
+    loadCityVisiting
 }

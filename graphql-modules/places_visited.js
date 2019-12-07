@@ -23,6 +23,8 @@ const typeDefs = gql`
       trip_company: String
     ): [Place_visited!]
     Place_visited(id: Int!): [Place_visited!]
+    City_reviews_all_users(cityId: Int!): [Place_visited!]
+    Country_reviews_all_users(countryId: Int!): [Place_visited!]
   }
 
   extend type Mutation {
@@ -88,7 +90,15 @@ const resolvers = {
     Place_visited: async (_, args) => {
       let searchParameter = args.id;
       return PlaceVisitedService.loadPlacesVisited(searchParameter);
-    }
+    },
+    City_reviews_all_users: async (_, args) => {
+      let searchParameter = args.cityId;
+      return PlaceVisitedService.loadCityVisits(searchParameter);
+    },
+    Country_reviews_all_users: async (_, args) => {
+      let searchParameter = args.countryId;
+      return PlaceVisitedService.loadCountryVisits(searchParameter);
+    },
   },
   Mutation: {
     addPlaceVisited: async (_, args, context) => {
