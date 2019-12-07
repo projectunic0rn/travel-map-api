@@ -5,6 +5,7 @@ const UserService = require("../services/users.service");
 const typeDefs = gql`
   type Query {
     user(username: String): User
+    userId(userId: Int!): User
     users: [User!]
     test: String!
   }
@@ -71,6 +72,12 @@ const resolvers = {
     user: (_, args, context) => {
       let searchParameter = args.username
         ? { username: args.username }
+        : { id: context.user_id };
+      return UserService.searchUser(searchParameter);
+    },
+    userId: (_, args, context) => {
+      let searchParameter = args.userId
+        ? { id: args.userId }
         : { id: context.user_id };
       return UserService.searchUser(searchParameter);
     },

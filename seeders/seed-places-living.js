@@ -20,7 +20,7 @@ module.exports = {
             "best_comment": null,
             "hardest_comment": null,
             "trip_purpose": "vacation",
-            "trip_company": "friends",
+            "trip_company": "with friends",
             createdAt: new Date(),
             updatedAt: new Date()
           },
@@ -38,7 +38,7 @@ module.exports = {
             "best_comment": null,
             "hardest_comment": null,
             "trip_purpose": "vacation",
-            "trip_company": "friends",
+            "trip_company": "with friends",
             createdAt: new Date(),
             updatedAt: new Date()
           },
@@ -56,7 +56,7 @@ module.exports = {
             "best_comment": null,
             "hardest_comment": null,
             "trip_purpose": "vacation",
-            "trip_company": "friends",
+            "trip_company": "with friends",
             createdAt: new Date(),
             updatedAt: new Date()
           },
@@ -74,7 +74,7 @@ module.exports = {
             "best_comment": null,
             "hardest_comment": null,
             "trip_purpose": "vacation",
-            "trip_company": "friends",
+            "trip_company": "with friends",
             createdAt: new Date(),
             updatedAt: new Date()
           }

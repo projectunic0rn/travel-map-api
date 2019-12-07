@@ -23,6 +23,7 @@ const typeDefs = gql`
       trip_company: String
     ): Place_living!
     place_living(id: Int!): Place_living!
+    City_living_all_users(cityId: Int!): [Place_living!]
   }
 
   extend type Mutation {
@@ -79,6 +80,10 @@ const resolvers = {
     place_living: async (_, args) => {
       let searchParameter = args.id;
       return PlaceLivingService.loadPlaceLiving(searchParameter);
+    },
+    City_living_all_users: async (_, args) => {
+      let searchParameter = args.cityId;
+      return PlaceLivingService.loadCityLiving(searchParameter);
     }
   },
 
