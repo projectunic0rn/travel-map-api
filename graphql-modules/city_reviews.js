@@ -16,7 +16,7 @@ const typeDefs = gql`
     attraction_type: String!
     attraction_name: String!
     rating: Int!
-    comment: String
+    comment: Text
     cost: Int
     currency: String
   }
@@ -29,7 +29,7 @@ const typeDefs = gql`
     attraction_type: String!
     attraction_name: String!
     rating: Int
-    comment: String
+    comment: Text
     cost: Int
     currency: String
   }
