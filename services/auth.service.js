@@ -52,6 +52,8 @@ let registerUser = async (userObj) => {
     let plainPassword = userObj.password;
     let hashedPassword = await bcrypt.hash(plainPassword, 13);
     userObj.password = hashedPassword;
+    userObj.avatarIndex = 1;
+    userObj.color = "rgb(100, 100, 100)";
     let user = await User.create(userObj);
     return generateUserToken(user);
   } catch (err) {
