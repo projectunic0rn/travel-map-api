@@ -39,6 +39,7 @@ let searchUser = async (args) => {
         { model: UserSocials }
       ]
     });
+    console.log(args)
     return user;
   } catch (err) {
     throw new Error(err);

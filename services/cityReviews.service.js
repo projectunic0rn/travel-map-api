@@ -50,6 +50,22 @@ let addPastCityReviews = async (userId, cityReviewData) => {
   }
 };
 
+let removeCityReviews = async (userId, CityReviewId) => {
+  try {
+    let user = await User.findByPk(userId);
+    let city_review = await CityReviews.findByPk(CityReviewId);
+    if (AuthService.isNotLoggedIn(user)) {
+      throw new ForbiddenError(
+        "Not Authorized to remove city reviews from someone elses account"
+      );
+    }
+    return await city_review.destroy();
+  } catch (err) {
+    console.error(err);
+    throw new Error(err);
+  }
+};
+
 let addFutureCityReviews = async (userId, cityReviewData) => {
   try {
     let user = await User.findByPk(userId);
@@ -141,5 +157,6 @@ let addLivingCityReviews = async (userId, cityReviewData) => {
 module.exports = {
   addFutureCityReviews,
   addPastCityReviews,
+  removeCityReviews,
   addLivingCityReviews
 };

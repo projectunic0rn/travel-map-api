@@ -6,6 +6,7 @@ const typeDefs = gql`
     addPastCityReviews(cityReviews: [CityReview!]): [CityReviews!]!
     addFutureCityReviews(cityReviews: [CityReview!]): [CityReviews!]!
     addLivingCityReviews(cityReviews: [CityReview!]): [CityReviews!]!
+    removeCityReviews(CityReviewId: Int!): CityReviews!
   }
 
   type CityReviews {
@@ -46,6 +47,9 @@ const resolvers = {
     addLivingCityReviews: (_, args, context) => {
       return CityReviewService.addLivingCityReviews(context.user_id, args);
     },
+    removeCityReviews: (_, { CityReviewId }, context) => {
+      return CityReviewService.removeCityReviews(context.user_id, CityReviewId);
+    }
   }
 };
 
