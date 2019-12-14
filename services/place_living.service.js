@@ -29,11 +29,12 @@ let addPlaceLiving = async (userId, placeLivingObj) => {
         if (AuthService.isNotLoggedIn(user)) {
             throw new ForbiddenError("Not Authorized to add a place living to someone elses account")
         }
+        console.log(placeLivingObj)
           let livingPlace = {
             country: placeLivingObj.country.country,
             countryId: placeLivingObj.country.countryId,
             countryISO: placeLivingObj.country.countryISO}
-            if (placeLivingObj.cities.city !== undefined) {
+            if (placeLivingObj.cities !== undefined) {
                 livingPlace.city = placeLivingObj.cities.city;
                 livingPlace.cityId = placeLivingObj.cities.cityId;
                 livingPlace.city_latitude =  placeLivingObj.cities.city_latitude;
