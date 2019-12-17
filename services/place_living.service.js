@@ -29,7 +29,6 @@ let addPlaceLiving = async (userId, placeLivingObj) => {
         if (AuthService.isNotLoggedIn(user)) {
             throw new ForbiddenError("Not Authorized to add a place living to someone elses account")
         }
-        console.log(placeLivingObj)
           let livingPlace = {
             country: placeLivingObj.country.country,
             countryId: placeLivingObj.country.countryId,
@@ -39,6 +38,11 @@ let addPlaceLiving = async (userId, placeLivingObj) => {
                 livingPlace.cityId = placeLivingObj.cities.cityId;
                 livingPlace.city_latitude =  placeLivingObj.cities.city_latitude;
                 livingPlace.city_longitude = placeLivingObj.cities.city_longitude;
+            } else {
+              livingPlace.city = "";
+              livingPlace.cityId = 0;
+              livingPlace.city_latitude =  0;
+              livingPlace.city_longitude = 0;
             }
           
           return await user.createPlace_living(livingPlace).then(livingPlace => livingPlace);
