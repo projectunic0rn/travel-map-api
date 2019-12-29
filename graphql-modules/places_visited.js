@@ -35,6 +35,7 @@ const typeDefs = gql`
       arriving_date: String
       departing_date: String
     ): [Place_visited!]!
+    addMultiplePlaces(clickedCityArray: [Places_visited!]): [Place_visited!]!
     removePlaceVisited(placeVisitedId: Int!): Place_visited
     removePlacesInCountry(countryISO: String!): [Place_visited!]
     updateVisitedCityBasics(
@@ -66,6 +67,17 @@ const typeDefs = gql`
     arriving_date: String
     departing_date: String
     CityReviews: [CityReviews!]
+  }
+
+  input Places_visited {
+    country: String!
+    countryId: Float!
+    countryISO: String!
+    city: String
+    cityId: Float
+    city_latitude: Float
+    city_longitude: Float
+    tripTiming: Int!
   }
 
   input CityBasics {
@@ -103,6 +115,9 @@ const resolvers = {
   Mutation: {
     addPlaceVisited: async (_, args, context) => {
       return await PlaceVisitedService.addPlaceVisited(context.user_id, args);
+    },
+    addMultiplePlaces: async (_, args, context) => {
+      return await PlaceVisitedService.addMultiplePlaces(context.user_id, args);
     },
     removePlaceVisited: async (_, { placeVisitedId }, context) => {
       return await PlaceVisitedService.removePlaceVisited(

@@ -119,6 +119,38 @@ let addPlaceVisited = async (userId, placeVisitedObj) => {
   }
 };
 
+let addMultiplePlaces = async (userId, placesArray) => {
+  try {
+    let user = await User.findByPk(userId);
+    if (AuthService.isNotLoggedIn(user)) {
+      throw new ForbiddenError("Not Authorized to add place visited");
+    }
+
+    let placesVisited = [];
+    let placesVisiting = [];
+    let placesLiving = [];
+    for (let city of placesArray.clickedCityArray) {
+      if (city.tripTiming === 0) {
+        delete city.tripTiming;
+        let placeVisited = user.createPlace_visited(city);
+        placesVisited.push(placeVisited);
+      } else if (city.tripTiming === 1) {
+        delete city.tripTiming;
+        let placeVisiting = user.createPlace_visiting(city);
+        placesVisiting.push(placeVisiting);
+      } else if (city.tripTiming === 2) {
+        delete city.tripTiming;
+        let placeLiving = user.createPlace_living(city);
+        placesLiving.push(placeLiving);
+      }
+    } 
+    return await placesVisited.concat(placesVisiting).concat(placesLiving);
+  } catch (err) {
+    console.error(err);
+    throw new Error(err);
+  }
+};
+
 let removePlaceVisited = async (userId, placeVisitedId) => {
   try {
     let user = await User.findByPk(userId);
@@ -229,5 +261,6 @@ module.exports = {
   removePlaceVisited,
   removePlacesInCountry,
   updateVisitedCityBasics,
-  updateVisitedCityComments
+  updateVisitedCityComments,
+  addMultiplePlaces
 };

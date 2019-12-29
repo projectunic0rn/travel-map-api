@@ -61,6 +61,7 @@ let registerUser = async (userObj) => {
   }
 };
 
+
 let changePassword = async (userId, oldPassword, password, password2) => {
   const { errors, isValid } = await validatePassword(
     { oldPassword, password, password2 },
