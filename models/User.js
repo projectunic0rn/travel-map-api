@@ -37,6 +37,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     color: {
       type: DataTypes.STRING,
+    },
+    georneyScore: {
+      type: DataTypes.INTEGER
     }
   }, {
       tableName: 'users'

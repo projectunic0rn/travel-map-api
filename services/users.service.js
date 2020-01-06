@@ -9,14 +9,14 @@ const UserSocials = require("../models").UserSocial;
 const CityReview = require("../models").CityReview;
 const validateBasicInfo = require("../validation/validateBasicInfo");
 
-let loadAllUsers = async (args) => {
+let loadAllUsers = async args => {
   try {
     let users = await User.findAll({
       where: args,
       include: [
-        { model: PlaceVisited, include: [{model: CityReview}] },
-        { model: PlaceLiving, include: [{model: CityReview}] },
-        { model: PlaceVisiting, include: [{model: CityReview}] },
+        { model: PlaceVisited, include: [{ model: CityReview }] },
+        { model: PlaceLiving, include: [{ model: CityReview }] },
+        { model: PlaceVisiting, include: [{ model: CityReview }] },
         { model: UserInterests },
         { model: UserSocials }
       ]
@@ -27,33 +27,33 @@ let loadAllUsers = async (args) => {
   }
 };
 
-let searchUser = async (args) => {
+let searchUser = async args => {
   try {
     let user = await User.findOne({
       where: args,
       include: [
-        { model: PlaceVisited, include: [{model: CityReview}] },
-        { model: PlaceLiving, include: [{model: CityReview}] },
-        { model: PlaceVisiting, include: [{model: CityReview}] },
+        { model: PlaceVisited, include: [{ model: CityReview }] },
+        { model: PlaceLiving, include: [{ model: CityReview }] },
+        { model: PlaceVisiting, include: [{ model: CityReview }] },
         { model: UserInterests },
         { model: UserSocials }
       ]
     });
-    console.log(args)
+    console.log(args);
     return user;
   } catch (err) {
     throw new Error(err);
   }
 };
 
-let getLoggedInUser = async (args) => {
+let getLoggedInUser = async args => {
   try {
     let user = await User.findOne({
       where: args,
       include: [
-        { model: PlaceVisited, include: [{model: CityReview}] },
-        { model: PlaceLiving, include: [{model: CityReview}] },
-        { model: PlaceVisiting, include: [{model: CityReview}] },
+        { model: PlaceVisited, include: [{ model: CityReview }] },
+        { model: PlaceLiving, include: [{ model: CityReview }] },
+        { model: PlaceVisiting, include: [{ model: CityReview }] },
         { model: UserInterests },
         { model: UserSocials }
       ]
@@ -67,7 +67,7 @@ let getLoggedInUser = async (args) => {
   }
 };
 
-let deleteUser = async (args) => {
+let deleteUser = async args => {
   try {
     let user = await User.findByPk(args);
     if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
@@ -96,7 +96,20 @@ let updateBasicInfo = async (userId, userInfoObject) => {
     if (!isValid) {
       return new UserInputError("bad user input", errors);
     }
-    return await user.update(userBasicInfo).then((user) => user);
+    return await user.update(userBasicInfo).then(user => user);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+let updateGeorneyScore = async (userId, georneyScore) => {
+  let newGeorneyScore = georneyScore;
+  try {
+    const user = await User.findByPk(userId);
+    if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
+      throw new ForbiddenError("Not Authorized to edit this user's info");
+    }
+    return await user.update(newGeorneyScore).then(user => user);
   } catch (err) {
     throw new Error(err);
   }
@@ -112,7 +125,7 @@ let updateUserAvatar = async (userId, userInfoObject) => {
     let userAvatarInfo = {
       avatarIndex: userUpdateInfo.avatarIndex,
       color: userUpdateInfo.color
-    }
+    };
     return await user.update(userAvatarInfo).then(user => user);
   } catch (err) {
     throw new Error(err);
@@ -125,5 +138,6 @@ module.exports = {
   getLoggedInUser,
   deleteUser,
   updateBasicInfo,
-  updateUserAvatar
+  updateUserAvatar,
+  updateGeorneyScore
 };

@@ -27,6 +27,9 @@ const typeDefs = gql`
     updateBasicInfo(
       userBasics: UserBasics!
     ): User
+    updateGeorneyScore(
+      georneyScore: Float!
+    ): User
     updateUserAvatar(
       userAvatar: UserAvatar!
     ): User
@@ -42,6 +45,7 @@ const typeDefs = gql`
     phone_number: String
     avatarIndex: Int
     color: String
+    georneyScore: Float
     Places_visited: [Place_visited!]
     Place_living: Place_living
     UserInterests: [UserInterests!]
@@ -105,6 +109,9 @@ const resolvers = {
     },
     updateBasicInfo: (_, args, context) => {
       return UserService.updateBasicInfo(context.user_id, args);
+    },
+    updateGeorneyScore: (_, args, context) => {
+      return UserService.updateGeorneyScore(context.user_id, args);
     },
     updateUserAvatar: (_, args, context) => {
       return UserService.updateUserAvatar(context.user_id, args);

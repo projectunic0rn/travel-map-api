@@ -13,6 +13,7 @@ module.exports = {
           gender: "male",
           avatarIndex: 1,
           color: "red",
+          georneyScore: 10,
           createdAt: new Date(),
           updatedAt: new Date()
         },
@@ -24,6 +25,7 @@ module.exports = {
           gender: "male",
           avatarIndex: 2,
           color: "blue",
+          georneyScore: 100,
           createdAt: new Date(),
           updatedAt: new Date()
         },
@@ -35,6 +37,7 @@ module.exports = {
           gender: "female",
           avatarIndex: 4,
           color: "purple",
+          georneyScore: 1004,
           createdAt: new Date(),
           updatedAt: new Date()
         }
