@@ -1,5 +1,6 @@
 const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
+const compression = require("compression");
 const cors = require("cors");
 const opn = require("opn");
 
@@ -31,6 +32,7 @@ const server = new ApolloServer({
 
 const app = express();
 app.use(cors());
+app.use(compression());
 
 server.applyMiddleware({ app, path: "/graphql" });
 
