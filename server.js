@@ -34,7 +34,13 @@ const app = express();
 app.use(cors());
 app.use(compression());
 
-server.applyMiddleware({ app, path: "/graphql" });
+server.applyMiddleware({
+  app,
+  path: "/graphql",
+  bodyParserConfig: {
+    limit: "100mb"
+  }
+});
 
 app.listen(PORT, () => {
   var env = process.env.NODE_ENV || "dev";

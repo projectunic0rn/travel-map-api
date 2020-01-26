@@ -97,7 +97,10 @@ const resolvers = {
       return AuthService.loginUser(args);
     },
     deleteUser: (_, args, context) => {
-      return UserService.deleteUser(context.user_id || args.id);
+      let searchParameter = args.id
+      ? { id: args.id }
+      : { id: context.user_id };
+      return UserService.deleteUser(searchParameter);
     },
     changePassword: (_, args, context) => {
       return AuthService.changePassword(

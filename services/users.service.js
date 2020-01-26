@@ -68,13 +68,15 @@ let getLoggedInUser = async args => {
 };
 
 let deleteUser = async args => {
+  console.log(args);
   try {
-    let user = await User.findByPk(args);
+    let user = await User.findByPk(args.id);
     if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
       throw new ForbiddenError("Not Authorized to delete user");
     }
-    return await user.destroy();
+    return await user.destroy().then(user => user);
   } catch (err) {
+    console.log(err);
     throw new Error(err);
   }
 };
