@@ -11,6 +11,9 @@ const typeDefs = gql`
 
   type CityReviews {
     id: Int!
+    reviewPlaceId: String!
+    review_latitude: Float
+    review_longitude: Float
     PlaceVisitedId: Int
     PlaceVisitingId: Int
     PlaceLivingId: Int
@@ -24,6 +27,9 @@ const typeDefs = gql`
 
   input CityReview {
     id: Int!
+    reviewPlaceId: String!
+    review_latitude: Float
+    review_longitude: Float
     PlaceVisitedId: Int
     PlaceVisitingId: Int
     PlaceLivingId: Int

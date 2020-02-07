@@ -23,6 +23,9 @@ let addPastCityReviews = async (userId, cityReviewData) => {
       if (review.id === 0) {
         let cityReview = placeRecord.createCityReview({
           id: review.id,
+          reviewPlaceId: review.reviewPlaceId,
+          review_latitude: review.review_latitude,
+          review_longitude: review.review_longitude,
           PlaceVisitedId: review.PlaceVisitedId,
           attraction_type: review.attraction_type,
           attraction_name: review.attraction_name,
@@ -83,7 +86,10 @@ let addFutureCityReviews = async (userId, cityReviewData) => {
       if (review.id === 0) {
         let cityReview = placeRecord.createCityReview({
           id: review.id,
-          PlaceVisitingId: review.PlaceVisitingId,
+          reviewPlaceId: review.reviewPlaceId,
+          review_latitude: review.review_latitude,
+          review_longitude: review.review_longitude,
+          PlaceVisitingId: review.PlaceVisitedId,
           attraction_type: review.attraction_type,
           attraction_name: review.attraction_name,
           rating: review.rating,
@@ -127,7 +133,10 @@ let addLivingCityReviews = async (userId, cityReviewData) => {
       if (review.id === 0) {
         let cityReview = placeRecord.createCityReview({
           id: review.id,
-          PlaceLivingId: review.PlaceLivingId,
+          reviewPlaceId: review.reviewPlaceId,
+          review_latitude: review.review_latitude,
+          review_longitude: review.review_longitude,
+          PlaceLivingId: review.PlaceVisitedId,
           attraction_type: review.attraction_type,
           attraction_name: review.attraction_name,
           rating: review.rating,

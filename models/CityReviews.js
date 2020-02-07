@@ -3,6 +3,18 @@ module.exports = (sequelize, DataTypes) => {
   const CityReview = sequelize.define(
     "CityReview",
     {
+      reviewPlaceId: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      review_longitude: {
+        type: DataTypes.FLOAT,
+        allowNull: true
+      },
+      review_latitude: {
+        type: DataTypes.FLOAT,
+        allowNull: true
+      },
       attraction_type: {
         type: DataTypes.STRING,
         allowNull: false
