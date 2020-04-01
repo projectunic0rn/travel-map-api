@@ -173,36 +173,42 @@ let removePlacesInCountry = async (userId, countryISO) => {
     let user = await User.findByPk(userId);
     let args = countryISO;
     args["UserId"] = userId;
-    let places_visited_in_country = await PlaceVisited.findAll({
-      where: args
-    });
-    let places_visiting_in_country = await PlaceVisiting.findAll({
-      where: args
-    });
-    let place_living_in_country = await PlaceLiving.findAll({
-      where: args
+    let timingType = null;
+    switch(args.tripTiming) {
+      case 0:
+        timingType = PlaceVisited;
+        break;
+      case 1:
+        timingType = PlaceVisiting;
+        break;
+      case 2:
+        timingType = PlaceLiving;
+        break;
+      default:
+        break;
+    }
+    let places_to_remove = await timingType.findAll({
+      where: {
+        UserId: args.UserId,
+        countryISO: args.countryISO
+      }
     });
     if (
-      places_visited_in_country.length +
-        places_visiting_in_country.length +
-        place_living_in_country.length <
+      places_to_remove <
       1
     ) {
       throw new Error("No places to remove");
     }
-    let all_places = places_visiting_in_country
-      .concat(place_living_in_country)
-      .concat(places_visited_in_country);
 
-    if (AuthService.isNotLoggedInOrAuthorized(user, all_places[0].UserId)) {
+    if (AuthService.isNotLoggedInOrAuthorized(user, places_to_remove[0].UserId)) {
       throw new ForbiddenError(
         "Not Authorized to remove a place visited to someone elses account"
       );
     }
-    for (let place = 0; place < all_places.length; place++) {
-      all_places[place].destroy();
+    for (let place = 0; place < places_to_remove.length; place++) {
+      places_to_remove[place].destroy();
     }
-    return all_places;
+    return places_to_remove;
   } catch (err) {
     console.log(err);
     throw new Error(err);

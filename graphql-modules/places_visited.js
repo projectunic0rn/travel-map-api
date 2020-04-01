@@ -37,7 +37,7 @@ const typeDefs = gql`
     ): [Place_visited!]!
     addMultiplePlaces(clickedCityArray: [Places_visited!]): [Place_visited!]!
     removePlaceVisited(placeVisitedId: Int!): Place_visited
-    removePlacesInCountry(countryISO: String!): [Place_visited!]
+    removePlacesInCountry(countryISO: String!, tripTiming: Int!): [Place_visited!]
     updateVisitedCityBasics(
       PlaceVisitedId: Int!
       cityBasics: CityBasics!
