@@ -54,12 +54,9 @@ let addPlaceLiving = async (userId, placeLivingObj) => {
 }
 
 let removePlaceLiving = async (userId, placeLivingId) => {
-    console.log("removePLaceLiving: ", userId)
     try {
         let user = await User.findByPk(userId);
-        console.log('user: ', user)
         let placeLiving = await PlaceLiving.findByPk(placeLivingId);
-        console.log('PlaceLiving: ', placeLiving)
         if (AuthService.isNotLoggedInOrAuthorized(user, placeLiving.UserId)) {
             throw new ForbiddenError("Not Authorized to remove a place living on someone elses account")
         }
@@ -72,11 +69,13 @@ let removePlaceLiving = async (userId, placeLivingId) => {
 
 // This following method assumes userId is passed in the graphql mutation
 let updatePlaceLiving = async (userId, updatedPlaceLivingObj) => {
+  console.log('updatedPlaceLivingObj')
+  console.log(updatedPlaceLivingObj)
     try {
-        console.log(userId)
-        console.log(updatedPlaceLivingObj)
         let user = await User.findByPk(userId);
         let placeLiving = await PlaceLiving.findByPk(updatedPlaceLivingObj.id);
+        console.log('placeLiving')
+        console.log(placeLiving)
         if (!placeLiving) {
           throw new Error("Not a valid living place instance")
         };
