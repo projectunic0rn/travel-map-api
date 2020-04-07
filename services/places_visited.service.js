@@ -145,7 +145,6 @@ let addMultiplePlaces = async (userId, placesArray) => {
             UserId: userId
           }
         });
-        console.log(check_for_previous);
 
         if (check_for_previous !== null) {
           let updatedPlaceLivingObj = {
@@ -157,7 +156,6 @@ let addMultiplePlaces = async (userId, placesArray) => {
             },
             cities: city
           };
-          console.log(updatedPlaceLivingObj);
           PlaceLivingService.updatePlaceLiving(userId, updatedPlaceLivingObj);
         } else {
           let placeLiving = user.createPlace_living(city);

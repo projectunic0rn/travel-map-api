@@ -6,7 +6,6 @@ const AuthService = require("../services/auth.service");
 
 let addUserInterests = async (userId, userInterestArray) => {
   try {
-    console.log(userInterestArray);
     let user = await User.findByPk(userId);
     if (AuthService.isNotLoggedIn(user)) {
       throw new ForbiddenError(
