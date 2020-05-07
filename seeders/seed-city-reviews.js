@@ -7,7 +7,7 @@ module.exports = {
       [
         {
           id: 1,
-          PlaceVisitedId: 57,
+          reviewPlaceId: 57,
           attraction_type: "logistics",
           attraction_name: "car",
           rating: 0,
@@ -19,7 +19,7 @@ module.exports = {
         },
         {
           id: 2,
-          PlaceVisitedId: 57,
+          reviewPlaceId: 57,
           attraction_type: "logistics",
           attraction_name: "bike",
           rating: 2,
@@ -31,7 +31,7 @@ module.exports = {
         },
         {
           id: 3,
-          PlaceVisitedId: 40,
+          reviewPlaceId: 40,
           attraction_type: "logistics",
           attraction_name: "walk",
           rating: 1,
@@ -43,7 +43,7 @@ module.exports = {
         },
         {
           id: 4,
-          PlaceVisitedId: 40,
+          reviewPlaceId: 40,
           attraction_type: "logistics",
           attraction_name: "bus",
           rating: 2,
@@ -55,7 +55,7 @@ module.exports = {
         },
         {
           id: 5,
-          PlaceVisitedId: 40,
+          reviewPlaceId: 40,
           attraction_type: "monument",
           attraction_name: "Coliseum",
           rating: 2,
@@ -68,7 +68,7 @@ module.exports = {
         },
         {
           id: 6,
-          PlaceVisitedId: 40,
+          reviewPlaceId: 40,
           attraction_type: "monument",
           attraction_name: "Trevi Fountain",
           rating: 1,
@@ -81,7 +81,7 @@ module.exports = {
         },
         {
           id: 7,
-          PlaceVisitedId: 40,
+          reviewPlaceId: 40,
           attraction_type: "monument",
           attraction_name: "St. Peter's Basilica",
           rating: 2,
@@ -93,7 +93,7 @@ module.exports = {
         },
         {
           id: 8,
-          PlaceVisitedId: 40,
+          reviewPlaceId: 40,
           attraction_type: "monument",
           attraction_name: "Pantheon",
           rating: 2,
@@ -106,7 +106,7 @@ module.exports = {
         },
         {
           id: 9,
-          PlaceVisitedId: 40,
+          reviewPlaceId: 40,
           attraction_type: "tour",
           attraction_name: "Photography tour",
           rating: 2,
@@ -119,7 +119,7 @@ module.exports = {
         },
         {
           id: 10,
-          PlaceVisitedId: 40,
+          reviewPlaceId: 40,
           attraction_type: "lunch",
           attraction_name: "PanDivino Street Food",
           rating: 2,
