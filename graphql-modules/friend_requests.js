@@ -9,6 +9,7 @@ const typeDefs = gql`
     extend type Mutation {
         sendFriendRequest(username: String!): FriendRequest!
         acceptFriendRequest(friend_request_id: Int!): FriendRequest!
+        rejectFriendRequest(friend_request_id: Int!): FriendRequest!
     }
 
     type FriendRequest {
@@ -36,6 +37,9 @@ const resolvers = {
         },
         acceptFriendRequest: (_, { friend_request_id }, context) => {
             return FriendRequestService.acceptFriendRequest(friend_request_id);
+        },
+        rejectFriendRequest: (_, { friend_request_id }, context) => {
+            return FriendRequestService.rejectFriendRequest(friend_request_id);
         }
     },
     Query: {

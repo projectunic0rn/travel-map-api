@@ -73,11 +73,21 @@ let acceptFriendRequest = async (friend_request_id) => {
 
 }
 
+let rejectFriendRequest = async (friend_request_id) => {
+    try {
+        let updatedRequestId = await FriendRequest.update({ status: -1 }, { where: { id: friend_request_id } });
+        return FriendRequest.findByPk(updatedRequestId[0]);
+    } catch (e) {
+        throw Error(e)
+    }
+
+}
 
 
 module.exports = {
     sendFriendRequest,
     requestAlreadySent,
     loadAllFriendRequests,
-    acceptFriendRequest
+    acceptFriendRequest,
+    rejectFriendRequest
 }
