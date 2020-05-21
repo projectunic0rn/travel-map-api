@@ -15,6 +15,9 @@
 5. You will then want to run the command `sequelize db:migrate --env development` in the terminal at the root of the project. This will run the migration files that creates all the tables in your local database
 6. You can then run `npm start` again, and it should run the app with a connection to your local database
 
+TODO - Update the above section based on new code changes for localhost usage.
+TODO - Add sub-sections on database creation, teardown, accessing via psql, and common sequelize commands (e.g., `npx sequelize-cli db:migrate`, `npx sequelize-cli db:migrate:undo --all`, `npx sequelize-cli db:seed:all`)
+
 ## How can I contribute to the project
 1. You can start off by making sure you join the proj-travel-map channel in the project unicorn slack
 2. We can then get you caught up and figure out what tasks are needed to be done
