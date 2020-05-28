@@ -6,6 +6,9 @@ const typeDefs = gql`
   type Query {
     user(username: String): User
     userId(userId: Int!): User
+    multiUser(username: [SingleUser!]): [User!]
+    getPostsFromCity(username: [SingleUser!], cityId: Int!): [User!]
+    getPostsFromCountry(username: [SingleUser!], country: String!): [User!]
     users: [User!]
     test: String!
   }
@@ -65,6 +68,10 @@ const typeDefs = gql`
     avatarIndex: Int!
     color: String!
   }
+
+  input SingleUser {
+    username: String!
+  }
 `;
 
 const resolvers = {
@@ -84,6 +91,18 @@ const resolvers = {
         ? { id: args.userId }
         : { id: context.user_id };
       return UserService.searchUser(searchParameter);
+    },
+    multiUser: (_, args) => {
+      let argsFormatted = JSON.parse(JSON.stringify(args))
+      return UserService.searchMultiUser(argsFormatted);
+    },
+    getPostsFromCity: async (_, args) => {
+      let argsFormatted = JSON.parse(JSON.stringify(args))
+      return UserService.getPostsFromCity(argsFormatted);
+    },
+    getPostsFromCountry: async (_, args) => {
+      let argsFormatted = JSON.parse(JSON.stringify(args))
+      return UserService.getPostsFromCountry(argsFormatted);
     },
     users: (_, args) => {
       return UserService.loadAllUsers(args);

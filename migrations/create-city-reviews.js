@@ -12,14 +12,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      review_longitude: {
-        type: Sequelize.FLOAT,
-        allowNull: true
-      },
-      review_latitude: {
-        type: Sequelize.FLOAT,
-        allowNull: true
-      },
       PlaceVisitedId: {
         type: Sequelize.INTEGER,
         allowNull: true
@@ -30,6 +22,14 @@ module.exports = {
       },
       PlaceLivingId: {
         type: Sequelize.INTEGER,
+        allowNull: true
+      },
+      review_longitude: {
+        type: Sequelize.FLOAT,
+        allowNull: true
+      },
+      review_latitude: {
+        type: Sequelize.FLOAT,
         allowNull: true
       },
       attraction_type: {
