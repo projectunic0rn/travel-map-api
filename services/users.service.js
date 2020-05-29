@@ -172,7 +172,6 @@ let getPostsFromCountry = async (args) => {
   }
 };
 
-
 let getLoggedInUser = async (args) => {
   try {
     let user = await User.findOne({
@@ -280,5 +279,5 @@ module.exports = {
   updateUserAvatar,
   updateGeorneyScore,
   getPostsFromCity,
-  getPostsFromCountry
+  getPostsFromCountry,
 };
