@@ -2,6 +2,10 @@ const { ApolloServer } = require("apollo-server-express");
 const express = require("express");
 const compression = require("compression");
 const cors = require("cors");
+const corsOptions = {
+  origin: 'https://geornal.herokuapp.com',
+  optionsSuccessStatus:200
+}
 const opn = require("opn");
 
 const AuthService = require("./services/auth.service");
@@ -32,28 +36,8 @@ const server = new ApolloServer({
 });
 
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(compression());
-
-app.use(function (req, res, next) {
-  /*var err = new Error('Not Found');
-   err.status = 404;
-   next(err);*/
-
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', "https://geornal.herokuapp.com");
-
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers,X-Access-Token,XKey,Authorization');
-
-//  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
-  // Pass to next layer of middleware
-  next();
-});
 
 server.applyMiddleware({
   app,

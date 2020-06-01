@@ -48,19 +48,19 @@ let addBlogPosts = async (userId, blogPostData) => {
 };
 
 let removeBlogPost = async (userId, BlogPostId) => {
-  try {
-    let user = await User.findByPk(userId);
-    let blogPostToDelete = await BlogPost.findByPk(BlogPostId);
-    if (AuthService.isNotLoggedIn(user)) {
-      throw new ForbiddenError(
-        "Not Authorized to remove blog posts from someone elses account"
-      );
-    }
-    return await blogPostToDelete.destroy();
-  } catch (err) {
-    console.error(err);
-    throw new Error(err);
-  }
+  // try {
+  //   let user = await User.findByPk(userId);
+  //   let blogPostToDelete = await BlogPost.findByPk(BlogPostId);
+  //   if (AuthService.isNotLoggedIn(user)) {
+  //     throw new ForbiddenError(
+  //       "Not Authorized to remove blog posts from someone elses account"
+  //     );
+  //   }
+  //   return await blogPostToDelete.destroy();
+  // } catch (err) {
+  //   console.error(err);
+  //   throw new Error(err);
+  // }
 };
 
 module.exports = {
