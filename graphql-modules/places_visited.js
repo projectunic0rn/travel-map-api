@@ -37,7 +37,10 @@ const typeDefs = gql`
     ): [Place_visited!]!
     addMultiplePlaces(clickedCityArray: [Places_visited!]): [Place_visited!]!
     removePlaceVisited(placeVisitedId: Int!): Place_visited
-    removePlacesInCountry(countryISO: String!, tripTiming: Int!): [Place_visited!]
+    removePlacesInCountry(
+      countryISO: String!
+      tripTiming: Int!
+    ): [Place_visited!]
     updateVisitedCityBasics(
       PlaceVisitedId: Int!
       cityBasics: CityBasics!
@@ -97,7 +100,7 @@ const resolvers = {
   Query: {
     places_visited: async (_, args) => {
       return await PlaceVisited.findAll({
-        where: args
+        where: args,
       });
     },
     Place_visited: async (_, args) => {
@@ -111,7 +114,7 @@ const resolvers = {
     Country_reviews_all_users: async (_, args) => {
       let searchParameter = args.countryId;
       return PlaceVisitedService.loadCountryVisits(searchParameter);
-    }
+    },
   },
   Mutation: {
     addPlaceVisited: async (_, args, context) => {
@@ -126,10 +129,6 @@ const resolvers = {
         placeVisitedId
       );
     },
-    // Depending on how we deal with this on the frontend (if userId is passed separately from the graphql mutation)
-    // then the argument that accepts UserId can be removed. This will be a tentative
-    // method until the frontend is finalized. Above typedef will look like:
-    // removePlacesVisitedInCountry(countryISO: String!): [Place_visited!]
     removePlacesInCountry: async (_, args, context) => {
       return await PlaceVisitedService.removePlacesInCountry(
         context.user_id,
@@ -140,12 +139,15 @@ const resolvers = {
       return PlaceVisitedService.updateVisitedCityBasics(context.user_id, args);
     },
     updateVisitedCityComments: (_, args, context) => {
-      return PlaceVisitedService.updateVisitedCityComments(context.user_id, args);
+      return PlaceVisitedService.updateVisitedCityComments(
+        context.user_id,
+        args
+      );
     },
-  }
+  },
 };
 
 module.exports = {
   typeDefs,
-  resolvers
+  resolvers,
 };
