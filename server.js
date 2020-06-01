@@ -41,7 +41,7 @@ app.use(function (req, res, next) {
    next(err);*/
 
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'https://geornal.herokuapp.com/');
+  res.setHeader('Access-Control-Allow-Origin', 'https://geornal.herokuapp.com');
 
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
