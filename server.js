@@ -3,7 +3,7 @@ const express = require("express");
 const compression = require("compression");
 const cors = require("cors");
 const corsOptions = {
-  origin: 'https://geornal.herokuapp.com',
+  origin: '*',
   optionsSuccessStatus:200
 }
 const opn = require("opn");
