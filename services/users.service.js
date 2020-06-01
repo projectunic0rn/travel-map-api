@@ -7,19 +7,29 @@ const PlaceVisiting = require("../models").Place_visiting;
 const UserInterests = require("../models").UserInterest;
 const UserSocials = require("../models").UserSocial;
 const CityReview = require("../models").CityReview;
+const BlogPost = require("../models").BlogPost;
 const validateBasicInfo = require("../validation/validateBasicInfo");
 
-let loadAllUsers = async args => {
+let loadAllUsers = async (args) => {
   try {
     let users = await User.findAll({
       where: args,
       include: [
-        { model: PlaceVisited, include: [{ model: CityReview }] },
-        { model: PlaceLiving, include: [{ model: CityReview }] },
-        { model: PlaceVisiting, include: [{ model: CityReview }] },
+        {
+          model: PlaceVisited,
+          include: [{ model: CityReview }, { model: BlogPost }],
+        },
+        {
+          model: PlaceLiving,
+          include: [{ model: CityReview }],
+        },
+        {
+          model: PlaceVisiting,
+          include: [{ model: CityReview }],
+        },
         { model: UserInterests },
-        { model: UserSocials }
-      ]
+        { model: UserSocials },
+      ],
     });
     return users;
   } catch (err) {
@@ -27,36 +37,161 @@ let loadAllUsers = async args => {
   }
 };
 
-let searchUser = async args => {
+let searchUser = async (args) => {
   try {
+    console.log(args);
     let user = await User.findOne({
       where: args,
       include: [
-        { model: PlaceVisited, include: [{ model: CityReview }] },
-        { model: PlaceLiving, include: [{ model: CityReview }] },
-        { model: PlaceVisiting, include: [{ model: CityReview }] },
+        {
+          model: PlaceVisited,
+          include: [{ model: CityReview }, { model: BlogPost }],
+        },
+        {
+          model: PlaceLiving,
+          include: [{ model: CityReview }],
+        },
+        {
+          model: PlaceVisiting,
+          include: [{ model: CityReview }],
+        },
         { model: UserInterests },
-        { model: UserSocials }
-      ]
+        { model: UserSocials },
+      ],
     });
-    console.log(args);
     return user;
   } catch (err) {
     throw new Error(err);
   }
 };
 
-let getLoggedInUser = async args => {
+let searchMultiUser = async (args) => {
+  try {
+    let multiUserArray = [];
+    for (let i in args.username) {
+      let newUser = await User.findOne({
+        where: { username: args.username[i].username },
+        include: [
+          {
+            model: PlaceVisited,
+            include: [{ model: CityReview }, { model: BlogPost }],
+          },
+          {
+            model: PlaceLiving,
+            include: [{ model: CityReview }],
+          },
+          {
+            model: PlaceVisiting,
+            include: [{ model: CityReview }],
+          },
+          { model: UserInterests },
+          { model: UserSocials },
+        ],
+      });
+      multiUserArray.push(newUser);
+    }
+    return multiUserArray;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+let getPostsFromCity = async (args) => {
+  try {
+    let multiUserArray = [];
+    let multiUserBlogPosts = [];
+    for (let i in args.username) {
+      let newUser = await User.findOne({
+        where: { username: args.username[i].username },
+        include: [
+          {
+            model: PlaceVisited,
+            include: [{ model: CityReview }, { model: BlogPost }],
+          },
+        ],
+      });
+      multiUserArray.push(newUser);
+    }
+    for (let i in multiUserArray) {
+      let userBlogPosts = {
+        id: multiUserArray[i].id,
+        username: multiUserArray[i].username,
+        avatarIndex: multiUserArray[i].avatarIndex,
+        Places_visited: multiUserArray[i].Places_visited.filter((place) => {
+          return (
+            place.dataValues.cityId === args.cityId &&
+            place.dataValues.BlogPosts.length >= 1
+          );
+        }),
+      };
+      if (userBlogPosts.Places_visited.length >= 1) {
+        multiUserBlogPosts.push(userBlogPosts);
+      }
+    }
+    return multiUserBlogPosts;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+let getPostsFromCountry = async (args) => {
+  try {
+    let multiUserArray = [];
+    let multiUserBlogPosts = [];
+    for (let i in args.username) {
+      let newUser = await User.findOne({
+        where: { username: args.username[i].username },
+        include: [
+          {
+            model: PlaceVisited,
+            include: [{ model: CityReview }, { model: BlogPost }],
+          },
+        ],
+      });
+      multiUserArray.push(newUser);
+    }
+    for (let i in multiUserArray) {
+      let userBlogPosts = {
+        id: multiUserArray[i].id,
+        username: multiUserArray[i].username,
+        avatarIndex: multiUserArray[i].avatarIndex,
+        Places_visited: multiUserArray[i].Places_visited.filter((place) => {
+          return (
+            place.dataValues.country === args.country &&
+            place.dataValues.BlogPosts.length >= 1
+          );
+        }),
+      };
+      if (userBlogPosts.Places_visited.length >= 1) {
+        multiUserBlogPosts.push(userBlogPosts);
+      }
+    }
+    return multiUserBlogPosts;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+let getLoggedInUser = async (args) => {
   try {
     let user = await User.findOne({
       where: args,
       include: [
-        { model: PlaceVisited, include: [{ model: CityReview }] },
-        { model: PlaceLiving, include: [{ model: CityReview }] },
-        { model: PlaceVisiting, include: [{ model: CityReview }] },
+        {
+          model: PlaceVisited,
+          include: [{ model: CityReview }, { model: BlogPost }],
+        },
+        {
+          model: PlaceLiving,
+          include: [{ model: CityReview }, { model: BlogPost }],
+        },
+        {
+          model: PlaceVisiting,
+          include: [{ model: CityReview }, { model: BlogPost }],
+        },
         { model: UserInterests },
-        { model: UserSocials }
-      ]
+        { model: UserSocials },
+      ],
     });
     if (!user) {
       throw "no user logged in";
@@ -67,14 +202,14 @@ let getLoggedInUser = async args => {
   }
 };
 
-let deleteUser = async args => {
+let deleteUser = async (args) => {
   console.log(args);
   try {
     let user = await User.findByPk(args.id);
     if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
       throw new ForbiddenError("Not Authorized to delete user");
     }
-    return await user.destroy().then(user => user);
+    return await user.destroy().then((user) => user);
   } catch (err) {
     console.log(err);
     throw new Error(err);
@@ -92,13 +227,13 @@ let updateBasicInfo = async (userId, userInfoObject) => {
       gender: userUpdateInfo.gender,
       birthday: userUpdateInfo.birthday,
       phone_number: userUpdateInfo.phone_number,
-      full_name: userUpdateInfo.full_name
+      full_name: userUpdateInfo.full_name,
     };
     let { errors, isValid } = await validateBasicInfo(userBasicInfo);
     if (!isValid) {
       return new UserInputError("bad user input", errors);
     }
-    return await user.update(userBasicInfo).then(user => user);
+    return await user.update(userBasicInfo).then((user) => user);
   } catch (err) {
     throw new Error(err);
   }
@@ -111,7 +246,7 @@ let updateGeorneyScore = async (userId, georneyScore) => {
     if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
       throw new ForbiddenError("Not Authorized to edit this user's info");
     }
-    return await user.update(newGeorneyScore).then(user => user);
+    return await user.update(newGeorneyScore).then((user) => user);
   } catch (err) {
     throw new Error(err);
   }
@@ -126,9 +261,9 @@ let updateUserAvatar = async (userId, userInfoObject) => {
     }
     let userAvatarInfo = {
       avatarIndex: userUpdateInfo.avatarIndex,
-      color: userUpdateInfo.color
+      color: userUpdateInfo.color,
     };
-    return await user.update(userAvatarInfo).then(user => user);
+    return await user.update(userAvatarInfo).then((user) => user);
   } catch (err) {
     throw new Error(err);
   }
@@ -137,9 +272,12 @@ let updateUserAvatar = async (userId, userInfoObject) => {
 module.exports = {
   loadAllUsers,
   searchUser,
+  searchMultiUser,
   getLoggedInUser,
   deleteUser,
   updateBasicInfo,
   updateUserAvatar,
-  updateGeorneyScore
+  updateGeorneyScore,
+  getPostsFromCity,
+  getPostsFromCountry,
 };

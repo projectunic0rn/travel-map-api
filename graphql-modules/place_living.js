@@ -68,8 +68,7 @@ const typeDefs = gql`
     hardest_comment: String
     trip_purpose: String
     trip_company: String
-    CityReviews: [CityReviews!]
-  }
+    CityReviews: [CityReviews!]  }
 `;
 
 const resolvers = {
