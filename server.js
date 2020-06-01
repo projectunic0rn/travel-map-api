@@ -59,7 +59,9 @@ server.applyMiddleware({
   app,
   path: "/graphql",
   bodyParserConfig: {
-    limit: "100mb"
+    limit: "200mb",
+    parameterLimit: 1000000,
+    extended: true
   }
 });
 
