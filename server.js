@@ -37,7 +37,10 @@ const server = new ApolloServer({
 
 const app = express();
 app.use(cors(corsOptions));
+app.options('*', cors());
 app.use(compression());
+
+console.log(app);
 
 server.applyMiddleware({
   app,
