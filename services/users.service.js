@@ -119,8 +119,9 @@ let getPostsFromCity = async (args) => {
         avatarIndex: multiUserArray[i].avatarIndex,
         Places_visited: multiUserArray[i].Places_visited.filter((place) => {
           return (
-            place.dataValues.cityId === args.cityId &&
-            place.dataValues.BlogPosts.length >= 1
+            place.dataValues.cityId === args.cityId
+            //  &&
+            // place.dataValues.BlogPosts.length >= 1
           );
         }),
       };
@@ -228,6 +229,7 @@ let updateBasicInfo = async (userId, userInfoObject) => {
       birthday: userUpdateInfo.birthday,
       phone_number: userUpdateInfo.phone_number,
       full_name: userUpdateInfo.full_name,
+      email: userUpdateInfo.email
     };
     let { errors, isValid } = await validateBasicInfo(userBasicInfo);
     if (!isValid) {
