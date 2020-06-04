@@ -120,8 +120,6 @@ let getPostsFromCity = async (args) => {
         Places_visited: multiUserArray[i].Places_visited.filter((place) => {
           return (
             place.dataValues.cityId === args.cityId
-            //  &&
-            // place.dataValues.BlogPosts.length >= 1
           );
         }),
       };
