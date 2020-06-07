@@ -117,6 +117,7 @@ let getPostsFromCity = async (args) => {
         id: multiUserArray[i].id,
         username: multiUserArray[i].username,
         avatarIndex: multiUserArray[i].avatarIndex,
+        email: multiUserArray[i].email,
         Places_visited: multiUserArray[i].Places_visited.filter((place) => {
           return (
             place.dataValues.cityId === args.cityId
@@ -154,6 +155,7 @@ let getPostsFromCountry = async (args) => {
         id: multiUserArray[i].id,
         username: multiUserArray[i].username,
         avatarIndex: multiUserArray[i].avatarIndex,
+        email: multiUserArray[i].email,
         Places_visited: multiUserArray[i].Places_visited.filter((place) => {
           return (
             place.dataValues.country === args.country &&
