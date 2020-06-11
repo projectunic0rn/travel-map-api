@@ -30,9 +30,6 @@ const typeDefs = gql`
     reviewPlaceId: String!
     review_latitude: Float
     review_longitude: Float
-    PlaceVisitedId: Int
-    PlaceVisitingId: Int
-    PlaceLivingId: Int
     attraction_type: String!
     attraction_name: String!
     rating: Int

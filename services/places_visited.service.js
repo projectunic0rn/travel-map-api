@@ -3,6 +3,7 @@ const PlaceVisited = require("../models").Place_visited;
 const PlaceVisiting = require("../models").Place_visiting;
 const PlaceLiving = require("../models").Place_living;
 const CityReview = require("../models").CityReview;
+const BlogPost = require("../models").BlogPost;
 const { ForbiddenError } = require("apollo-server");
 const AuthService = require("../services/auth.service");
 const PlaceLivingService = require("../services/place_living.service");
@@ -11,7 +12,7 @@ let loadPlacesVisited = async args => {
   try {
     let placesVisited = await PlaceVisited.findAll({
       where: args,
-      include: [{ model: CityReview }]
+      include: [{ model: CityReview }, { model: BlogPost }]
     });
     return placesVisited;
   } catch (err) {
@@ -25,7 +26,7 @@ let loadCityVisits = async args => {
       where: {
         cityId: args
       },
-      include: [{ model: CityReview }]
+      include: [{ model: CityReview }, { model: BlogPost }]
     });
     let placesVisiting = await PlaceVisiting.findAll({
       where: {
@@ -51,7 +52,7 @@ let loadCountryVisits = async args => {
       where: {
         countryId: args
       },
-      include: [{ model: CityReview }]
+      include: [{ model: CityReview }, { model: BlogPost }]
     });
     let placesVisiting = await PlaceVisiting.findAll({
       where: {

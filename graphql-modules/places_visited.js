@@ -67,6 +67,7 @@ const typeDefs = gql`
     arriving_date: String
     departing_date: String
     CityReviews: [CityReviews!]
+    BlogPosts: [BlogPosts!]
   }
 
   input Places_visited {
@@ -110,7 +111,7 @@ const resolvers = {
     Country_reviews_all_users: async (_, args) => {
       let searchParameter = args.countryId;
       return PlaceVisitedService.loadCountryVisits(searchParameter);
-    },
+    }
   },
   Mutation: {
     addPlaceVisited: async (_, args, context) => {

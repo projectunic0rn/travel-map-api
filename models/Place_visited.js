@@ -74,6 +74,7 @@ module.exports = (sequelize, DataTypes) => {
   Place_visited.associate = function (models) {
     Place_visited.belongsTo(models.User)
     Place_visited.hasMany(models.CityReview)
+    Place_visited.hasMany(models.BlogPost)
   };
   return Place_visited;
 };

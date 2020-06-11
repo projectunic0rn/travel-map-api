@@ -49,7 +49,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   CityReview.associate = function(models) {
-    // associations can be defined here
     CityReview.belongsTo(models.Place_visited);
     CityReview.belongsTo(models.Place_visiting);
     CityReview.belongsTo(models.Place_living);

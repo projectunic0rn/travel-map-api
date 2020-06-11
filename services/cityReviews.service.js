@@ -37,7 +37,6 @@ let addPastCityReviews = async (userId, cityReviewData) => {
         cityReviews.push(cityReview);
       } else {
         let reviewToUpdate = await CityReviews.findByPk(review.id);
-        console.log(reviewToUpdate);
         if (AuthService.isNotLoggedIn(user, reviewToUpdate.UserId)) {
           throw new ForbiddenError(
             "Not Authorized to update an interest on someone else's account"
