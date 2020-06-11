@@ -56,7 +56,7 @@ let sendFriendRequest = async (current_user_id, receiving_username) => {
 }
 
 let loadAllFriendRequests = async (current_user_id) => {
-    let fr = await db.sequelize.query("SELECT fr.id AS fr_id, fr.createdAt as fr_time_Sent, u.id AS sender_id, fr.status, u.username AS sender_username FROM friend_requests AS fr JOIN users u ON u.id = fr.senderId WHERE fr.receiverId = ? AND status = 0", {
+    let fr = await db.sequelize.query("SELECT fr.id AS fr_id, fr.\"createdAt\" as fr_time_Sent, u.id AS \"senderId\", fr.status, u.username AS sender_username FROM friend_requests AS fr JOIN users u ON u.id = fr.\"senderId\" WHERE fr.\"receiverId\" = ? AND status = 0", {
         replacements: [current_user_id],
         type: Sequelize.QueryTypes.SELECT
     });

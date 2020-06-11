@@ -21,8 +21,8 @@ const typeDefs = gql`
 
     type FriendRequestPayload {
        fr_id: Int! 
-       sender_id: Int!
-       receiver_id: Int!
+       senderId: Int!
+       receiverId: Int!
        status: Int!
        sender_username: String!
        fr_time_Sent: String!
