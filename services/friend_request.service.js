@@ -55,12 +55,38 @@ let sendFriendRequest = async (current_user_id, receiving_username) => {
     }
 }
 
+
+let getRequestsForUser = async (userId) => {
+    let receivingUser = await User.findByPk(receiverId);
+    if (!receivingUser) {
+        throw new Error("The user you are trying to send a friend request to doesn't exist");
+    }
+    let result = await FriendRequest.findAll({
+        where: Sequelize.and(
+            { senderId: userId },
+            { receiverId: !userId }
+        )
+    });
+    return result.length !== 0;
+}
+
+// Load all INCOMING friend requests;
+// Will load all friend which the current user is the RECEIVER of the requests.
+// TODO: Convert to GraphQL versions of INBOUND and OUTBOUND requests.
 let loadAllFriendRequests = async (current_user_id) => {
     let fr = await db.sequelize.query("SELECT fr.id AS fr_id, fr.\"createdAt\" as fr_time_Sent, u.id AS \"senderId\", fr.status, u.username AS sender_username FROM friend_requests AS fr JOIN users u ON u.id = fr.\"senderId\" WHERE fr.\"receiverId\" = ? AND status = 0", {
         replacements: [current_user_id],
         type: Sequelize.QueryTypes.SELECT
     });
     return fr;
+}
+
+let loadCurrentInboundFriendRequests = async (current_user_id) => {
+    // TODO
+}
+
+let loadCurrentOutboundFriendRequests = async (current_user_id) => {
+    // TODO
 }
 
 let acceptFriendRequest = async (friend_request_id) => {
@@ -87,6 +113,7 @@ let rejectFriendRequest = async (friend_request_id) => {
 module.exports = {
     sendFriendRequest,
     requestAlreadySent,
+    getRequestsForUser,
     loadAllFriendRequests,
     acceptFriendRequest,
     rejectFriendRequest

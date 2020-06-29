@@ -3,6 +3,7 @@ const FriendRequestService = require('../services/friend_request.service');
 
 const typeDefs = gql`
     extend type Query {
+        getRequestsForUser(senderId: Int!): [FriendRequestPayload!]
         friend_requests: [FriendRequestPayload!]
     }
 
@@ -45,7 +46,11 @@ const resolvers = {
     Query: {
         friend_requests: (_, __, context) => {
             return FriendRequestService.loadAllFriendRequests(context.user_id);
-        }
+        },
+        getRequestsForUser: async (_, { current_user_id }) => {
+            let argsFormatted = JSON.parse(JSON.stringify(args))
+            return FriendRequestService.getFriendRequestsForUser(current_user_id);
+        },
     }
 }
 
