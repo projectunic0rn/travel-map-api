@@ -54,6 +54,7 @@ const typeDefs = gql`
     UserInterests: [UserInterests!]
     UserSocials: [UserSocials!]
     Places_visiting: [Place_visiting!]
+    Friends: [User!]
   }
 
   input UserBasics {
@@ -84,7 +85,7 @@ const resolvers = {
       let searchParameter = args.username
         ? { username: args.username }
         : { id: context.user_id };
-      return UserService.searchUser(searchParameter);
+      return UserService.searchUser(searchParameter, context.user_id);
     },
     userId: (_, args, context) => {
       let searchParameter = args.userId
