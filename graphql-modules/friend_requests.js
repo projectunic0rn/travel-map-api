@@ -22,10 +22,15 @@ const typeDefs = gql`
 
   type FriendRequestPayload {
     id: Int!
+    requestId: Int!
     username: String!
     avatarIndex: Int!
     color: String!
     georneyScore: Float!
+    UserInterests: [UserInterests!]
+    Place_living: Place_living
+    Places_visited: [Place_visited!]
+    Places_visiting: [Place_visiting!]
     fr_time_Sent: String
   }
 `;

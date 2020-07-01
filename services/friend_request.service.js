@@ -1,6 +1,9 @@
 const User = require("../models").User;
 const FriendRequest = require("../models").FriendRequest;
 const UserInterests = require("../models").UserInterest;
+const PlaceVisited = require("../models").Place_visited;
+const PlaceLiving = require("../models").Place_living;
+const PlaceVisiting = require("../models").Place_visiting;
 const Sequelize = require("sequelize");
 const db = require("../models/index");
 const socket = require("../socket");
@@ -70,11 +73,24 @@ let getRequestsForUser = async (userId) => {
   let result = await FriendRequest.findAll({
     where: Sequelize.and({ status: 0 }, { receiverId: userId }),
   });
+  console.log(result);
   for (let i in result) {
     let user = await User.findOne({
       where: result[i].senderId,
-      include: [{ model: UserInterests }],
+      include: [
+        { model: UserInterests },
+        {
+          model: PlaceVisited,
+        },
+        {
+          model: PlaceLiving,
+        },
+        {
+          model: PlaceVisiting,
+        },
+      ],
     });
+    user.dataValues.requestId = result[i].dataValues.id;
     pendingRequestArray.push(user.dataValues);
   }
   console.log(pendingRequestArray);

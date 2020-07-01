@@ -41,7 +41,6 @@ let loadAllUsers = async (args) => {
 
 let searchUser = async (args, userId) => {
   try {
-    console.log(args);
     let user = await User.findOne({
       where: args,
       include: [
@@ -74,13 +73,35 @@ let searchUser = async (args, userId) => {
       if (userFriends[i].senderId !== userId) {
         let user = await User.findOne({
           where: userFriends[i].senderId,
-          include: [{ model: UserInterests }],
+          include: [
+            { model: UserInterests },
+            {
+              model: PlaceVisited,
+            },
+            {
+              model: PlaceLiving,
+            },
+            {
+              model: PlaceVisiting,
+            },
+          ],
         });
         friendArray.push(user.dataValues);
       } else {
         let user = await User.findOne({
           where: userFriends[i].receiverId,
-          include: [{ model: UserInterests }],
+          include: [
+            { model: UserInterests },
+            {
+              model: PlaceVisited,
+            },
+            {
+              model: PlaceLiving,
+            },
+            {
+              model: PlaceVisiting,
+            },
+          ],
         });
         friendArray.push(user.dataValues);
       }
