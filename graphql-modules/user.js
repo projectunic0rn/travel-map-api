@@ -10,6 +10,7 @@ const typeDefs = gql`
     getPostsFromCity(username: [SingleUser!], cityId: Int!): [User!]
     getPostsFromCountry(username: [SingleUser!], country: String!): [User!]
     users: [User!]
+    loadAllPotentialFriends: [User!]
     test: String!
   }
 
@@ -107,7 +108,10 @@ const resolvers = {
     },
     users: (_, args) => {
       return UserService.loadAllUsers(args);
-    }
+    }, 
+    loadAllPotentialFriends: (_, args, context) => {
+      return UserService.loadAllPotentialFriends(args, context.user_id);
+    }, 
   },
   Mutation: {
     registerUser: (_, args) => {

@@ -39,6 +39,41 @@ let loadAllUsers = async (args) => {
   }
 };
 
+let loadAllPotentialFriends = async (args, userId) => {
+  try {
+    let users = await User.findAll({
+      where: args,
+      include: [
+        {
+          model: PlaceVisited
+        },
+        {
+          model: PlaceLiving
+        },
+        { model: UserInterests },
+      ],
+    });
+
+    let requestTableFriendsArray = [userId];
+    let userFriends = await FriendRequest.findAll({
+      where: {
+        [Op.or]: [{ receiverId: userId }, { senderId: userId }],
+      },
+    });
+    for (let i in userFriends) {
+      if (userFriends[i].senderId !== userId) {
+        requestTableFriendsArray.push(userFriends[i].senderId);
+      } else {
+        requestTableFriendsArray.push(userFriends[i].receiverId);
+      }
+    }      
+    let potentialFriends = users.filter((user) => requestTableFriendsArray.indexOf(user.dataValues.id) === -1);
+    return potentialFriends;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 let searchUser = async (args, userId) => {
   try {
     let user = await User.findOne({
@@ -330,4 +365,5 @@ module.exports = {
   updateGeorneyScore,
   getPostsFromCity,
   getPostsFromCountry,
+  loadAllPotentialFriends
 };

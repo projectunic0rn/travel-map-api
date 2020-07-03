@@ -109,10 +109,6 @@ let loadAllFriendRequests = async (current_user_id) => {
   return fr;
 };
 
-let loadCurrentInboundFriendRequests = async (current_user_id) => {
-  // TODO
-};
-
 let loadCurrentOutboundFriendRequests = async (current_user_id) => {
   // TODO
 };
@@ -141,11 +137,28 @@ let rejectFriendRequest = async (friend_request_id) => {
   }
 };
 
+let deleteFriend = async (current_user_id, friend_id) => {
+  try {
+    let friend = await FriendRequest.findOne({
+      where: Sequelize.and({ senderId: current_user_id }, { receiverId: friend_id }),
+    });
+    console.log(friend)
+    // if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
+    //   throw new ForbiddenError("Not Authorized to delete user");
+    // }
+    return await friend.destroy().then((friend) => friend);
+  } catch (err) {
+    console.log(err);
+    throw new Error(err);
+  }
+};
+
 module.exports = {
   sendFriendRequest,
   requestAlreadySent,
   getRequestsForUser,
   loadAllFriendRequests,
+  deleteFriend,
   acceptFriendRequest,
   rejectFriendRequest,
 };

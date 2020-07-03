@@ -11,6 +11,7 @@ const typeDefs = gql`
     sendFriendRequest(username: String!): FriendRequest!
     acceptFriendRequest(friend_request_id: Int!): FriendRequest!
     rejectFriendRequest(friend_request_id: Int!): FriendRequest!
+    deleteFriend(friend_id: Int!): FriendRequest!
   }
 
   type FriendRequest {
@@ -40,11 +41,14 @@ const resolvers = {
     sendFriendRequest: (_, { username }, context) => {
       return FriendRequestService.sendFriendRequest(context.user_id, username);
     },
-    acceptFriendRequest: (_, { friend_request_id }, context) => {
+    acceptFriendRequest: (_, { friend_request_id }) => {
       return FriendRequestService.acceptFriendRequest(friend_request_id);
     },
-    rejectFriendRequest: (_, { friend_request_id }, context) => {
+    rejectFriendRequest: (_, { friend_request_id }) => {
       return FriendRequestService.rejectFriendRequest(friend_request_id);
+    },
+    deleteFriend: (_, { friend_id }, context) => {
+      return FriendRequestService.deleteFriend(context.user_id, friend_id);
     },
   },
   Query: {
