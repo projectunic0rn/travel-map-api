@@ -140,9 +140,12 @@ let rejectFriendRequest = async (friend_request_id) => {
 let deleteFriend = async (current_user_id, friend_id) => {
   try {
     let friend = await FriendRequest.findOne({
-      where: Sequelize.and({ senderId: current_user_id }, { receiverId: friend_id }),
+      where: Sequelize.or(
+        Sequelize.and({ senderId: current_user_id }, { receiverId: friend_id }),
+        Sequelize.and({ senderId: friend_id }, { receiverId: current_user_id })
+      ),
     });
-    console.log(friend)
+    console.log(friend);
     // if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
     //   throw new ForbiddenError("Not Authorized to delete user");
     // }
