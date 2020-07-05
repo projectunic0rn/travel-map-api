@@ -31,7 +31,6 @@ let addBlogPosts = async (userId, blogPostData) => {
         blogPosts.push(blogPost);
       } else {
         let postToUpdate = await BlogPost.findByPk(post.id);
-        console.log(postToUpdate);
         if (AuthService.isNotLoggedIn(user, postToUpdate.UserId)) {
           throw new ForbiddenError(
             "Not Authorized to update a blog post on someone else's account"

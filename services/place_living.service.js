@@ -23,7 +23,6 @@ let loadCityLiving = async args => {
 };
 
 let addPlaceLiving = async (userId, placeLivingObj) => {
-  console.log("placeLivingObj: ", placeLivingObj)
     try {
         let user = await User.findByPk(userId);
         if (AuthService.isNotLoggedIn(user)) {

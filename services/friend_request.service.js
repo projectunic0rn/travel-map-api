@@ -73,7 +73,6 @@ let getRequestsForUser = async (userId) => {
   let result = await FriendRequest.findAll({
     where: Sequelize.and({ status: 0 }, { receiverId: userId }),
   });
-  console.log(result);
   for (let i in result) {
     let user = await User.findOne({
       where: result[i].senderId,
@@ -93,7 +92,6 @@ let getRequestsForUser = async (userId) => {
     user.dataValues.requestId = result[i].dataValues.id;
     pendingRequestArray.push(user.dataValues);
   }
-  console.log(pendingRequestArray);
   return pendingRequestArray;
 };
 
