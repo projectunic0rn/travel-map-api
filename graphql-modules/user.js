@@ -126,14 +126,6 @@ const resolvers = {
       : { id: context.user_id };
       return UserService.deleteUser(searchParameter);
     },
-    changePassword: (_, args, context) => {
-      return AuthService.changePassword(
-        context.user_id,
-        args.oldPassword,
-        args.password,
-        args.password2
-      );
-    },
     updateBasicInfo: (_, args, context) => {
       return UserService.updateBasicInfo(context.user_id, args);
     },

@@ -31,7 +31,7 @@ let sendFriendRequest = async (current_user_id, receiving_username) => {
     });
     if (!receivingUser) {
       throw new Error(
-        "The user you are tying to send a friend request to doesn't exist"
+        "The user you are trying to send a friend request to doesn't exist"
       );
     }
 

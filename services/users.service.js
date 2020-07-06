@@ -100,12 +100,12 @@ let searchUser = async (args, userId) => {
       where: {
         [Op.and]: [
           { status: 1 },
-          { [Op.or]: [{ receiverId: userId }, { senderId: userId }] },
+          { [Op.or]: [{ receiverId: user.dataValues.id }, { senderId: user.dataValues.id }] },
         ],
       },
     });
     for (let i in userFriends) {
-      if (userFriends[i].senderId !== userId) {
+      if (userFriends[i].senderId !== user.dataValues.id) {
         let user = await User.findOne({
           where: userFriends[i].senderId,
           include: [
