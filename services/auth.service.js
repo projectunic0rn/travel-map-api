@@ -68,8 +68,6 @@ let changePassword = async (userId, oldPassword, password, password2) => {
     userId
   );
 
-  console.log(oldPassword, password, password2);
-
   if (!isValid) {
     return new UserInputError("bad user input", errors);
   }

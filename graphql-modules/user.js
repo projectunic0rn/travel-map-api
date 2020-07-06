@@ -10,6 +10,7 @@ const typeDefs = gql`
     getPostsFromCity(username: [SingleUser!], cityId: Int!): [User!]
     getPostsFromCountry(username: [SingleUser!], country: String!): [User!]
     users: [User!]
+    loadAllPotentialFriends: [User!]
     test: String!
   }
 
@@ -54,6 +55,7 @@ const typeDefs = gql`
     UserInterests: [UserInterests!]
     UserSocials: [UserSocials!]
     Places_visiting: [Place_visiting!]
+    Friends: [User!]
   }
 
   input UserBasics {
@@ -84,7 +86,7 @@ const resolvers = {
       let searchParameter = args.username
         ? { username: args.username }
         : { id: context.user_id };
-      return UserService.searchUser(searchParameter);
+      return UserService.searchUser(searchParameter, context.user_id);
     },
     userId: (_, args, context) => {
       let searchParameter = args.userId
@@ -106,7 +108,10 @@ const resolvers = {
     },
     users: (_, args) => {
       return UserService.loadAllUsers(args);
-    }
+    }, 
+    loadAllPotentialFriends: (_, args, context) => {
+      return UserService.loadAllPotentialFriends(args, context.user_id);
+    }, 
   },
   Mutation: {
     registerUser: (_, args) => {
@@ -120,14 +125,6 @@ const resolvers = {
       ? { id: args.id }
       : { id: context.user_id };
       return UserService.deleteUser(searchParameter);
-    },
-    changePassword: (_, args, context) => {
-      return AuthService.changePassword(
-        context.user_id,
-        args.oldPassword,
-        args.password,
-        args.password2
-      );
     },
     updateBasicInfo: (_, args, context) => {
       return UserService.updateBasicInfo(context.user_id, args);

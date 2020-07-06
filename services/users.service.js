@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { UserInputError } = require("apollo-server");
 const User = require("../models").User;
 const AuthService = require("../services/auth.service");
@@ -8,6 +9,7 @@ const UserInterests = require("../models").UserInterest;
 const UserSocials = require("../models").UserSocial;
 const CityReview = require("../models").CityReview;
 const BlogPost = require("../models").BlogPost;
+const FriendRequest = require("../models").FriendRequest;
 const validateBasicInfo = require("../validation/validateBasicInfo");
 
 let loadAllUsers = async (args) => {
@@ -37,9 +39,43 @@ let loadAllUsers = async (args) => {
   }
 };
 
-let searchUser = async (args) => {
+let loadAllPotentialFriends = async (args, userId) => {
   try {
-    console.log(args);
+    let users = await User.findAll({
+      where: args,
+      include: [
+        {
+          model: PlaceVisited
+        },
+        {
+          model: PlaceLiving
+        },
+        { model: UserInterests },
+      ],
+    });
+
+    let requestTableFriendsArray = [userId];
+    let userFriends = await FriendRequest.findAll({
+      where: {
+        [Op.or]: [{ receiverId: userId }, { senderId: userId }],
+      },
+    });
+    for (let i in userFriends) {
+      if (userFriends[i].senderId !== userId) {
+        requestTableFriendsArray.push(userFriends[i].senderId);
+      } else {
+        requestTableFriendsArray.push(userFriends[i].receiverId);
+      }
+    }      
+    let potentialFriends = users.filter((user) => requestTableFriendsArray.indexOf(user.dataValues.id) === -1);
+    return potentialFriends;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+let searchUser = async (args, userId) => {
+  try {
     let user = await User.findOne({
       where: args,
       include: [
@@ -59,6 +95,53 @@ let searchUser = async (args) => {
         { model: UserSocials },
       ],
     });
+    let friendArray = [];
+    let userFriends = await FriendRequest.findAll({
+      where: {
+        [Op.and]: [
+          { status: 1 },
+          { [Op.or]: [{ receiverId: user.dataValues.id }, { senderId: user.dataValues.id }] },
+        ],
+      },
+    });
+    for (let i in userFriends) {
+      if (userFriends[i].senderId !== user.dataValues.id) {
+        let user = await User.findOne({
+          where: userFriends[i].senderId,
+          include: [
+            { model: UserInterests },
+            {
+              model: PlaceVisited,
+            },
+            {
+              model: PlaceLiving,
+            },
+            {
+              model: PlaceVisiting,
+            },
+          ],
+        });
+        friendArray.push(user.dataValues);
+      } else {
+        let user = await User.findOne({
+          where: userFriends[i].receiverId,
+          include: [
+            { model: UserInterests },
+            {
+              model: PlaceVisited,
+            },
+            {
+              model: PlaceLiving,
+            },
+            {
+              model: PlaceVisiting,
+            },
+          ],
+        });
+        friendArray.push(user.dataValues);
+      }
+    }
+    user.Friends = friendArray;
     return user;
   } catch (err) {
     throw new Error(err);
@@ -120,9 +203,7 @@ let getPostsFromCity = async (args) => {
         color: multiUserArray[i].color,
         email: multiUserArray[i].email,
         Places_visited: multiUserArray[i].Places_visited.filter((place) => {
-          return (
-            place.dataValues.cityId === args.cityId
-          );
+          return place.dataValues.cityId === args.cityId;
         }),
       };
       if (userBlogPosts.Places_visited.length >= 1) {
@@ -231,7 +312,7 @@ let updateBasicInfo = async (userId, userInfoObject) => {
       birthday: userUpdateInfo.birthday,
       phone_number: userUpdateInfo.phone_number,
       full_name: userUpdateInfo.full_name,
-      email: userUpdateInfo.email
+      email: userUpdateInfo.email,
     };
     let { errors, isValid } = await validateBasicInfo(userBasicInfo);
     if (!isValid) {
@@ -284,4 +365,5 @@ module.exports = {
   updateGeorneyScore,
   getPostsFromCity,
   getPostsFromCountry,
+  loadAllPotentialFriends
 };

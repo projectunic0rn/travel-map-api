@@ -213,7 +213,6 @@ let removePlacesInCountry = async (userId, countryISO) => {
         countryISO: args.countryISO
       }
     });
-    console.log(places_to_remove);
     if (places_to_remove < 1) {
       throw new Error("No places to remove");
     }
