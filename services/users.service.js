@@ -96,6 +96,7 @@ let searchUser = async (args, userId) => {
       ],
     });
     let friendArray = [];
+    console.log(user)
     let userFriends = await FriendRequest.findAll({
       where: {
         [Op.and]: [
