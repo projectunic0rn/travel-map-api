@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@scout_apm/scout-apm": "^0.1.10",
     "apollo-engine": "^1.1.2",
     "apollo-server": "^2.5.0",
     "apollo-server-express": "^2.5.0",
