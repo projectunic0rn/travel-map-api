@@ -45,21 +45,34 @@ server.applyMiddleware({
   }
 });
 
-async function start() {
-  // Trigger the download and installation of the core-agent
-  await scout.install();
-
-  // Start express
-  app.start()
-}
-
-start();
-
-app.listen(PORT, () => {
-  var env = process.env.NODE_ENV || "dev";
-  if (env == "dev") {
-    console.log("Running development environment!");
-    // opn(`http://localhost:${PORT}/graphql`);
-    console.log(`Playground is up at localhost:${PORT}/graphql`);
+// Shut down the core-agent when this program exits
+process.on('exit', () => {
+  if (app && app.scout) {
+    app.scout.shutdown();
   }
 });
+
+async function start() {
+  // Install and wait for scout to set up
+  await scout.install({
+    monitor: true, // enable monitoring
+    name: "Geornal", // TODO - pull from process.env.SCOUT_NAME
+    key: "GoxZjBHTIVOK7LXi8l0T", // TODO - pull from process.env.SCOUT_KEY
+
+    // allow scout to be shutdown when the process exits
+    allowShutdown: true,
+  });
+
+  // Start express
+  app.listen(PORT, () => {
+    var env = process.env.NODE_ENV || "dev";
+    if (env == "dev") {
+      console.log("Running development environment!");
+      // opn(`http://localhost:${PORT}/graphql`);
+      console.log(`Playground is up at localhost:${PORT}/graphql`);
+    }
+  });
+}
+
+if (require.main === module) { start(); }
+
