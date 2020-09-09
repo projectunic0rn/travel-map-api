@@ -4,7 +4,7 @@ const compression = require("compression");
 const cors = require("cors");
 const opn = require("opn");
 
-import LogRocket from 'logrocket';
+const LogRocket = require("logrocket");
 
 const AuthService = require("./services/auth.service");
 
