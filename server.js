@@ -1,10 +1,11 @@
 const { ApolloServer } = require("apollo-server-express");
 
 const express = require("express");
-const scout = require("@scout_apm/scout-apm");
 const compression = require("compression");
 const cors = require("cors");
 
+
+const LogRocket = require("logrocket");
 
 const AuthService = require("./services/auth.service");
 
@@ -34,7 +35,6 @@ const server = new ApolloServer({
 });
 
 const app = express();
-app.use(scout.expressMiddleware()); // Enable the app-wide scout middleware
 app.use(cors());
 app.use(compression());
 
@@ -47,8 +47,8 @@ server.applyMiddleware({
 });
 
 async function start() {
-  // Trigger the download and installation of the core-agent
-  await scout.install();
+  // Initialize LogRocket
+  LogRocket.init('81ftil/travelmaps');
 
   // Start express
   app.start()

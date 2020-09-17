@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "engines": {
-    "node": ">=12.8.0",
+    "node": ">=12.x",
     "npm": "5.x"
   },
   "keywords": [],
@@ -33,6 +33,7 @@
     "ignore-styles": "^5.0.1",
     "jest": "^24.8.0",
     "jsonwebtoken": "^8.5.1",
+    "logrocket": "^1.0.12",
     "mysql2": "^1.6.5",
     "opn": "^6.0.0",
     "pg": "^7.12.1",
