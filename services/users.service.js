@@ -367,8 +367,7 @@ let updateUserAvatar = async (userId, userInfoObject) => {
       throw new ForbiddenError("Not Authorized to edit this user's info");
     }
     let userAvatarInfo = {
-      avatarIndex: userUpdateInfo.avatarIndex,
-      color: userUpdateInfo.color,
+      avatarIndex: userUpdateInfo.avatarIndex
     };
     return await user.update(userAvatarInfo).then((user) => user);
   } catch (err) {

@@ -68,7 +68,6 @@ const typeDefs = gql`
 
   input UserAvatar {
     avatarIndex: Int!
-    color: String!
   }
 
   input SingleUser {
