@@ -40,7 +40,7 @@ const typeDefs = gql`
   }
 
   type User {
-    id: Int!
+    id: ID!
     username: String!
     full_name: String!
     email: String!
@@ -55,7 +55,7 @@ const typeDefs = gql`
     UserInterests: [UserInterests!]
     UserSocials: [UserSocials!]
     Places_visiting: [Place_visiting!]
-    Friends: [User!]
+    Friends: [User!]!
   }
 
   input UserBasics {
@@ -68,7 +68,6 @@ const typeDefs = gql`
 
   input UserAvatar {
     avatarIndex: Int!
-    color: String!
   }
 
   input SingleUser {

@@ -188,10 +188,10 @@ let removePlaceVisited = async (userId, placeVisitedId) => {
 };
 
 //The following method should be used if userId is passed separate from the graphql mutation
-let removePlacesInCountry = async (userId, countryISO) => {
+let removePlacesInCountry = async (userId, country) => {
   try {
     let user = await User.findByPk(userId);
-    let args = countryISO;
+    let args = country;
     args["UserId"] = userId;
     let timingType = null;
     switch (args.tripTiming) {
@@ -210,7 +210,7 @@ let removePlacesInCountry = async (userId, countryISO) => {
     let places_to_remove = await timingType.findAll({
       where: {
         UserId: args.UserId,
-        countryISO: args.countryISO
+        country: args.country
       }
     });
     if (places_to_remove < 1) {

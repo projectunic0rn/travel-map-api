@@ -45,10 +45,10 @@ let loadAllPotentialFriends = async (args, userId) => {
       where: args,
       include: [
         {
-          model: PlaceVisited
+          model: PlaceVisited,
         },
         {
-          model: PlaceLiving
+          model: PlaceLiving,
         },
         { model: UserInterests },
       ],
@@ -66,8 +66,10 @@ let loadAllPotentialFriends = async (args, userId) => {
       } else {
         requestTableFriendsArray.push(userFriends[i].receiverId);
       }
-    }      
-    let potentialFriends = users.filter((user) => requestTableFriendsArray.indexOf(user.dataValues.id) === -1);
+    }
+    let potentialFriends = users.filter(
+      (user) => requestTableFriendsArray.indexOf(user.dataValues.id) === -1
+    );
     return potentialFriends;
   } catch (err) {
     throw new Error(err);
@@ -95,53 +97,73 @@ let searchUser = async (args, userId) => {
         { model: UserSocials },
       ],
     });
-    let friendArray = [];
-    let userFriends = await FriendRequest.findAll({
-      where: {
-        [Op.and]: [
-          { status: 1 },
-          { [Op.or]: [{ receiverId: user.dataValues.id }, { senderId: user.dataValues.id }] },
-        ],
-      },
+    let newUser = await user.getFriends({
+      include: [
+        {
+          model: PlaceVisited,
+          include: [{ model: CityReview }, { model: BlogPost }],
+        },
+        {
+          model: PlaceLiving,
+          include: [{ model: CityReview }],
+        },
+        {
+          model: PlaceVisiting,
+          include: [{ model: CityReview }],
+        },
+        { model: UserInterests },
+        { model: UserSocials },
+      ],
     });
-    for (let i in userFriends) {
-      if (userFriends[i].senderId !== user.dataValues.id) {
-        let user = await User.findOne({
-          where: userFriends[i].senderId,
-          include: [
-            { model: UserInterests },
-            {
-              model: PlaceVisited,
-            },
-            {
-              model: PlaceLiving,
-            },
-            {
-              model: PlaceVisiting,
-            },
-          ],
-        });
-        friendArray.push(user.dataValues);
-      } else {
-        let user = await User.findOne({
-          where: userFriends[i].receiverId,
-          include: [
-            { model: UserInterests },
-            {
-              model: PlaceVisited,
-            },
-            {
-              model: PlaceLiving,
-            },
-            {
-              model: PlaceVisiting,
-            },
-          ],
-        });
-        friendArray.push(user.dataValues);
-      }
-    }
-    user.Friends = friendArray;
+    console.log(newUser);
+    // let friendArray = [];
+    // // console.log(user)
+    // let userFriends = await FriendRequest.findAll({
+    //   where: {
+    //     [Op.and]: [
+    //       { status: 1 },
+    //       { [Op.or]: [{ receiverId: user.dataValues.id }, { senderId: user.dataValues.id }] },
+    //     ],
+    //   },
+    // });
+    // for (let i in userFriends) {
+    //   if (userFriends[i].senderId !== user.dataValues.id) {
+    //     let user = await User.findOne({
+    //       where: userFriends[i].senderId,
+    //       include: [
+    //         { model: UserInterests },
+    //         {
+    //           model: PlaceVisited,
+    //         },
+    //         {
+    //           model: PlaceLiving,
+    //         },
+    //         {
+    //           model: PlaceVisiting,
+    //         },
+    //       ],
+    //     });
+    //     friendArray.push(user.dataValues);
+    //   } else {
+    //     let user = await User.findOne({
+    //       where: userFriends[i].receiverId,
+    //       include: [
+    //         { model: UserInterests },
+    //         {
+    //           model: PlaceVisited,
+    //         },
+    //         {
+    //           model: PlaceLiving,
+    //         },
+    //         {
+    //           model: PlaceVisiting,
+    //         },
+    //       ],
+    //     });
+    //     friendArray.push(user.dataValues);
+    //   }
+    // }
+    user.Friends = newUser;
     return user;
   } catch (err) {
     throw new Error(err);
@@ -345,8 +367,7 @@ let updateUserAvatar = async (userId, userInfoObject) => {
       throw new ForbiddenError("Not Authorized to edit this user's info");
     }
     let userAvatarInfo = {
-      avatarIndex: userUpdateInfo.avatarIndex,
-      color: userUpdateInfo.color,
+      avatarIndex: userUpdateInfo.avatarIndex
     };
     return await user.update(userAvatarInfo).then((user) => user);
   } catch (err) {
@@ -365,5 +386,5 @@ module.exports = {
   updateGeorneyScore,
   getPostsFromCity,
   getPostsFromCountry,
-  loadAllPotentialFriends
+  loadAllPotentialFriends,
 };

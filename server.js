@@ -1,8 +1,9 @@
 const { ApolloServer } = require("apollo-server-express");
+
 const express = require("express");
 const compression = require("compression");
 const cors = require("cors");
-const opn = require("opn");
+
 
 const LogRocket = require("logrocket");
 
@@ -21,7 +22,7 @@ const server = new ApolloServer({
     require("./graphql-modules/place_visiting"),
     require("./graphql-modules/friend_requests"),
     require("./graphql-modules/city_reviews"),
-    require("./graphql-modules/blog_posts")
+    require("./graphql-modules/blog_posts"),
   ],
   context: ({ req }) => {
     let token = req.headers.authorization;
@@ -30,7 +31,7 @@ const server = new ApolloServer({
     }
   },
   introspection: true,
-  playground: true
+  playground: true,
 });
 
 const app = express();
@@ -41,8 +42,8 @@ server.applyMiddleware({
   app,
   path: "/graphql",
   bodyParserConfig: {
-    limit: "100mb"
-  }
+    limit: "100mb",
+  },
 });
 
 async function start() {
