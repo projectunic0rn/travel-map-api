@@ -115,7 +115,6 @@ let searchUser = async (args, userId) => {
         { model: UserSocials },
       ],
     });
-    console.log(newUser);
     // let friendArray = [];
     // // console.log(user)
     // let userFriends = await FriendRequest.findAll({
@@ -309,7 +308,6 @@ let getLoggedInUser = async (args) => {
 };
 
 let deleteUser = async (args) => {
-  console.log(args);
   try {
     let user = await User.findByPk(args.id);
     if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {

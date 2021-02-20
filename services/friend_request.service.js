@@ -116,15 +116,12 @@ let acceptFriendRequest = async (friend_request_id) => {
     let friendsInvolved = await FriendRequest.findByPk(friend_request_id);
     let senderId = friendsInvolved.dataValues.senderId;
     let receiverId = friendsInvolved.dataValues.receiverId;
-    console.log("senderID", senderId);
     let user = await User.findOne({
       where: { id: senderId },
     });
     let newFriend = await User.findOne({
       where: { id: receiverId },
     });
-    console.log("user");
-    console.log(user);
     user.addFriend(newFriend);
     newFriend.addFriend(user);
     await FriendRequest.update(
@@ -153,8 +150,8 @@ let deleteFriend = async (current_user_id, friend_id) => {
   try {
     let friend = await FriendRequest.findOne({
       where: Sequelize.or(
-        Sequelize.and({ senderId: current_user_id }, { receiverId: friend_id }),
-        Sequelize.and({ senderId: friend_id }, { receiverId: current_user_id })
+        Sequelize.and({ senderId: 36 }, { receiverId: 23 }),
+        Sequelize.and({ senderId: 23 }, { receiverId: 36 })
       ),
     });
     // if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {

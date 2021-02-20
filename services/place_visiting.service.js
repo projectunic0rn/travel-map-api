@@ -10,7 +10,6 @@ const AuthService = require('../services/auth.service');
 
 let loadCityVisiting = async args => {
   try {
-    console.log(args)
     let placesVisiting = await PlaceVisiting.findAll({
       where: {
         cityId: args
@@ -71,9 +70,7 @@ let addPlaceVisiting = async (userId, placeVisitingObj) => {
 
 
     } catch (err) {
-        console.error(err)
         throw new Error(err)
-
     }
 }
 

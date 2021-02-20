@@ -47,7 +47,6 @@ let addPastCityReviews = async (userId, cityReviewData) => {
     }
     return await Promise.all(cityReviews);
   } catch (err) {
-    console.error(err);
     throw new Error(err);
   }
 };
@@ -63,7 +62,6 @@ let removeCityReviews = async (userId, CityReviewId) => {
     }
     return await city_review.destroy();
   } catch (err) {
-    console.error(err);
     throw new Error(err);
   }
 };
@@ -109,7 +107,6 @@ let addFutureCityReviews = async (userId, cityReviewData) => {
     }
     return await Promise.all(cityReviews);
   } catch (err) {
-    console.error(err);
     throw new Error(err);
   }
 };
@@ -155,7 +152,6 @@ let addLivingCityReviews = async (userId, cityReviewData) => {
     }
     return await Promise.all(cityReviews);
   } catch (err) {
-    console.error(err);
     throw new Error(err);
   }
 };

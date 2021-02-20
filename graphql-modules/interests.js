@@ -36,7 +36,6 @@ const resolvers = {
         let request = await Interest.create({ name: name });
         return request;
       } catch (err) {
-        console.log(err);
         throw err;
       }
     }

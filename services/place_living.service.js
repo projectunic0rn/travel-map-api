@@ -47,7 +47,6 @@ let addPlaceLiving = async (userId, placeLivingObj) => {
           return await user.createPlace_living(livingPlace).then(livingPlace => livingPlace);
         
     } catch (err) {
-        console.error(err)
         throw new Error(err)
     }
 }
@@ -61,7 +60,6 @@ let removePlaceLiving = async (userId, placeLivingId) => {
         }
         return await placeLiving.destroy();
     } catch (err) {
-        console.error(err)
         throw new Error(err)
     }
 }
@@ -88,7 +86,6 @@ let updatePlaceLiving = async (userId, updatedPlaceLivingObj) => {
         }
         return await placeLiving.update(livingPlace).then(place_living => place_living);
     } catch (err) {
-        console.error(err)
         throw new Error(err)
     }
 }

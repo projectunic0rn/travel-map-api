@@ -56,7 +56,6 @@ const resolvers = {
       return FriendRequestService.loadAllFriendRequests(context.user_id);
     },
     getRequestsForUser: async (_, args, context) => {
-      // let argsFormatted = JSON.parse(JSON.stringify(args));
       return FriendRequestService.getRequestsForUser(context.user_id, args);
     },
   },
