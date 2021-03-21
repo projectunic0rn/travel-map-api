@@ -1,4 +1,5 @@
 const User = require("../models").User;
+const Friends = require("../models").Friends;
 const FriendRequest = require("../models").FriendRequest;
 const UserInterests = require("../models").UserInterest;
 const PlaceVisited = require("../models").Place_visited;
@@ -116,15 +117,12 @@ let acceptFriendRequest = async (friend_request_id) => {
     let friendsInvolved = await FriendRequest.findByPk(friend_request_id);
     let senderId = friendsInvolved.dataValues.senderId;
     let receiverId = friendsInvolved.dataValues.receiverId;
-    console.log("senderID", senderId);
     let user = await User.findOne({
       where: { id: senderId },
     });
     let newFriend = await User.findOne({
       where: { id: receiverId },
     });
-    console.log("user");
-    console.log(user);
     user.addFriend(newFriend);
     newFriend.addFriend(user);
     await FriendRequest.update(
@@ -151,16 +149,17 @@ let rejectFriendRequest = async (friend_request_id) => {
 
 let deleteFriend = async (current_user_id, friend_id) => {
   try {
-    let friend = await FriendRequest.findOne({
-      where: Sequelize.or(
-        Sequelize.and({ senderId: current_user_id }, { receiverId: friend_id }),
-        Sequelize.and({ senderId: friend_id }, { receiverId: current_user_id })
-      ),
+    let user = await User.findOne({
+      where: id = current_user_id
     });
+    let newFriend = await User.findOne({
+      where: { id: friend_id },
+    });
+    user.removeFriend(newFriend);
+    newFriend.removeFriend(user);
     // if (AuthService.isNotLoggedInOrAuthorized(user, user.id)) {
     //   throw new ForbiddenError("Not Authorized to delete user");
     // }
-    return await friend.destroy().then((friend) => friend);
   } catch (err) {
     console.log(err);
     throw new Error(err);

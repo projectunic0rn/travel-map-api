@@ -55,17 +55,12 @@ let loadAllPotentialFriends = async (args, userId) => {
     });
 
     let requestTableFriendsArray = [userId];
-    let userFriends = await FriendRequest.findAll({
-      where: {
-        [Op.or]: [{ receiverId: userId }, { senderId: userId }],
-      },
-    });
+    let user = await User.findOne({
+      where: id = userId
+    })
+    let userFriends = await user.getFriends();
     for (let i in userFriends) {
-      if (userFriends[i].senderId !== userId) {
-        requestTableFriendsArray.push(userFriends[i].senderId);
-      } else {
-        requestTableFriendsArray.push(userFriends[i].receiverId);
-      }
+        requestTableFriendsArray.push(userFriends[i].dataValues.id);
     }
     let potentialFriends = users.filter(
       (user) => requestTableFriendsArray.indexOf(user.dataValues.id) === -1
@@ -115,54 +110,6 @@ let searchUser = async (args, userId) => {
         { model: UserSocials },
       ],
     });
-    console.log(newUser);
-    // let friendArray = [];
-    // // console.log(user)
-    // let userFriends = await FriendRequest.findAll({
-    //   where: {
-    //     [Op.and]: [
-    //       { status: 1 },
-    //       { [Op.or]: [{ receiverId: user.dataValues.id }, { senderId: user.dataValues.id }] },
-    //     ],
-    //   },
-    // });
-    // for (let i in userFriends) {
-    //   if (userFriends[i].senderId !== user.dataValues.id) {
-    //     let user = await User.findOne({
-    //       where: userFriends[i].senderId,
-    //       include: [
-    //         { model: UserInterests },
-    //         {
-    //           model: PlaceVisited,
-    //         },
-    //         {
-    //           model: PlaceLiving,
-    //         },
-    //         {
-    //           model: PlaceVisiting,
-    //         },
-    //       ],
-    //     });
-    //     friendArray.push(user.dataValues);
-    //   } else {
-    //     let user = await User.findOne({
-    //       where: userFriends[i].receiverId,
-    //       include: [
-    //         { model: UserInterests },
-    //         {
-    //           model: PlaceVisited,
-    //         },
-    //         {
-    //           model: PlaceLiving,
-    //         },
-    //         {
-    //           model: PlaceVisiting,
-    //         },
-    //       ],
-    //     });
-    //     friendArray.push(user.dataValues);
-    //   }
-    // }
     user.Friends = newUser;
     return user;
   } catch (err) {
