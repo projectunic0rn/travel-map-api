@@ -42,16 +42,7 @@ let loadAllUsers = async (args) => {
 let loadAllPotentialFriends = async (args, userId) => {
   try {
     let users = await User.findAll({
-      where: args,
-      include: [
-        {
-          model: PlaceVisited,
-        },
-        {
-          model: PlaceLiving,
-        },
-        { model: UserInterests },
-      ],
+      where: args
     });
 
     let requestTableFriendsArray = [userId];

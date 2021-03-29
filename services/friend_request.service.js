@@ -129,6 +129,7 @@ let acceptFriendRequest = async (friend_request_id) => {
       { status: 1 },
       { where: { id: friend_request_id } }
     );
+    await friendsInvolved.destroy();
     return FriendRequest.findByPk(friend_request_id);
   } catch (e) {
     throw Error(e);
